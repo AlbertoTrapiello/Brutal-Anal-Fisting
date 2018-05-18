@@ -98,7 +98,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="Brutal-Anal-Fisting.cpp" />
     <ClCompile Include="Jugadores.cpp" />
+    <ClCompile Include="Mapita.cpp" />
     <ClCompile Include="Personaje.cpp" />
     <ClCompile Include="Recursos.cpp" />
   </ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="ETSIDI.h" />
     <ClInclude Include="glut.h" />
     <ClInclude Include="Jugadores.h" />
+    <ClInclude Include="Mapita.h" />
     <ClInclude Include="Personaje.h" />
     <ClInclude Include="Recursos.h" />
   </ItemGroup>
@@ -169,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Jugadores.txt" />
+    <Text Include="Mapa.txt" />
     <Text Include="Recursos.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

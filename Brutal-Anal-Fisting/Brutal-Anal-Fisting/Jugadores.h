@@ -1,5 +1,6 @@
 #pragma once
 #include "Recursos.h"
+#include "Mapita.h"
 
 using namespace std;
 
@@ -8,12 +9,13 @@ enum Casas
 	Stark=1, Tully=2, Arryn=3, Targaryen=4, Greyjoy=5, Lannister=6, Tyrrel=7, Baratheon=8, Martell=9
 };
 
-class Jugadores:protected Recursos
+class Jugadores:protected Recursos, public Mapita
 {
 protected:
 	Casas casa;
 	string nombre;
 	string titulo;
+	int id;
 	//string vasallos;
 public:
 	Jugadores();//constructor por defecto

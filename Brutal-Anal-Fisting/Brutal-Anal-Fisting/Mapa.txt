@@ -1,0 +1,14 @@
+c File: Brutal-Anal-Fisting
+c
+c Source: Alberto
+p edge 8 9
+e 1 2
+e 2 3
+e 2 4
+e 4 7
+e 4 5
+e 4 6
+e 5 6
+e 6 7
+e 8 7
+e 8 6

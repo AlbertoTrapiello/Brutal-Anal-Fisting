@@ -27,6 +27,9 @@
     <ClCompile Include="Recursos.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Mapita.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ETSIDI.dll" />
@@ -48,6 +51,9 @@
     <ClInclude Include="Recursos.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Mapita.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="ETSIDI.lib" />
@@ -56,5 +62,6 @@
   <ItemGroup>
     <Text Include="Jugadores.txt" />
     <Text Include="Recursos.txt" />
+    <Text Include="Mapa.txt" />
   </ItemGroup>
 </Project>

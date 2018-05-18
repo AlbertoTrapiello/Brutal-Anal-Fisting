@@ -1,6 +1,8 @@
 #include "Jugadores.h"
 #define N_jug 10
-Jugadores *p=new Jugadores[N_jug];
+
+Jugadores p[N_jug];
+
 
 Jugadores::Jugadores()
 {
