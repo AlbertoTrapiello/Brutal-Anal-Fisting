@@ -146,7 +146,7 @@ int * Mapita::find_neighbors(int id)//las id deben de ir de 0 a 9
 
 
 
-int Mapita::find_distance(int id_yo, int id_buscado, int start)
+int Mapita::find_distance(int id_yo, int id_buscado, int start)//usar o fichero con datos o algoritmos descargados dijkstra y bellman & ford
 {
 	int distance = 1;
 	int * aux = find_neighbors(id_yo);
