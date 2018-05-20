@@ -147,8 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Accion.cpp" />
     <ClCompile Include="Brutal-Anal-Fisting.cpp" />
     <ClCompile Include="Jugadores.cpp" />
+    <ClCompile Include="ListaJugadores.cpp" />
     <ClCompile Include="Personaje.cpp" />
     <ClCompile Include="Recursos.cpp" />
   </ItemGroup>
@@ -157,9 +159,11 @@
     <None Include="glut32.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Accion.h" />
     <ClInclude Include="ETSIDI.h" />
     <ClInclude Include="glut.h" />
     <ClInclude Include="Jugadores.h" />
+    <ClInclude Include="ListaJugadores.h" />
     <ClInclude Include="Personaje.h" />
     <ClInclude Include="Recursos.h" />
   </ItemGroup>
