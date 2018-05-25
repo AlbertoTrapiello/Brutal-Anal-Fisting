@@ -1,6 +1,7 @@
 #include "Jugadores.h"
 #define N_jug 10
-Jugadores *p=new Jugadores[N_jug];
+
+
 
 Jugadores::Jugadores()
 {
@@ -40,7 +41,7 @@ ostream& Jugadores::print(ostream& o = cout)
 	return o;
 }
 
-void Jugadores::read_file()
+void Jugadores::read_file(Jugadores *p)
 {
 	ifstream f("Jugadores.txt", istream::in);
 	if(!f)
@@ -53,11 +54,12 @@ void Jugadores::read_file()
 		string aux;
 		ostream &o=cout;
 		getline(f,aux,'\n');
-		p[i].casa=stringtoCasas(aux);
+		p[i].casa = stringtoCasas(aux);
 		getline(f,p[i].nombre,'\n');//getline(f,nombre);
 		getline(f,p[i].titulo,'\n');
 		p[i].print(o);
 		p[i].Recursos::read_file();
+
 	}
 	f.close();
 	

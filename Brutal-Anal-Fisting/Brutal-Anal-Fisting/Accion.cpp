@@ -1,35 +1,45 @@
 #include "Accion.h"
-#include "ListaJugadores.h"
 
 
 ostream & Acción_Engine::operator<<(ostream & o)
 {
 	// TODO: insertar una instrucción return aquí
-	return a->print_options(o);
+	return a->print_options();
 }
 
 ostream & Gestión_tropas::print_options(ostream & o)
 {
 	// TODO: insertar una instrucción return aquí
-	if (!submenu)
-		return o << "Generar Tropas" << endl;
-	else
-		return o << "1) Atacar\n 2) Defender" << endl;
+	switch (submenu)
+	{		
+	case1:
+		{
+			return o << "1) Atacar\n 2) Defender" << endl;
+		}
+
+	case2:
+		{
+			return o << "Seleccione región " << endl;
+		}
+	}
 }
 
 int Gestión_tropas::get_option(istream& i)
 {
 	int option;
-	i >> option;
-	if (option == this->id);
-	{
-		if (!submenu)
-			submenu = 1;
-		else
-		{
-			cout << "Seleccione onjetivo: " << Lista << endl;//conseguir que list ase sepa transformar en flujo y que aquí se llame 
 
+	{
+		switch (submenu)
+		{
+		case 1:
+		{	
+			i >> option;
+			if (GestiónTropas::check())//si vale el país 
+			{
+
+			}
+		}
 		}
 	}
-	return 0;
+	return option;
 }

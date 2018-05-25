@@ -1,5 +1,7 @@
 #pragma once
 #include "Recursos.h"
+#include "ListaJugadores.h"
+
 
 using namespace std;
 
@@ -21,7 +23,7 @@ public:
 	//constructor en el que se introducen los parámetros
 	Jugadores (const Jugadores &); 
 	ostream & print(ostream &);
-	void read_file();
+	void read_file(Jugadores * );
 	//virtual ~Jugadores();
 	Casas stringtoCasas(string e);
 };
