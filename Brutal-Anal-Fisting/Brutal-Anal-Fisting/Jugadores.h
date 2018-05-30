@@ -1,6 +1,5 @@
 #pragma once
 #include "Recursos.h"
-#include "ListaJugadores.h"
 
 
 using namespace std;
