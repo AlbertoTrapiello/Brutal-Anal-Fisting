@@ -19,6 +19,8 @@ public:
 class Gestión_tropas : public  IAcción
 {
 public:
+	int a = 0;
+	Gestión_tropas();
 	ostream& print_options(ostream& o = cout);
 	int get_option(istream& i);
 	bool check(int option);

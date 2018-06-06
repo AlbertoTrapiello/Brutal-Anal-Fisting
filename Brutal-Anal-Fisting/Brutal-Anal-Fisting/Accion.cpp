@@ -23,6 +23,13 @@ bool Acción_Engine::check(int option)
 	return a->check(option);
 }
 
+Gestión_tropas::Gestión_tropas()
+{
+	submenu = 1;
+	id = 0;
+
+}
+
 ostream & Gestión_tropas::print_options(ostream & o)
 {
 	// TODO: insertar una instrucción return aquí
@@ -35,14 +42,18 @@ ostream & Gestión_tropas::print_options(ostream & o)
 
 	case2:
 		{
-			return o << "Seleccione región: \n 1) 2) 3) 4) 5) 6) 7) 8) 9) " << endl;
+			return o << "Seleccione region: \n 1) 2) 3) 4) 5) 6) 7) 8) 9) " << endl;
+		}
+	deafult:
+		{
+			return  o << "SEEEEISSSEEE \n 1) 2) 3) 4) 5) 6) 7) 8) 9) " << endl;
 		}
 	}
 }
 
 int Gestión_tropas::get_option(istream& i)
 {
-	int option;
+	int option=-1;
 	int distance = 1;//esta variable sobra, per simula que se pide distancia a la región que clacules, o lea la distancia a l a reión a atacar
 
 	{
@@ -50,15 +61,29 @@ int Gestión_tropas::get_option(istream& i)
 		{
 		case 1:
 		{
-				cout << "Seleccione el número de tropas" << endl;
-				int troops;
-				cin >> troops;
-				cout << "¿Está seguro de su elección (Y/N)?" << endl;
+			
+				cout << "Seleccione el numero de tropas" << endl;
+				int troops = 0;
+				i.clear();
+				i >> troops;
+				cout << troops << endl;
+
+				if (!check(troops))
+				{
+					cout << "detector de gilipolleces" << endl;
+					return -1;
+				}
+				cout << "¿Esta seguro de su eleccion (Y/N)?" << endl;
 				char token;
-				cin >> token;
+				i.clear();
+				i >> token;
 				switch (token)
 				{
 					case 'y':
+					{
+						return troops;
+					}
+					case 'Y':
 					{
 						return troops;
 					}
@@ -66,10 +91,14 @@ int Gestión_tropas::get_option(istream& i)
 					{
 						return 0;
 					}
+					case 'N':
+					{
+						return 0;
+					}
 					default:
 					{
 						cout << "Error de respuesta" << endl;
-						return 0;
+						return -1;
 					}
 				}
 				break;
@@ -91,4 +120,12 @@ int Gestión_tropas::get_option(istream& i)
 		}
 	}
 	return option;
+}
+
+bool Gestión_tropas::check(int option)
+{
+	if (option < 1 || option>9)
+		return false;
+	else
+		return true;
 }
