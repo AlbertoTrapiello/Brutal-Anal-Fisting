@@ -148,6 +148,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Accion.cpp" />
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="boardgl.cpp" />
     <ClCompile Include="Brutal-Anal-Fisting.cpp" />
     <ClCompile Include="Jugadores.cpp" />
     <ClCompile Include="Personaje.cpp" />
@@ -159,6 +161,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Accion.h" />
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="boardgl.h" />
     <ClInclude Include="ETSIDI.h" />
     <ClInclude Include="glut.h" />
     <ClInclude Include="Jugadores.h" />

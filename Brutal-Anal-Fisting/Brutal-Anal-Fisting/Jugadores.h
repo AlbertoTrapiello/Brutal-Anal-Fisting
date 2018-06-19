@@ -1,6 +1,7 @@
 #pragma once
 #include "Recursos.h"
 
+#define NUM_MÁX_JUG 10
 
 using namespace std;
 
@@ -25,6 +26,9 @@ public:
 	void read_file(Jugadores * );
 	//virtual ~Jugadores();
 	Casas stringtoCasas(string e);
+	void set_Casa(Casas c) { casa = c; }
+	void set_nombre(string s) { nombre = s; }
+	void set_titulo(string t) { titulo = t; }
 };
 
 
