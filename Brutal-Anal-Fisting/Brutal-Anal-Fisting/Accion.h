@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+#include <math.h>
 
 using namespace std;
 
@@ -11,7 +11,7 @@ public:
 	int submenu;
 	virtual ostream& print_options (ostream& o = cout)=0;
 	virtual int get_option(istream& i) = 0;//gestiona la oción elegida por elusuario. Inicialmente por teclado posteriormente con ratón
-	virtual bool check(int option) = 0;//checkea la viabilidad de la acción
+	virtual int check(int option) = 0;//checkea la viabilidad de la acción
 
 };
 
@@ -19,11 +19,12 @@ public:
 class Gestión_tropas : public  IAcción
 {
 public:
-	int a = 0;
+	bool atacar;
+
 	Gestión_tropas();
 	ostream& print_options(ostream& o = cout);
 	int get_option(istream& i);
-	bool check(int option);
+	int check(int option);
 };
 
 class Comercio : protected IAcción
@@ -31,7 +32,7 @@ class Comercio : protected IAcción
 public:
 	ostream& print_options(ostream& o = cout);
 	int get_option(istream& i);
-	bool check(int option);
+	int check(int option);
 };
 
 class Diplomacia : protected IAcción
@@ -39,7 +40,7 @@ class Diplomacia : protected IAcción
 public:
 	ostream& print_options(ostream& o = cout);
 	int get_option(istream& i);
-	bool check(int option);
+	int check(int option);
 };
 class Acción_Engine
 {
@@ -49,5 +50,5 @@ public:
 	ostream & operator<<(ostream& o);
 	ostream& print_options(ostream& o = cout);
 	int get_option(istream& i = cin);
-	bool check(int option);
+	int check(int option);
 };

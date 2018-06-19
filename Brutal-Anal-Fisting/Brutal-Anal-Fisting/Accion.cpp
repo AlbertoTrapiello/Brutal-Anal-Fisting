@@ -1,131 +1,123 @@
 #include "Accion.h"
 
 
-ostream & Acción_Engine::operator<<(ostream & o)
-{
-	// TODO: insertar una instrucción return aquí
-	return a->print_options();
-}
-
-ostream & Acción_Engine::print_options(ostream & o)
-{
-	// TODO: insertar una instrucción return aquí
-	return a->print_options(o);
-}
-
-int Acción_Engine::get_option(istream & i)
-{
-	return a->get_option(i);
-}
-
-bool Acción_Engine::check(int option)
-{
-	return a->check(option);
-}
 
 Gestión_tropas::Gestión_tropas()
 {
-	submenu = 1;
 	id = 0;
+	submenu = 0;
 
 }
 
 ostream & Gestión_tropas::print_options(ostream & o)
 {
 	// TODO: insertar una instrucción return aquí
+
 	switch (submenu)
-	{		
-	case1:
-		{
-			return o << "1) Atacar\n 2) Defender" << endl;
-		}
-
-	case2:
-		{
-			return o << "Seleccione region: \n 1) 2) 3) 4) 5) 6) 7) 8) 9) " << endl;
-		}
-	deafult:
-		{
-			return  o << "SEEEEISSSEEE \n 1) 2) 3) 4) 5) 6) 7) 8) 9) " << endl;
-		}
-	}
-}
-
-int Gestión_tropas::get_option(istream& i)
-{
-	int option=-1;
-	int distance = 1;//esta variable sobra, per simula que se pide distancia a la región que clacules, o lea la distancia a l a reión a atacar
-
 	{
-		switch (submenu)
-		{
-		case 1:
-		{
-			
-				cout << "Seleccione el numero de tropas" << endl;
-				int troops = 0;
-				i.clear();
-				i >> troops;
-				cout << troops << endl;
+	case 0:
+	{
+		return o << "Seleccione la acción a realizar:\n 1)Atacar 2)Defender" << endl;
 
-				if (!check(troops))
-				{
-					cout << "detector de gilipolleces" << endl;
-					return -1;
-				}
-				cout << "¿Esta seguro de su eleccion (Y/N)?" << endl;
-				char token;
-				i.clear();
-				i >> token;
-				switch (token)
-				{
-					case 'y':
-					{
-						return troops;
-					}
-					case 'Y':
-					{
-						return troops;
-					}
-					case 'n':
-					{
-						return 0;
-					}
-					case 'N':
-					{
-						return 0;
-					}
-					default:
-					{
-						cout << "Error de respuesta" << endl;
-						return -1;
-					}
-				}
-				break;
-		}
-		case 2:
-		{	
-			i >> option;
-			if (check(option))//si vale el país 
-			{
-				cout << "la acción tardará en efectuarse " << distance << " turnos.\n ¿Está seguro de que quiere realizar la acción (Y/N)?" << endl;
-				char token;
-				cin >> token;
-				if (token == 'y')
-					return option;
-				else
-					return 0;
-			}
-		}
-		}
+		break;
 	}
-	return option;
+	case 1:
+	{
+		return o << "Seleccione el número de tropas a desplegar" << endl;
+	}
+	case 2:
+	{
+		return o << "Seleccione la región a atacar" << endl;
+		
+		break;
+	}
+	case 3:
+	{
+		return o << "Seleccione la región a defender" << endl;
+
+		break;
+	}
+	default:
+	{
+		return o << "Menú no reconocido" << endl;
+		break;
+	}
+	}
 }
 
-bool Gestión_tropas::check(int option)
+
+int Gestión_tropas::get_option(istream & i)
 {
-	if (option < 1 || option>9)
-		return false;
-	else
-		return true;
+
+	int num = 0;
+	switch (submenu)
+	{
+	case 0:
+	{
+		char aux;
+		i >> aux;
+		if (aux == '1')
+			atacar = 1;
+		if(aux=='2')
+			atacar = 0;
+		if (aux < '3' && aux > '0')
+		{
+			submenu++;
+			return num = aux - '0';
+
+		}
+		else
+		{
+			cout << "ERROR" << endl;
+			return -1;
+		}
+
+	}
+	case 1:
+	{
+		char aux[3];
+		i >> aux;
+		
+		for (int i = 0; i <= 2; i++)
+		{
+			cout << "Aux = " << aux[i] << "ooo" << endl;
+			if (aux[i]<'9'&&aux[i]>'0')
+				num = (aux[i] - '0')*pow(10, i);
+			else
+				return-1;
+			cout << "Número = " << num << endl;
+		}
+		if (atacar)
+			submenu = 2;
+		else
+			submenu = 3;
+		return num;
+		break;
+	}
+	case 2:
+	{
+		char aux;
+		i >> aux;
+		if (aux < '9' && aux >'0')
+		{
+			submenu++;
+			return num = aux - '0';
+		}
+		else
+		{
+			cout << "ERROR" << endl;
+			return -1;
+		}
+	}
+	}
+
+	return num;
+}
+
+int Gestión_tropas::check(int option)
+{
+	int dist = 1;;
+	//llamada a dijstra o la función que sea capaz de calcular distancias
+
+	return dist;
 }
