@@ -5,8 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "glut.h"
-#include "ETSIDI.h"
+
 
 using namespace std;
 

@@ -18,6 +18,29 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Brutal-Anal-Fisting.cpp" />
+    <ClCompile Include="src\Accion.cpp" />
+    <ClCompile Include="src\Board.cpp" />
+    <ClCompile Include="src\boardgl.cpp" />
+    <ClCompile Include="src\Jugadores.cpp" />
+    <ClCompile Include="src\Personaje.cpp" />
+    <ClCompile Include="src\Recursos.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lib\ETSIDI.h" />
+    <ClInclude Include="lib\glut.h" />
+    <ClInclude Include="src\Accion.h" />
+    <ClInclude Include="src\Board.h" />
+    <ClInclude Include="src\boardgl.h" />
+    <ClInclude Include="src\Jugadores.h" />
+    <ClInclude Include="src\Personaje.h" />
+    <ClInclude Include="src\Recursos.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\Jugadores.txt" />
+    <Text Include="src\Recursos.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{D5E0B612-20AA-4785-BEB4-900328358165}</ProjectGuid>
@@ -75,6 +98,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)bin\</OutDir>
+    <IntDir>tmp\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -104,10 +129,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>src,lib</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,37 +173,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Accion.cpp" />
-    <ClCompile Include="Board.cpp" />
-    <ClCompile Include="boardgl.cpp" />
-    <ClCompile Include="Brutal-Anal-Fisting.cpp" />
-    <ClCompile Include="Jugadores.cpp" />
-    <ClCompile Include="Personaje.cpp" />
-    <ClCompile Include="Recursos.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ETSIDI.dll" />
-    <None Include="glut32.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Accion.h" />
-    <ClInclude Include="Board.h" />
-    <ClInclude Include="boardgl.h" />
-    <ClInclude Include="ETSIDI.h" />
-    <ClInclude Include="glut.h" />
-    <ClInclude Include="Jugadores.h" />
-    <ClInclude Include="Personaje.h" />
-    <ClInclude Include="Recursos.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="ETSIDI.lib" />
-    <Library Include="glut32.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Jugadores.txt" />
-    <Text Include="Recursos.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

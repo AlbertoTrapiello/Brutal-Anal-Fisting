@@ -2,9 +2,7 @@
 
 
 
-boardgl::boardgl()
-{
-}
+
 
 
 boardgl::~boardgl()

@@ -15,64 +15,56 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Accion.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Board.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\boardgl.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Jugadores.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Personaje.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Recursos.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="Brutal-Anal-Fisting.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Jugadores.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Personaje.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Recursos.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Accion.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="Board.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="boardgl.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ETSIDI.dll" />
-    <None Include="glut32.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ETSIDI.h">
+    <ClInclude Include="src\Accion.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="glut.h">
+    <ClInclude Include="src\Board.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Jugadores.h">
+    <ClInclude Include="src\boardgl.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Personaje.h">
+    <ClInclude Include="src\Jugadores.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Recursos.h">
+    <ClInclude Include="src\Personaje.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Accion.h">
+    <ClInclude Include="src\Recursos.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Board.h">
+    <ClInclude Include="lib\ETSIDI.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="boardgl.h">
+    <ClInclude Include="lib\glut.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="ETSIDI.lib" />
-    <Library Include="glut32.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Jugadores.txt" />
-    <Text Include="Recursos.txt" />
+    <Text Include="src\Jugadores.txt" />
+    <Text Include="src\Recursos.txt" />
   </ItemGroup>
 </Project>
