@@ -2,13 +2,6 @@
 
 
 
-
-
-
-boardgl::~boardgl()
-{
-}
-
 void boardgl::Draw()
 {
 }

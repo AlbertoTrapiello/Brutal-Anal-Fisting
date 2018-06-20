@@ -30,7 +30,7 @@ protected:
 
 public:
 	boardgl(Board* pb):m_board(pb){}
-	virtual ~boardgl() {}
+
 	//Initizalization
 	void init();						//enable lights
 
