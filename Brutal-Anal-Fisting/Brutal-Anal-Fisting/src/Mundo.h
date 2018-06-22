@@ -3,6 +3,7 @@
 #include "Recursos.h"
 #include "Mapita.h"
 #include "Regiones.h"
+#include "Accion.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Mundo
 	Jugadores jug;
 	//Mapita map;
 	Regiones regi;
+	Accion ac;
 public:
 	Mundo();
 	Mundo(Jugadores jug) :jug(jug) {}

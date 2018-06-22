@@ -27,6 +27,7 @@ void Mundo::dibuja()
 							 //aqui es donde hay que poner el codigo de dibujo
 //	regi.getTexture(const char* Texturepath);
 	regi.draw();
+	ac.draw();
 }
 
 void Mundo::tecla(unsigned char key)
