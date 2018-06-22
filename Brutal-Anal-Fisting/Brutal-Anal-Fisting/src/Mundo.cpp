@@ -72,29 +72,3 @@ void Mundo::tecla(unsigned char key)
 	}
 }*/
 
-/*void mouseMovement(int x, int y)
-{
-	static float lastx = 0.0;
-	static float lasty = 0.0;
-
-	lastx = (float)x - lastx;
-	lasty = (float)y - lasty;
-
-	if ((abs((int)lastx)>10) || (abs((int)lasty)>10)
-	{
-		lastx = (float)x;
-		lasty = (float)y;
-		return;
-	}
-	if ((float)x > lastx)
-		Camera.RotateY((-lastx)*0.01);
-	else
-		Camera.RotateY(lastx*0.01);
-	if ((float)y > lasty)
-		Camera.RotateX(lasty*0.01);
-	else
-		Camera.RotateX(-lasty * 0.01);
-	lastx = (float)x;
-	lasty = (float)y;
-	Display();
-}*/
