@@ -9,26 +9,25 @@ class IAccion
 {
 public:
 	int id;//id de la accion elegida
-	int submenu;
+	bool right;
+public:
 	IAccion();
-	//IAccion(int id, int submenu) :id(id), submenu(submenu) {}
+	IAccion(int id, bool right) :id(id), right(right) {}
 	virtual ostream& print_options(ostream &o = cout) = 0;
-	//virtual int get_option(istream &i) = 0;//gestiona la opcion elegida por el usuario
-	//virtual bool check(int id) = 0;//comprueba la viabilidad de la accion
+	virtual int get_option(istream &i=cin) = 0;//gestiona la opcion elegida por el usuario
+	virtual bool check(int id) = 0;//comprueba la viabilidad de la accion
 	virtual void draw()=0;//dibuja el menu/los menus
-	//virtual void onMenu(int opcion) = 0;
 };
 
 class Accion :protected IAccion
 {
 public:
-	Accion() { id = 0; submenu = 0; }
-	//Accion(int id, int submenu) :IAccion(id, submenu){}
+	Accion() { id = 0; right = false; }
+	Accion(int id, bool right) :IAccion(id, right){}
 	ostream & print_options(ostream &o = cout);
-	//int get_option(istream &i);
-	//bool check(int id);
+	int get_option(istream &i=cin);
+	bool check(int id);
 	void draw();
-	int get_id() { return id; }
 	friend void onMenu(int opcion);
 	enum opc_menu { gest_tropas = 1, comercio = 2, diplomacia = 3, mejorar = 4 };
 };
@@ -38,50 +37,47 @@ public:
 class Gestion_tropas :public Accion //relacion de herencia publica (es)
 {
 public:
-	Gestion_tropas() { id = 0; submenu = 0; }
-	//Gestion_tropas(int id, int submenu) :Accion(id, submenu) {}
+	Gestion_tropas() { id = 0; right = false; }
+	Gestion_tropas(int id, bool right) :Accion(id, right) {}
 	ostream & print_options(ostream &o = cout);
-	//int get_option(istream &i);
-	//bool check(int id);
+	int get_option(istream &i=cin);
+	bool check(int id);
 	//void draw();
-	//void onMenu(int opcion);
 	enum opcion_gest {Atacar=5, Defender=6, Generar_tropas=7};
 };
 
 class Comercio :public Accion
 {
 public:
-	Comercio() { id = 0; submenu = 0; }
-	//Comercio(int id, int submenu) :Accion(id, submenu) {}
+	Comercio() { id = 0; right = false; }
+	Comercio(int id, bool right) :Accion(id, right) {}
 	ostream & print_options(ostream &o = cout);
-	//int get_option(istream &i);
-	//bool check(int id);
+	int get_option(istream &i=cin);
+	bool check(int id);
 	//void draw();
 };
 
 class Diplomacia :public Accion
 {
 public:
-	Diplomacia() { id = 0; submenu = 0; }
-	//Diplomacia(int id, int submenu) :Accion(id, submenu) {}
+	Diplomacia() { id = 0; right = false; }
+	Diplomacia(int id, bool right) :Accion(id, right) {}
 	ostream & print_options(ostream &o = cout);
-	//int get_option(istream &i);
-	//bool check(int id);
+	int get_option(istream &i=cin);
+	bool check(int id);
 	//void draw();
-	//void onMenu(int opcion);
 	enum opcion_dip{Alianza=8, Guerra=9};
 };
 
 class Mejorar :public Accion 
 {
 public:
-	Mejorar() { id = 0; submenu = 0; }
-	//Mejorar(int id, int submenu) :Accion(id, submenu) {}
+	Mejorar() { id = 0; right = false; }
+	Mejorar(int id, bool right) :Accion(id, right) {}
 	ostream & print_options(ostream &o = cout);
-	//int get_option(istream &i);
-	//bool check(int id);
+	int get_option(istream &i=cin);
+	bool check(int id);
 	//void draw();
-	//void onMenu(int opcion);
 	enum opcion_mej {Ataque=10, Defensa=11, Agricultura=12};
 };
 
@@ -91,8 +87,8 @@ class Accion_Engine
 public:
 	Accion_Engine(IAccion *a) :a(a) {}
 	ostream & print_options(ostream &o = cout);
-	//int get_option(istream &i=cin);
-	//bool check(int option);
+	int get_option(istream &i=cin);
+	bool check(int option);
 	//void draw();
 	//friend ostream& operator<<(ostream&, IAccion &);
 };
