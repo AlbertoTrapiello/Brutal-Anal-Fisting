@@ -61,7 +61,6 @@ bool Jugadores::read_file(Jugadores *p)
 		getline(f,p[i].titulo,'\n');
 		p[i].print(o);
 		p[i].Recursos::read_file();
-
 	}
 	f.close();
 	return true;
