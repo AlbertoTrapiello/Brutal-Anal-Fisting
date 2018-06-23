@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 
 struct Zones
 {
@@ -15,6 +15,6 @@ class Region
 	Zones **z;
 	int lenght;
 public:
-	Region();
+	Region(std::string s);
 	~Region();
 };

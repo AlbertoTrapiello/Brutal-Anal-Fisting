@@ -7,11 +7,14 @@
 using namespace std;
 
 
-Region::Region()
+Region::Region(string s)
 {
-	string str;
-	stringstream sstr;
 	ifstream f("Regiones.txt", istream::in);
+	string str;
+	string aux;
+	string aux1;
+	char token;
+	
 	if (!f)
 	{
 		cout << "el fichero no se ha abierto correctamente" << endl;
@@ -19,20 +22,34 @@ Region::Region()
 	}
 	else
 	{
-		z = new Zones*[1];
+
 		do
 		{
-			lenght = 0;
-			getline(f, str, ')');
-			sstr << str;
-			cout << str;
-			z[lenght] = new Zones;
-			sstr >> z[lenght]->x1 >> z[lenght]->y1 >> z[lenght]->x2 >> z[lenght]->y2;
-			cout << z[lenght]->x1 << " " << z[lenght]->y1 << " " << z[lenght]->x2 << " " << z[lenght]->y2 << endl;
-			lenght++;
-		} while (str!="end");
+
+			getline(f, aux1);
+			if (s == aux1)
+			{
+				z = new Zones*[1];
+				getline(f, aux);
+				lenght = 0;
+				do
+				{
+					stringstream sstr;
+					getline(f, aux, '(');
+					getline(f, str);
+					sstr << str;
+					cout << "lenght=" << lenght << " aux:" << aux << " str:" << str;
+					z[lenght] = new Zones;
+					sstr >> z[lenght]->x1 >> z[lenght]->y1 >> z[lenght]->x2 >> z[lenght]->y2;
+					cout << " x1:" << z[lenght]->x1 << " y1:" << z[lenght]->y1 << " x2:" << z[lenght]->x2 << " y2:" << z[lenght]->y2 << endl;
+					lenght++;
+				} while (aux != "end");
+			}
+		} while (token!=EOF);
+		
 	}
 }
+
 
 Region::~Region()
 {

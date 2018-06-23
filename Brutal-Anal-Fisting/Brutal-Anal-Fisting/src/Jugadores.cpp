@@ -3,7 +3,7 @@
 
 
 
-Jugadores::Jugadores()
+Jugadores::Jugadores():region("Robb")
 {
 	casa=Casas::Stark;
 	nombre="Robb";
@@ -11,7 +11,7 @@ Jugadores::Jugadores()
 
 }
 
-Jugadores::Jugadores (const Jugadores &j)
+Jugadores::Jugadores (const Jugadores &j):region(j.nombre)
 {
 	turno = false;
 	ataque=j.ataque;

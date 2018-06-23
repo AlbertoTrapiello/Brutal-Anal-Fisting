@@ -26,7 +26,7 @@ protected:
 public:
 
 	Jugadores();//constructor por defecto
-	Jugadores(int ataque, int comida, int oro, int diplomacia, int defensa, Casas casa, string nombre, string titulo):Recursos(ataque,comida,oro,diplomacia,defensa), casa(casa), nombre(nombre),titulo(titulo){}
+	Jugadores(int ataque, int comida, int oro, int diplomacia, int defensa, Casas casa, string nombre, string titulo):Recursos(ataque,comida,oro,diplomacia,defensa), casa(casa), nombre(nombre),titulo(titulo), region(nombre){}
 	//constructor en el que se introducen los parámetros
 	Jugadores (const Jugadores &); 
 	bool pseudo_IA() { return IA; }
