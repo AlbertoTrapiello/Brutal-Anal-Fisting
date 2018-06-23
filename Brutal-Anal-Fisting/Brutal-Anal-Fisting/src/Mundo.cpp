@@ -129,9 +129,15 @@ void Mundo::inicializa()
 	z_ojo = 30;
 	menu = 1;
 	turno = 0;
+	
 	if (!player[0].read_file(player))
 		cout << "ERROR" << endl;//gestionar el error si no se abre el fichero
 	player[0].set_turno();
+}
+
+Mundo::Mundo()
+{
+
 }
 
 void Mundo::tecla(unsigned char key)//CHEATS

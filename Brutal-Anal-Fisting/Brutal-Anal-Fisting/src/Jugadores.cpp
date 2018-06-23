@@ -3,15 +3,14 @@
 
 
 
-Jugadores::Jugadores():region("Robb")
+Jugadores::Jugadores()
 {
 	casa=Casas::Stark;
 	nombre="Robb";
 	titulo="King in the North";
-
 }
 
-Jugadores::Jugadores (const Jugadores &j):region(j.nombre)
+Jugadores::Jugadores (const Jugadores &j)
 {
 	turno = false;
 	ataque=j.ataque;
@@ -61,6 +60,7 @@ bool Jugadores::read_file(Jugadores *p)
 		getline(f,p[i].titulo,'\n');
 		p[i].print(o);
 		p[i].Recursos::read_file();
+		p[i].region.read_file(p[i].nombre);
 	}
 	f.close();
 	return true;

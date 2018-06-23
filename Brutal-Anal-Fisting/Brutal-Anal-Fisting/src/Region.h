@@ -15,6 +15,7 @@ class Region
 	Zones **z;
 	int lenght;
 public:
-	Region(std::string s);
+	Region();
 	~Region();
+	void read_file(std::string s);
 };

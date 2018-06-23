@@ -7,14 +7,26 @@
 using namespace std;
 
 
-Region::Region(string s)
+Region::Region()
+{
+}
+
+
+Region::~Region()
+{
+	for (int i = 0; i < lenght; i++)
+		delete[] z[i];
+	delete[]z;
+}
+
+void Region::read_file(std::string s)
 {
 	ifstream f("Regiones.txt", istream::in);
 	string str;
 	string aux;
 	string aux1;
 	char token;
-	
+
 	if (!f)
 	{
 		cout << "el fichero no se ha abierto correctamente" << endl;
@@ -22,8 +34,8 @@ Region::Region(string s)
 	}
 	else
 	{
-		
-		while(f.eof())
+
+		while (!f.eof())
 		{
 			getline(f, aux1);
 			cout << " aux1:" << str;
@@ -31,7 +43,7 @@ Region::Region(string s)
 			{
 				z = new Zones*[1];
 				lenght = 0;
-				do
+				while (str != "end")
 				{
 					stringstream sstr;
 					getline(f, str);
@@ -41,18 +53,10 @@ Region::Region(string s)
 					sstr >> z[lenght]->x1 >> z[lenght]->y1 >> z[lenght]->x2 >> z[lenght]->y2;
 					cout << " x1:" << z[lenght]->x1 << " y1:" << z[lenght]->y1 << " x2:" << z[lenght]->x2 << " y2:" << z[lenght]->y2 << endl;
 					lenght++;
-				} while (str != "end");
+				}
 			}
-		} 
+		}
 		f.close();
 	}
-}
-
-
-Region::~Region()
-{
-	for (int i = 0; i < lenght; i++)
-		delete[] z[i];
-	delete[]z;
 }
 
