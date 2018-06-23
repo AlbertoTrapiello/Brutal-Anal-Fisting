@@ -25,6 +25,7 @@
     <ClCompile Include="src\Mundo.cpp" />
     <ClCompile Include="src\Personaje.cpp" />
     <ClCompile Include="src\Recursos.cpp" />
+    <ClCompile Include="src\Region.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\ETSIDI.h" />
@@ -34,14 +35,15 @@
     <ClInclude Include="src\Mundo.h" />
     <ClInclude Include="src\Personaje.h" />
     <ClInclude Include="src\Recursos.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="src\Jugadores.txt" />
-    <Text Include="src\Recursos.txt" />
+    <ClInclude Include="src\Region.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\ETSIDI.lib" />
     <Library Include="lib\glut32.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Jugadores.txt" />
+    <Text Include="Recursos.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

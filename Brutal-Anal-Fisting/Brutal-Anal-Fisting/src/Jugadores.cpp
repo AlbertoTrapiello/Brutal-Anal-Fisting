@@ -8,10 +8,12 @@ Jugadores::Jugadores()
 	casa=Casas::Stark;
 	nombre="Robb";
 	titulo="King in the North";
+
 }
 
 Jugadores::Jugadores (const Jugadores &j)
 {
+	turno = false;
 	ataque=j.ataque;
 	comida=j.comida;
 	oro=j.oro;
@@ -41,13 +43,13 @@ ostream& Jugadores::print(ostream& o = cout)
 	return o;
 }
 
-void Jugadores::read_file(Jugadores *p)
+bool Jugadores::read_file(Jugadores *p)
 {
 	ifstream f("Jugadores.txt", istream::in);
 	if(!f)
 	{
 		cout<<"el fichero no se ha abierto correctamente"<<endl;
-		return;
+		return false;
 	}
 	for(int i=0;i<10;i++)
 	{
@@ -62,7 +64,7 @@ void Jugadores::read_file(Jugadores *p)
 
 	}
 	f.close();
-	
+	return true;
 }
 
 //tengo problemas con el destructor si lo defino yo.

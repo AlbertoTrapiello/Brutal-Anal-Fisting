@@ -33,6 +33,9 @@
     <ClCompile Include="src\Mundo.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\Region.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\ETSIDI.h">
@@ -56,13 +59,16 @@
     <ClInclude Include="src\Mundo.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="src\Jugadores.txt" />
-    <Text Include="src\Recursos.txt" />
+    <ClInclude Include="src\Region.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\ETSIDI.lib" />
     <Library Include="lib\glut32.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Jugadores.txt" />
+    <Text Include="Recursos.txt" />
   </ItemGroup>
 </Project>
