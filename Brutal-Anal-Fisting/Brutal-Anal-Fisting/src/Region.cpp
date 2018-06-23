@@ -23,12 +23,10 @@ Region::Region(string s)
 	else
 	{
 		
-		do
+		while(f.eof())
 		{
-
 			getline(f, aux1);
-			token = aux1[0];
-			cout << "token=" << token << " aux1:" << str;
+			cout << " aux1:" << str;
 			if (s == aux1)
 			{
 				z = new Zones*[1];
@@ -45,10 +43,8 @@ Region::Region(string s)
 					lenght++;
 				} while (str != "end");
 			}
-			getline(f, aux1);
-			token = aux1[0];
-		} while (token!=EOF);
-		
+		} 
+		f.close();
 	}
 }
 
