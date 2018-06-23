@@ -1,7 +1,5 @@
 #include "Accion.h"
-#include <string>
-#include "glut.h"
-
+Jugadores j;
 
 IAccion::IAccion()
 {
@@ -219,8 +217,8 @@ bool Accion_Engine::check(int option)
 	right = a->right;
 	return right;
 }
-/*
-void Accion_Engine::draw()
+
+/*void Accion_Engine::draw()
 {
 	a->draw();
 }*/
@@ -289,4 +287,239 @@ void Accion::draw(void) {
 	glutAddSubMenu("Diplomacia", menudiplomacia);
 	glutAddSubMenu("Mejoras", menumejoras);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
+
+}
+
+void Gestion_tropas::draw()
+{
+	if (idr == 5)//Atacar
+	{
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::printxy("Seleccione la region que desea atacar", -4.5, 4.5);
+		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
+		while (right == false)
+		{
+			ETSIDI::setTextColor(1, 1, 0);
+			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
+			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
+			ETSIDI::printxy("Seleccione la region que desea atacar", -4.5, 3.5);
+		}
+		if (right == true)
+		{
+			glDisable(GL_LIGHTING);
+			glBegin(GL_POLYGON);
+			glVertex3f(-5.0f, 0, -5.0f);
+			glVertex3f(-5.0f, 0, 5.0f);
+			glVertex3f(5.0f, 0, 5.0f);
+			glVertex3f(5.0f, 0, -5.0f);
+			glEnd();
+			glEnable(GL_LIGHTING);
+			ETSIDI::printxy("Introduzca por teclado el numero de tropas", -4.5, 3.5);//posteriormente lo cambiaremos con las coord correctas del raton
+			cin >> tropas;
+			if (tropas < j.ataque)
+			{
+				ETSIDI::printxy("No hay tropas suficientes", -4.5, 2.5);
+			}
+			else
+			{
+				//mandar tropas al ataque
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//que las tropas lleguen a la region en x turnos y calcular el numero de tropas necesarias para conquistar
+				//eliminar poligono--> como?
+			}
+		}
+		
+	}
+
+	if (idr == 6)//Defender
+	{
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glVertex3f(-5.0f, 0, -5.0f);
+		glVertex3f(-5.0f, 0, 5.0f);
+		glVertex3f(5.0f, 0, 5.0f);
+		glVertex3f(5.0f, 0, -5.0f);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::printxy("Seleccione el numero de tropas con las que defender su region", -4.5, 4.5);
+		cin >> tropas;
+		if (tropas < j.ataque)
+		{
+			ETSIDI::printxy("No hay tropas suficientes", -4.5, 2.5);
+		}
+		else
+		{
+			//mandar tropas a la defensa
+			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+			//las tropas seleccionadas defienden
+			//eliminar poligono--> como?
+		}
+	}
+
+	if (idr == 7)//Generar
+	{
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glVertex3f(-5.0f, 0, -5.0f);
+		glVertex3f(-5.0f, 0, 5.0f);
+		glVertex3f(5.0f, 0, 5.0f);
+		glVertex3f(5.0f, 0, -5.0f);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::printxy("Seleccione el numero de tropas a generarar", -4.5, 4.5);
+		ETSIDI::printxy("Generar 10 cuesta 10 de oro", -4.5, 4.5);
+		cin >> tropas;
+		if (tropas < j.oro)
+		{
+			ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
+		}
+		else
+		{
+			j.oro -= tropas;//se gasta x oro
+			j.ataque += tropas;//el jugador tiene x tropas mas
+			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+			//eliminar poligono--> como?
+		}
+	}
+}
+
+void Comercio::draw()
+{
+	if (idr == 2)
+	{
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glVertex3f(-5.0f, 0, -5.0f);
+		glVertex3f(-5.0f, 0, 5.0f);
+		glVertex3f(5.0f, 0, 5.0f);
+		glVertex3f(5.0f, 0, -5.0f);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::printxy("Seleccione la opcion", -4.5, 4.5);
+		cin >> opcion;
+		switch (opcion)
+		{
+		case 1:
+			ETSIDI::printxy("2 de agricultura por cada moneda de oro", -4.5, 4.5);
+			cin >> cantidad;
+			if (j.oro < 0.5*cantidad)
+			{
+				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.comida += cantidad;
+				j.oro -= 0.5*cantidad;
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//eliminar poligono--> como?
+			}
+			break;
+		case 2:
+			ETSIDI::printxy("2 de agricultura por cada moneda de oro", -4.5, 4.5);
+			cin >> cantidad;
+			if (j.comida < 2 * cantidad)
+			{
+				ETSIDI::printxy("No hay comida suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.oro += cantidad;
+				j.comida -= 2*cantidad;
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//eliminar poligono--> como?
+			}
+			break;
+		case 3:
+			ETSIDI::printxy("1 de diplomacia por cada moneda de oro", -4.5, 4.5);
+			cin >> cantidad;
+			if (j.oro < cantidad)
+			{
+				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.oro -= cantidad;
+				j.diplomacia += cantidad;
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//eliminar poligono--> como?
+			}
+			break;
+		case 4:
+			ETSIDI::printxy("1 de diplomacia por cada moneda de oro", -4.5, 4.5);
+			cin >> cantidad;
+			if (j.diplomacia < cantidad)
+			{
+				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.diplomacia -= cantidad;
+				j.oro += cantidad;
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//eliminar poligono--> como?
+			}
+			break;
+		default:
+			ETSIDI::printxy("Opcion incorrecta", -4.5, 2.5);
+			break;
+		}
+		
+	}
+
+}
+
+void Diplomacia::draw()
+{
+	if (idr == 8)//Diplomacia
+	{
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::printxy("Seleccione la region con la que quiere aliarse", -4.5, 4.5);
+		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
+		while (right == false)
+		{
+			ETSIDI::setTextColor(1, 1, 0);
+			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
+			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
+			ETSIDI::printxy("Seleccione la region con la que desee aliarse", -4.5, 3.5);
+		}
+		if (right == true)
+		{
+			glDisable(GL_LIGHTING);
+			glBegin(GL_POLYGON);
+			glVertex3f(-5.0f, 0, -5.0f);
+			glVertex3f(-5.0f, 0, 5.0f);
+			glVertex3f(5.0f, 0, 5.0f);
+			glVertex3f(5.0f, 0, -5.0f);
+			glEnd();
+			glEnable(GL_LIGHTING);
+			ETSIDI::printxy("Introduzca por teclado el numero de tropas", -4.5, 3.5);//posteriormente lo cambiaremos con las coord correctas del raton
+			cin >> cantidad;
+			if (j.diplomacia < 50)
+			{
+				ETSIDI::printxy("No hay diplomacia suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				//mandar tropas al ataque
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//que las tropas lleguen a la region en x turnos y calcular el numero de tropas necesarias para conquistar
+				//eliminar poligono--> como?
+			}
+	}
+		if (idr == 9)
+		{
+			ETSIDI::setTextColor(1, 1, 0);
+			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+			ETSIDI::printxy("Seleccione la region a la que quiere declarar la guerra", -4.5, 4.5);
+			//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
+			//continuar prox dia
+		}
 }

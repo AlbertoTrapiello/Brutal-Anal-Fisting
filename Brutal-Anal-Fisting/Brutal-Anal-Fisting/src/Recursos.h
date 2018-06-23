@@ -21,6 +21,10 @@ public:
 	//virtual ~Recursos();
 	virtual ostream & print(ostream&);
 	virtual void read_file();
+	friend class Gestion_tropas;
+	friend class Comercio;
+	friend class Diplomacia;
+	friend class Mejorar;
 };
 
 enum tropas

@@ -1,5 +1,9 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include "glut.h"
+#include "ETSIDI.h"
+#include "Jugadores.h"
 
 using namespace std;
 
@@ -38,38 +42,43 @@ public:
 
 class Gestion_tropas :public Accion //relacion de herencia publica (es)
 {
+	int tropas;
 public:
-	Gestion_tropas() { id = 0; right = false; }
-	Gestion_tropas(int id, bool right) :Accion(id, right) {}
+	Gestion_tropas() { id = 0; right = false; tropas = 0; }
+	Gestion_tropas(int id, bool right, int tropas) :Accion(id, right), tropas(tropas) {}
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	//void draw();
+	void draw();
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	enum opcion_gest {Atacar=5, Defender=6, Generar_tropas=7};
 };
 
 class Comercio :public Accion
 {
+	int opcion;
+	int cantidad;
 public:
-	Comercio() { id = 0; right = false; }
-	Comercio(int id, bool right) :Accion(id, right) {}
+	Comercio() { id = 0; right = false; opcion = 0; cantidad = 0; }
+	Comercio(int id, bool right, int opcion, int cantidad) :Accion(id, right),opcion(opcion), cantidad(cantidad) {}
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	//void draw();
+	void draw();
 };
 
 class Diplomacia :public Accion
 {
+	int cantidad;//dudoso ??
+	int amistad;
 public:
-	Diplomacia() { id = 0; right = false; }
-	Diplomacia(int id, bool right) :Accion(id, right) {}
+	Diplomacia() { id = 0; right = false; cantidad = 0; }
+	Diplomacia(int id, bool right, int cantidad, int amistad) :Accion(id, right), cantidad(cantidad), amistad(amistad) {}
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	//void draw();
+	void draw();
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	enum opcion_dip{Alianza=8, Guerra=9};
 };
@@ -82,7 +91,7 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	//void draw();
+	void draw();
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	enum opcion_mej {Ataque=10, Defensa=11, Agricultura=12};
 };
@@ -95,7 +104,7 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int option);
-	//void draw();
+	void draw();
 	void update_id() { a->id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	//friend ostream& operator<<(ostream&, IAccion &);
 };
