@@ -9,7 +9,7 @@ IAccion::IAccion()
 	right = false;
 }
 
-ostream & Accion::print_options(ostream &o)
+ostream & Accion::print_options(ostream &o)//modo por teclado
 {
 	o << "Gestionar Tropas" << endl;
 	o << "Comercio" << endl;
