@@ -19,6 +19,7 @@ Region::Region()
 	}
 	else
 	{
+		z = new* Zones;
 		do
 		{
 			lenght = 0;
