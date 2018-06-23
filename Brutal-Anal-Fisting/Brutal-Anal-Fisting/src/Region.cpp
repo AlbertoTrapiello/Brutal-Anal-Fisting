@@ -14,9 +14,12 @@ Region::Region()
 
 Region::~Region()
 {
-	for (int i = 0; i < lenght; i++)
-		delete[] z[i];
-	delete[]z;
+	if (z != NULL)
+	{
+		for (int i = 0; i < lenght; i++)
+			delete[] z[i];
+		delete z;
+	}
 }
 
 void Region::read_file(std::string s)
