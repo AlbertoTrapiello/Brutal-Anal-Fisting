@@ -25,4 +25,8 @@ public:
 	void read_file();
 	//virtual ~Jugadores();
 	Casas stringtoCasas(string e);
+	friend class Gestion_tropas;
+	friend class Comercio;
+	friend class Diplomacia;
+	friend class Mejorar;
 };

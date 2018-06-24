@@ -194,6 +194,243 @@ bool Mejorar::check(int id)
 	return right;
 }
 
+void Gestion_tropas::gestion_acc(Jugadores j)
+{
+	right = Gestion_tropas::check(id);
+	switch (idr)
+	{
+	case 5://Atacar
+	{
+		cout << "Escriba el numero de la region que desea atacar" << endl;
+		cin >> opcion;
+		while (right == false)//gestionar que la region sea valida con check
+		{
+			cout << "Opcion no valida" << endl;
+			cout << "Escriba el numero de la region que desea atacar" << endl;
+			cin >> opcion;
+		}
+		if (right == true)
+		{
+			cout << "Introduzca el numero de tropas con las que desea atacar" << endl;
+			cin >> tropas;
+			while ((tropas > j.ataque && j.ataque!=0) || tropas<0)
+			{
+				cout << "No hay suficientes tropas, introduzca un numero valido" << endl;
+				cin >> tropas;
+			}
+			if (tropas < j.ataque)
+			{
+				//mandar tropas al ataque
+				cout << "Operacion realizada con exito" << endl;
+				//que las tropas lleguen a la region en x turnos y calcular el numero de tropas necesarias para conquistar
+			}
+		}
+	}
+	break;
+	case 6://poner condicion de que esten en guerra con la region, sino es ilogico 
+	{
+		cout << "Introduzca el numero de tropas con las que desea defender su region" << endl;
+		cin >> tropas;
+		while ((tropas > j.ataque && j.ataque!=0) || tropas<0)
+		{
+			cout << "No hay suficientes tropas" << endl;
+			cout << "Introduzca el numero de tropas con las que desea defender su region" << endl;
+			cin >> tropas;
+		}
+		if (tropas < j.ataque)
+		{
+			//movimiento de tropas instantaneo a la region
+			j.defensa += tropas;//se incrementa la defensa con el numero de tropas que defienden
+			cout << "Operacion realizada con exito" << endl;
+		}
+
+	}
+	break;
+	case 7://Generar
+	{
+		cout << "Introduzca el numero de tropas que quiere generar" << endl;
+		cin >> tropas;
+		while ((tropas < j.oro && j.oro!=0) || tropas<0)
+		{
+			cout << "No hay oro suficiente para generar las tropas" << endl;
+			cout << "Introduzca el numero de tropas que quiere generar" << endl;
+			cin >> tropas;
+		}
+		if(tropas>j.oro)
+		{
+			j.oro -= tropas;//se gasta x oro
+			j.ataque += tropas;//el jugador tiene x tropas mas
+			cout << "Operacion realizada con exito" << endl;
+		}
+	}
+	break;
+	default:
+		break;
+	}
+}
+
+void Comercio::gestion_acc(Jugadores j)
+{
+	right = Comercio::check(id);
+	if (idr == 2)
+	{
+		cout << "Seleccione la opcion de comercio: 1. Comida a cambio de oro 2. Oro a cambio de comida 3. Diplomacia a cambio de oro 4. Oro a cambio de diplomacia"<< endl;
+		cin >> opcion;
+		switch (opcion)
+		{
+		case 1:
+			cout << "2 de agricultura por cada moneda de oro" << endl;
+			cin >> cantidad;
+			if (j.oro < 0.5*cantidad || cantidad<0)
+			{
+				cout << "No hay oro suficiente o la cantidad es menor que 0" << endl;
+			}
+			else
+			{
+				j.comida += cantidad;
+				j.oro -= 0.5*cantidad;
+				cout << "Operacion realizada con exito" << endl;
+			}
+			break;
+		case 2:
+			cout << "2 de agricultura por cada moneda de oro" << endl;
+			cin >> cantidad;
+			if (j.comida < 2 * cantidad || cantidad<0)
+			{
+				cout << "No hay comida suficiente o la cantidad es menor que 0" << endl;
+			}
+			else
+			{
+				j.oro += cantidad;
+				j.comida -= 2 * cantidad;
+				cout << "Operacion realizada con exito" << endl;
+			}
+			break;
+		case 3:
+			cout << "1 de diplomacia por cada moneda de oro" << endl;
+			cin >> cantidad;
+			if (j.oro < cantidad || cantidad<0)
+			{
+				cout << "No hay oro suficiente" << endl;
+			}
+			else
+			{
+				j.oro -= cantidad;
+				j.diplomacia += cantidad;
+				cout << "Operacion realizada con exito" << endl;
+			}
+			break;
+		case 4:
+			cout << "1 de diplomacia por cada moneda de oro" << endl;
+			cin >> cantidad;
+			if (j.diplomacia < cantidad)
+			{
+				cout << "No hay oro suficiente o la cantidad es menor que 0" << endl;
+			}
+			else
+			{
+				j.diplomacia -= cantidad;
+				j.oro += cantidad;
+				cout << "Operacion realizada con exito" << endl;
+			}
+			break;
+		default:
+			cout << "Opcion incorrecta" << endl;
+			break;
+		}
+	}
+}
+
+void Diplomacia :: gestion_acc(Jugadores j)
+{
+	right = Diplomacia::check(id);
+	if (idr == 8)//Diplomacia
+	{
+		cout << "Seleccione la region con la que quiere aliarse" << endl;
+		cin >> opcion;
+		if (right == false)//gestionar segun el numero de la region si es posible--> region del 1 al 9...
+		{
+			cout << "Opcion no válida" << endl;
+			cout << "Seleccione la region con la que desee aliarse" << endl;
+			cin >> opcion;
+		}
+		else
+		{
+			if (j.diplomacia < 50)
+			{
+				cout << "No hay diplomacia suficiente" << endl;
+			}
+			else
+			{
+				j.diplomacia += 10;//el jugador se va haciendo más diplomático
+				amistad = 1;//aliados
+				cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
+			}
+		}
+	}
+	if (idr == 9)
+	{
+		cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
+		cin >> opcion;
+		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
+		if (right == false)
+		{
+			cout << "Opcion no válida" << endl;
+			cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
+			cin >> opcion;
+		}
+		else
+		{
+			j.diplomacia -= 10;//el jugador se va haciendo menos diplomático
+			amistad = 2;//enemistad
+			cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
+		}
+	}
+}
+
+void Mejorar::gestion_acc(Jugadores j)
+{
+	right = Mejorar::check(id);
+	if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
+	{
+		cout << "Seleccione la cantidad de ataque que quiere mejorar" << endl;
+		cin >> cantidad;
+		if (j.oro<cantidad || cantidad<0)
+		{
+			cout << "Opcion no válida" << endl;
+		}
+		else
+		{
+			j.ataque += cantidad;
+			j.oro -= cantidad;
+			cout << "Operacion realizada con exito" << endl;
+		}
+	}
+	if (idr == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
+	{
+		cout << "Seleccione la cantidad de defensa que quiere mejorar" << endl;
+		cin >> cantidad;
+		if (j.oro<cantidad || cantidad<0)
+		{
+			cout << "Opcion no válida" << endl;
+		}
+		else
+		{
+			j.defensa += cantidad;
+			j.oro -= cantidad;
+			cout << "Operacion realizada con exito" << endl;
+		}
+	}
+	if (idr == 12)//mejorar agricultura
+	{
+		//gestionar cantidad de comida que se consigue por turno.
+	}
+}
+
+/*void Accion::gestion_acc(Jugadores j)
+{
+	
+}*/
 
 ostream & Accion_Engine::print_options(ostream &o)
 {
@@ -289,7 +526,7 @@ void Accion::draw(void) {
 
 }
 
-void Gestion_tropas::draw(Jugadores j)
+void Gestion_tropas::draw(Jugadores j)//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
 {
 	if (idr == 5)//Atacar
 	{
@@ -353,6 +590,7 @@ void Gestion_tropas::draw(Jugadores j)
 		else
 		{
 			//mandar tropas a la defensa
+			j.defensa += tropas;//las tropas se añaden a la defensa de la region
 			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
 			//las tropas seleccionadas defienden
 			//eliminar poligono--> como?
@@ -403,13 +641,15 @@ void Comercio::draw(Jugadores j)
 		ETSIDI::setTextColor(1, 1, 0);
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Seleccione la opcion", -4.5, 4.5);
+		ETSIDI::printxy("1. Comida a cambio de oro 2. Oro a cambio de comida 3. Diplomacia a cambio de oro 4. Oro a cambio de diplomacia" , -4.5, 2.5);
 		cin >> opcion;
 		switch (opcion)
 		{
 		case 1:
+		{
 			ETSIDI::printxy("2 de agricultura por cada moneda de oro", -4.5, 4.5);
 			cin >> cantidad;
-			if (j.oro < 0.5*cantidad)
+			if (j.oro < 0.5*cantidad || cantidad < 0)
 			{
 				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
 			}
@@ -420,26 +660,30 @@ void Comercio::draw(Jugadores j)
 				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
 				//eliminar poligono--> como?
 			}
+		}
 			break;
 		case 2:
+		{
 			ETSIDI::printxy("2 de agricultura por cada moneda de oro", -4.5, 4.5);
 			cin >> cantidad;
-			if (j.comida < 2 * cantidad)
+			if (j.comida < 2 * cantidad || cantidad < 0)
 			{
 				ETSIDI::printxy("No hay comida suficiente", -4.5, 2.5);
 			}
 			else
 			{
 				j.oro += cantidad;
-				j.comida -= 2*cantidad;
+				j.comida -= 2 * cantidad;
 				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
 				//eliminar poligono--> como?
 			}
+		}
 			break;
 		case 3:
+		{
 			ETSIDI::printxy("1 de diplomacia por cada moneda de oro", -4.5, 4.5);
 			cin >> cantidad;
-			if (j.oro < cantidad)
+			if (j.oro < cantidad || cantidad < 0)
 			{
 				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
 			}
@@ -450,11 +694,13 @@ void Comercio::draw(Jugadores j)
 				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
 				//eliminar poligono--> como?
 			}
+		}
 			break;
 		case 4:
+		{
 			ETSIDI::printxy("1 de diplomacia por cada moneda de oro", -4.5, 4.5);
 			cin >> cantidad;
-			if (j.diplomacia < cantidad)
+			if (j.diplomacia < cantidad || cantidad < 0)
 			{
 				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
 			}
@@ -465,6 +711,7 @@ void Comercio::draw(Jugadores j)
 				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
 				//eliminar poligono--> como?
 			}
+		}
 			break;
 		default:
 			ETSIDI::printxy("Opcion incorrecta", -4.5, 2.5);
@@ -534,7 +781,7 @@ void Mejorar::draw(Jugadores j)
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Seleccione la cantidad de ataque que quiere mejorar", -4.5, 4.5);
 		cin >> cantidad;
-		if (j.oro<cantidad)
+		if (j.oro<cantidad || cantidad<0)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
 			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
@@ -553,7 +800,7 @@ void Mejorar::draw(Jugadores j)
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Seleccione la cantidad de defensa que quiere mejorar", -4.5, 4.5);
 		cin >> cantidad;
-		if (j.oro<cantidad)
+		if (j.oro<cantidad || cantidad<0)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
 			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);

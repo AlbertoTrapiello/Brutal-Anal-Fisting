@@ -7,8 +7,6 @@
 
 using namespace std;
 
-
-
 class Mundo
 {
 	float x_ojo;
@@ -18,6 +16,10 @@ class Mundo
 	//Mapita map;
 	Regiones regi;
 	Accion ac;
+	Gestion_tropas g;
+	Comercio c;
+	Diplomacia d;
+	Mejorar m;
 public:
 	Mundo();
 	Mundo(Jugadores jug) :jug(jug) {}
