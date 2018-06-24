@@ -454,10 +454,7 @@ bool Accion_Engine::check(int option)
 	return right;
 }
 
-/*void Accion_Engine::draw()
-{
-	a->draw();
-}*/
+
 
 void onMenu(int opcion) {
 	switch (opcion) {
@@ -503,7 +500,7 @@ void onMenu(int opcion) {
 	glutPostRedisplay();
 }
 
-void Accion::draw(void) {
+void Accion::draw(Jugadores j) {
 	int menuPrincipal, menutropas, menudiplomacia, menumejoras;
 
 	menutropas = glutCreateMenu(onMenu);
@@ -817,4 +814,11 @@ void Mejorar::draw(Jugadores j)
 	{
 		//gestionar cantidad de comida que se consigue por turno.
 	}
+}
+
+void Accion_Engine::draw(Jugadores j)
+{
+	if (idr == 5 || idr==6 || idr==7)
+		a->Gestion_tropas::draw(j);
+
 }

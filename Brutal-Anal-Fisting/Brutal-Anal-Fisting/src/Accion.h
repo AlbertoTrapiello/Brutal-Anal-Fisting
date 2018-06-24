@@ -20,12 +20,12 @@ public:
 	virtual ostream& print_options(ostream &o = cout) = 0;//parte logica
 	virtual int get_option(istream &i=cin) = 0;//gestiona la opcion elegida por el usuario, parte logica
 	virtual bool check(int id) = 0;//comprueba la viabilidad de la accion, parte logica de momento
-	//virtual void draw()=0;//dibuja el menu/los menus, parte grafica
+	virtual void draw(Jugadores j)=0;//dibuja el menu/los menus, parte grafica
 	virtual void update_id() = 0;
 	//virtual void gestion_acc(Jugadores j) = 0;//parte grafica
 };
 
-class Accion :protected IAccion
+class Accion :public IAccion
 {
 public:
 	Accion() { id = 0; right = false; }
@@ -34,7 +34,7 @@ public:
 	int get_option(istream &i=cin);//parte logica
 	bool check(int id);//parte logica de momento (deben ser ambas)
 	//void gestion_acc(Jugadores j);//parte logica
-	void draw();//parte grafica
+	void draw(Jugadores j);//parte grafica
 	friend void onMenu(int opcion);//parte grafica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	enum opc_menu { gest_tropas = 1, comercio = 2, diplomacia = 3, mejorar = 4 };
@@ -108,11 +108,12 @@ class Accion_Engine
 {
 	IAccion *a;
 public:
+	Accion_Engine() { a = NULL; }
 	Accion_Engine(IAccion *a) :a(a) {}
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int option);
-	void draw();
+	void draw(Jugadores j);
 	void update_id() { a->id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	//friend ostream& operator<<(ostream&, IAccion &);
 };

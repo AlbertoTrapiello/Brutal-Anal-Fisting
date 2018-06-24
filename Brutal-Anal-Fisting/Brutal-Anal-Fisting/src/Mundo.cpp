@@ -27,7 +27,8 @@ void Mundo::dibuja()
 							 //aqui es donde hay que poner el codigo de dibujo
 //	regi.getTexture(const char* Texturepath);
 	regi.draw();
-	ac.draw();
+	ac.draw(jug);
+	/*ac.draw(jug);
 	//arreglo cutre, does not work!!!!!!!!!!!!!!!!!!
 	//a lo mejor es porque onMenu no gestiona los clicks y no cambia el idr
 	if (idr == 5 || idr == 6 || idr == 7)
@@ -37,7 +38,7 @@ void Mundo::dibuja()
 	if (idr == 8 || idr==9)
 		d.draw(jug);
 	if (idr == 10 || idr == 11 || idr == 12)
-		m.draw(jug);
+		m.draw(jug);*/
 }
 
 void Mundo::tecla(unsigned char key)

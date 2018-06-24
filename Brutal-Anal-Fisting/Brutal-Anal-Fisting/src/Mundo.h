@@ -15,11 +15,7 @@ class Mundo
 	Jugadores jug;
 	//Mapita map;
 	Regiones regi;
-	Accion ac;
-	Gestion_tropas g;
-	Comercio c;
-	Diplomacia d;
-	Mejorar m;
+	Accion_Engine ac;
 public:
 	Mundo();
 	Mundo(Jugadores jug) :jug(jug) {}
