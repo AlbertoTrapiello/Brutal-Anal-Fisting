@@ -1,5 +1,4 @@
 #include "Accion.h"
-Jugadores j;
 
 IAccion::IAccion()
 {
@@ -290,7 +289,7 @@ void Accion::draw(void) {
 
 }
 
-void Gestion_tropas::draw()
+void Gestion_tropas::draw(Jugadores j)
 {
 	if (idr == 5)//Atacar
 	{
@@ -298,14 +297,15 @@ void Gestion_tropas::draw()
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Seleccione la region que desea atacar", -4.5, 4.5);
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
-		while (right == false)
+		//condicion de haber declarado la guerra previamente-->diplomacia
+		if (right == false)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
 			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
 			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
 			ETSIDI::printxy("Seleccione la region que desea atacar", -4.5, 3.5);
 		}
-		if (right == true)
+		else
 		{
 			glDisable(GL_LIGHTING);
 			glBegin(GL_POLYGON);
@@ -388,7 +388,7 @@ void Gestion_tropas::draw()
 	}
 }
 
-void Comercio::draw()
+void Comercio::draw(Jugadores j)
 {
 	if (idr == 2)
 	{
@@ -475,7 +475,7 @@ void Comercio::draw()
 
 }
 
-void Diplomacia::draw()
+void Diplomacia::draw(Jugadores j)
 {
 	if (idr == 8)//Diplomacia
 	{
@@ -483,36 +483,26 @@ void Diplomacia::draw()
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Seleccione la region con la que quiere aliarse", -4.5, 4.5);
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
-		while (right == false)
+		if (right == false)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
 			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
 			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
 			ETSIDI::printxy("Seleccione la region con la que desee aliarse", -4.5, 3.5);
 		}
-		if (right == true)
+		else
 		{
-			glDisable(GL_LIGHTING);
-			glBegin(GL_POLYGON);
-			glVertex3f(-5.0f, 0, -5.0f);
-			glVertex3f(-5.0f, 0, 5.0f);
-			glVertex3f(5.0f, 0, 5.0f);
-			glVertex3f(5.0f, 0, -5.0f);
-			glEnd();
-			glEnable(GL_LIGHTING);
-			ETSIDI::printxy("Introduzca por teclado el numero de tropas", -4.5, 3.5);//posteriormente lo cambiaremos con las coord correctas del raton
-			cin >> cantidad;
 			if (j.diplomacia < 50)
 			{
 				ETSIDI::printxy("No hay diplomacia suficiente", -4.5, 2.5);
 			}
 			else
 			{
-				//mandar tropas al ataque
-				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-				//que las tropas lleguen a la region en x turnos y calcular el numero de tropas necesarias para conquistar
-				//eliminar poligono--> como?
+				j.diplomacia += 10;//el jugador se va haciendo más diplomático
+				amistad = 1;//aliados
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
 			}
+		}
 	}
 		if (idr == 9)
 		{
@@ -520,6 +510,64 @@ void Diplomacia::draw()
 			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 			ETSIDI::printxy("Seleccione la region a la que quiere declarar la guerra", -4.5, 4.5);
 			//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
-			//continuar prox dia
+			if (right == false)
+			{
+				ETSIDI::setTextColor(1, 1, 0);
+				ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
+				ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
+				ETSIDI::printxy("Seleccione la region a la que quiere declarar la guerra", -4.5, 3.5);
+			}
+			else
+			{
+				j.diplomacia -= 10;//el jugador se va haciendo menos diplomático
+				amistad = 2;//enemistad
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
+			}
 		}
+}
+
+void Mejorar::draw(Jugadores j)
+{
+	if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
+	{
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::printxy("Seleccione la cantidad de ataque que quiere mejorar", -4.5, 4.5);
+		cin >> cantidad;
+		if (j.oro<cantidad)
+		{
+			ETSIDI::setTextColor(1, 1, 0);
+			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
+		}
+		else
+		{
+			j.ataque += cantidad;
+			j.oro -= cantidad;
+			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+		}
+	}
+	if (idr == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
+	{
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::printxy("Seleccione la cantidad de defensa que quiere mejorar", -4.5, 4.5);
+		cin >> cantidad;
+		if (j.oro<cantidad)
+		{
+			ETSIDI::setTextColor(1, 1, 0);
+			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
+		}
+		else
+		{
+			j.defensa += cantidad;
+			j.oro -= cantidad;
+			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+		}
+	}
+	if (idr == 12)//mejorar agricultura
+	{
+		//gestionar cantidad de comida que se consigue por turno.
+	}
 }
