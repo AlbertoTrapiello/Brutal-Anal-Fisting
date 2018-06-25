@@ -28,7 +28,6 @@ void Region::read_file(std::string s)
 	string str;
 	string aux;
 	string aux1;
-	char token;
 
 	if (!f)
 	{
@@ -67,3 +66,32 @@ void Region::read_file(std::string s)
 	}
 }
 
+
+float menor(const float& lhs, const float& rhs)
+{
+	if (rhs == lhs)
+		return -1;
+	if (lhs < rhs)
+		return lhs;
+	else
+		return rhs;
+}
+float mayor(const float& lhs, const float& rhs)
+{
+	if (rhs == lhs)
+		return -1;
+	if (lhs > rhs)
+		return lhs;
+	else
+		return rhs;
+}
+
+bool Region::is_in(float x, float y)
+{
+	for (int i = 0; i < lenght; i++)
+	{
+		if ((x<menor(z[i]->x1,z[i]->x2) && x>mayor(z[i]->x1, z[i]->x2)) && (y<menor(z[i]->y1, z[i]->y2) && y>mayor(z[i]->y1, z[i]->y2)))
+			return true;
+	}
+	return false;
+}

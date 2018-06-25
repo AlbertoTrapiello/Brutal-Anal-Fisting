@@ -34,7 +34,12 @@ Casas Jugadores::stringtoCasas(string e)
 	return res;
 }
 
-ostream& Jugadores::print(ostream& o = cout)
+bool Jugadores::check_region(float x, float y)
+{
+	return region.is_in(x, y);
+}
+
+ostream& Jugadores::print(ostream& o )
 {
 	o<<"Casa:"<<casa<<endl;
 	o<<"Nombre:"<<nombre<<endl;

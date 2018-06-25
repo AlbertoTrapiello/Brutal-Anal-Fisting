@@ -9,6 +9,20 @@
 
 using namespace ETSIDI;
 
+
+bool Mundo::check_click(float x, float y)
+{
+	for (int i = 0; i < 10; i++)
+		if (player[i].check_region(x, y))
+		{
+			cout << "Está en la región ";
+			player[i].print();
+			return true;
+		}
+
+	return false;
+}
+
 void Mundo::dibuja()//TODOS LOS NÚMEROS QUE ESTÁN SUELTOS PODRÍAN ESTAR EN DEFINE'S	
 {
 	gluLookAt(x_ojo, y_ojo, z_ojo,  // posicion del ojo
@@ -103,6 +117,7 @@ void Mundo::raton(int button, int x, int y)
 	{
 		// identificación de las zonas, puede mostrar una serie de aspectos clave de la zona
 		//salvo cuando es el turno del jugador que pasa a relizar la llamada a las acciones
+		check_click(x, y);
 	}
 	}
 }

@@ -32,13 +32,14 @@ public:
 	bool pseudo_IA() { return IA; }
 	bool mi_turno() { return turno; }
 	void set_turno() { turno = true; }
-	ostream & print(ostream &);
+	ostream & print(ostream &o = cout);
 	bool read_file(Jugadores * );
 	//virtual ~Jugadores();
 	Casas stringtoCasas(string e);
 	void set_Casa(Casas c) { casa = c; }
 	void set_nombre(string s) { nombre = s; }
 	void set_titulo(string t) { titulo = t; }
+	bool check_region(float x, float y);
 };
 
 

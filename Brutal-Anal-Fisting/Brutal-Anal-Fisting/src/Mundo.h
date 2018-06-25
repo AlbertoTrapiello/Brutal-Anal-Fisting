@@ -18,4 +18,5 @@ public:
 	void dibuja();
 	void raton(int button, int x, int y);
 	void Turno();
+	bool check_click(float x, float y);
 };

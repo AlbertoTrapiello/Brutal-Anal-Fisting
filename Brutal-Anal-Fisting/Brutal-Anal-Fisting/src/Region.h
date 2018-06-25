@@ -18,4 +18,6 @@ public:
 	Region();
 	~Region();
 	void read_file(std::string s);
+	bool is_in(float x, float y);
+	
 };
