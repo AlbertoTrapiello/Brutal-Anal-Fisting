@@ -12,7 +12,8 @@ struct Zones
 
 class Region
 {
-	Zones **z;
+	Zones *z[100];
+	Zones agua1,agua2,agua3;
 	int lenght;
 public:
 	Region();

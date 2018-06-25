@@ -83,7 +83,7 @@ void Mundo::dibuja()//TODOS LOS NÚMEROS QUE ESTÁN SUELTOS PODRÍAN ESTAR EN DEFIN
 	}*/
 	case 2:
 	{
-		glBindTexture(GL_TEXTURE_2D, getTexture("imagenes/fondo.png").id);
+		glBindTexture(GL_TEXTURE_2D, getTexture("imagenes/Fondo definitivo.png").id);
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3f(1, 1, 1);
@@ -112,6 +112,7 @@ void Mundo::raton(int button, int x, int y)
 			if ((x <= START_X_MAX && x >= START_X_MIN)&&(y <= START_Y_MAX && y >= START_Y_MIN))
 				menu++;
 		//resto de opciones a discutir
+		break;
 	}
 	case 2:
 	{

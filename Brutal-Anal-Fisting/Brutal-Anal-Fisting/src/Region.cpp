@@ -7,8 +7,9 @@
 using namespace std;
 
 
-Region::Region()
+Region::Region():agua1(375, 72, 362, 82), agua2(370, 82, 360, 92), agua3(367, 350, 348, 364)
 {
+	
 }
 
 
@@ -18,7 +19,6 @@ Region::~Region()
 	{
 		for (int i = 0; i < lenght; i++)
 			delete[] z[i];
-		delete[] z;
 	}
 }
 
@@ -46,7 +46,6 @@ void Region::read_file(std::string s)
 				getline(f, aux1);
 				sstr1 << aux1;
 				sstr1>>lenght;
-				z = new Zones*[1];
 				for(int i=0; i<lenght;i++)
 				{
 					
@@ -60,6 +59,7 @@ void Region::read_file(std::string s)
 					cout << " x1:" << z[i]->x1 << " y1:" << z[i]->y1 << " x2:" << z[i]->x2 << " y2:" << z[i]->y2 << endl;
 				}
 			}
+			
 			
 		}
 		f.close();
@@ -88,9 +88,12 @@ float mayor(const float& lhs, const float& rhs)
 
 bool Region::is_in(float x, float y)
 {
+	if (((x > menor(agua1.x1, agua1.x2) && x < mayor(agua1.x1, agua1.x2)) && (y > menor(agua1.y1, agua1.y2) && y < mayor(agua1.y1, agua1.y2))) || ((x > menor(agua1.x1, agua1.x2) && x < mayor(agua1.x1, agua1.x2)) && (y > menor(agua1.y1, agua1.y2) && y < mayor(agua1.y1, agua1.y2))) || ((x > menor(agua1.x1, agua1.x2) && x < mayor(agua1.x1, agua1.x2)) && (y > menor(agua1.y1, agua1.y2) && y < mayor(agua1.y1, agua1.y2))))
+		return false;
 	for (int i = 0; i < lenght; i++)
 	{
-		if ((x<menor(z[i]->x1,z[i]->x2) && x>mayor(z[i]->x1, z[i]->x2)) && (y<menor(z[i]->y1, z[i]->y2) && y>mayor(z[i]->y1, z[i]->y2)))
+		
+		if ((x>menor(z[i]->x1,z[i]->x2) && x<mayor(z[i]->x1, z[i]->x2)) && (y>menor(z[i]->y1, z[i]->y2) && y<mayor(z[i]->y1, z[i]->y2)))
 			return true;
 	}
 	return false;
