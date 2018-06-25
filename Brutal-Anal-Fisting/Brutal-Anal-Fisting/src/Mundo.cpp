@@ -4,7 +4,7 @@
 
 using namespace ETSIDI;
 
-Mundo::Mundo()
+Mundo::Mundo():ac(&a)
 {
 	x_ojo = 0;
 	y_ojo = 7.5;

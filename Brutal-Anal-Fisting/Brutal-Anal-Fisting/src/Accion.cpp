@@ -156,7 +156,7 @@ bool Accion::check(int id)
 bool Gestion_tropas::check(int id)//falta añadir que si se selecciona la propia region en acciones determinadas no funciona
 {
 	id = Gestion_tropas::get_option(cin);
-	if (id = 0)
+	if (id == 0)
 		right=false;
 	else
 		right=true;
@@ -166,7 +166,7 @@ bool Gestion_tropas::check(int id)//falta añadir que si se selecciona la propia 
 bool Comercio::check(int id)
 {
 	id = Comercio::get_option(cin);
-	if (id = 0)
+	if (id == 0)
 		right = false;
 	else
 		right = true;
@@ -187,7 +187,7 @@ bool Diplomacia::check(int id)
 bool Mejorar::check(int id)
 {
 	id = Mejorar::get_option(cin);
-	if (id = 0)
+	if (id == 0)
 		right = false;
 	else
 		right = true;
@@ -818,7 +818,7 @@ void Mejorar::draw(Jugadores j)
 
 void Accion_Engine::draw(Jugadores j)
 {
-	if (idr == 5 || idr==6 || idr==7)
-		a->Gestion_tropas::draw(j);
+	if (a!=NULL)
+		a->draw(j);
 
 }

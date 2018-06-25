@@ -15,6 +15,7 @@ class Mundo
 	Jugadores jug;
 	//Mapita map;
 	Regiones regi;
+	Accion a;
 	Accion_Engine ac;
 public:
 	Mundo();
