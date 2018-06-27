@@ -8,6 +8,7 @@ class Mundo
 	float z_ojo;
 	int turno;//lleva la cuenta del número de turnos que se llevan jugados
 	int menu;
+	int pos;
 	Jugadores player[10];
 
 public:
@@ -19,4 +20,5 @@ public:
 	void raton(int button, int x, int y);
 	void Turno();
 	bool check_click(float x, float y);
+	void seleccion_personaje();
 };

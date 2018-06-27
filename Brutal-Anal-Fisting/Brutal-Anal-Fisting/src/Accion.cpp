@@ -194,7 +194,7 @@ bool Mejorar::check(int id)
 	return right;
 }
 
-void Gestion_tropas::gestion_acc(Jugadores j)
+void Gestion_tropas::gestion_acc(Jugadores &j)
 {
 	right = Gestion_tropas::check(id);
 	switch (idr)
@@ -523,6 +523,11 @@ void Accion::draw(Jugadores j) {
 
 }
 
+void Accion::gestion_acc(Jugadores &j)
+{
+	//en principio esta no hace nada
+}
+
 void Gestion_tropas::draw(Jugadores j)//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
 {
 	if (idr == 5)//Atacar
@@ -821,4 +826,9 @@ void Accion_Engine::draw(Jugadores j)
 	if (a!=NULL)
 		a->draw(j);
 
+}
+
+void Accion_Engine::gestion_acc(Jugadores &j)
+{
+	a->gestion_acc(j);
 }

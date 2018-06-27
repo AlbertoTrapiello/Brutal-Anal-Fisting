@@ -22,6 +22,7 @@ public:
 	virtual bool check(int id) = 0;//comprueba la viabilidad de la accion, parte logica de momento
 	virtual void draw(Jugadores j)=0;//dibuja el menu/los menus, parte grafica
 	virtual void update_id() = 0;
+	virtual 	void gestion_acc(Jugadores &j) = 0;//parte logica
 	//virtual void gestion_acc(Jugadores j) = 0;//parte grafica
 };
 
@@ -37,6 +38,7 @@ public:
 	void draw(Jugadores j);//parte grafica
 	friend void onMenu(int opcion);//parte grafica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
+	void gestion_acc(Jugadores &j);//parte logica
 	enum opc_menu { gest_tropas = 1, comercio = 2, diplomacia = 3, mejorar = 4 };
 };
 
@@ -52,7 +54,7 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	void gestion_acc(Jugadores j);//parte logica
+	void gestion_acc(Jugadores &j);//parte logica
 	void draw(Jugadores j);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	enum opcion_gest {Atacar=5, Defender=6, Generar_tropas=7};
@@ -116,6 +118,7 @@ public:
 	void draw(Jugadores j);
 	void update_id() { a->id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	//friend ostream& operator<<(ostream&, IAccion &);
+	void gestion_acc(Jugadores &j);//parte logica
 };
 
 /*ostream & operator<<(ostream &o, IAccion& b)//obligatorio sobrecargar << como funcion independiente

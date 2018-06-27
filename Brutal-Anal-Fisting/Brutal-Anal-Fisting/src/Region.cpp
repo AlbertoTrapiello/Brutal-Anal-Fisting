@@ -53,10 +53,10 @@ void Region::read_file(std::string s)
 					getline(f, str);
 					
 					sstr << str;
-					cout << "lenght=" << lenght << " str:" << str;
+					//cout << "lenght=" << lenght << " str:" << str;
 					z[i] = new Zones;
 					sstr >> z[i]->x1 >> z[i]->y1 >> z[i]->x2 >> z[i]->y2;
-					cout << " x1:" << z[i]->x1 << " y1:" << z[i]->y1 << " x2:" << z[i]->x2 << " y2:" << z[i]->y2 << endl;
+					//cout << " x1:" << z[i]->x1 << " y1:" << z[i]->y1 << " x2:" << z[i]->x2 << " y2:" << z[i]->y2 << endl;
 				}
 			}
 			
