@@ -3,7 +3,6 @@
 #include <string>
 #include "glut.h"
 #include "ETSIDI.h"
-#include "Jugadores.h"
 
 using namespace std;
 
@@ -14,16 +13,17 @@ class IAccion
 public:
 	int id;//id de la accion elegida
 	bool right;//operacion realizada con exito
+	bool fin;
 public:
 	IAccion();
 	IAccion(int id, bool right) :id(id), right(right) {}
 	virtual ostream& print_options(ostream &o = cout) = 0;//parte logica
 	virtual int get_option(istream &i=cin) = 0;//gestiona la opcion elegida por el usuario, parte logica
 	virtual bool check(int id) = 0;//comprueba la viabilidad de la accion, parte logica de momento
-	virtual void draw(Jugadores j)=0;//dibuja el menu/los menus, parte grafica
+	virtual int draw()=0;//dibuja el menu/los menus, parte grafica
 	virtual void update_id() = 0;
-	virtual 	void gestion_acc(Jugadores &j) = 0;//parte logica
-	//virtual void gestion_acc(Jugadores j) = 0;//parte grafica
+	virtual 	int gestion_acc( ) = 0;//parte logica
+	//virtual void gestion_acc( ) = 0;//parte grafica
 };
 
 class Accion :public IAccion
@@ -34,11 +34,11 @@ public:
 	ostream & print_options(ostream &o = cout);//parte logica
 	int get_option(istream &i=cin);//parte logica
 	bool check(int id);//parte logica de momento (deben ser ambas)
-	//void gestion_acc(Jugadores j);//parte logica
-	void draw(Jugadores j);//parte grafica
+	//void gestion_acc( );//parte logica
+	int draw( );//parte grafica
 	friend void onMenu(int opcion);//parte grafica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	void gestion_acc(Jugadores &j);//parte logica
+	int gestion_acc( );//parte logica
 	enum opc_menu { gest_tropas = 1, comercio = 2, diplomacia = 3, mejorar = 4 };
 };
 
@@ -54,8 +54,8 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	void gestion_acc(Jugadores &j);//parte logica
-	void draw(Jugadores j);
+	int gestion_acc( );//parte logica
+	int draw( );
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	enum opcion_gest {Atacar=5, Defender=6, Generar_tropas=7};
 };
@@ -70,9 +70,9 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	void gestion_acc(Jugadores j);//parte logica
+	int gestion_acc( );//parte logica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	void draw(Jugadores j);
+	int draw( );
 };
 
 class Diplomacia :public Accion
@@ -85,8 +85,8 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	void gestion_acc(Jugadores j);//parte logica
-	void draw(Jugadores j);
+	int gestion_acc( );//parte logica
+	int draw( );
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	enum opcion_dip{Alianza=8, Guerra=9};
 };
@@ -100,8 +100,8 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	void gestion_acc(Jugadores j);//parte logica
-	void draw(Jugadores j);
+	int gestion_acc( );//parte logica
+	int draw( );
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	enum opcion_mej {Ataque=10, Defensa=11, Agricultura=12};
 };
@@ -115,10 +115,11 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int option);
-	void draw(Jugadores j);
+	int draw( );
 	void update_id() { a->id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	//friend ostream& operator<<(ostream&, IAccion &);
-	void gestion_acc(Jugadores &j);//parte logica
+	int gestion_acc( );//parte logica
+	void delete_() { delete a; }
 };
 
 /*ostream & operator<<(ostream &o, IAccion& b)//obligatorio sobrecargar << como funcion independiente

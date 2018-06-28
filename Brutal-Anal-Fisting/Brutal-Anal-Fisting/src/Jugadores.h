@@ -40,6 +40,7 @@ public:
 	bool mi_turno() { return turno; }
 	void pseudo_IA();
 	void set_turno() { turno = true; }
+	bool Turno();
 	ostream & print(ostream &o = cout);
 	bool read_file(Jugadores * );
 	//virtual ~Jugadores();
@@ -51,10 +52,7 @@ public:
 	void dibuja(int dcha, int izq, Casas casa_dcha, Casas casa_izq);
 	int getindex() { return index; }
 	Casas getcasas() { return casa; }
-	friend class Gestion_tropas;
-	friend class Comercio;
-	friend class Diplomacia;
-	friend class Mejorar;
+	friend void onMenu();
 };
 
 

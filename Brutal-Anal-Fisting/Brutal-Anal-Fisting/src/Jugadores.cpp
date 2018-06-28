@@ -273,12 +273,16 @@ void Jugadores::dibuja(int dcha, int izq, Casas casa_izq, Casas casa_dcha)
 void Jugadores::pseudo_IA()
 {
 	
-	if (ataque > 10)
-	{
-		Accion_Engine action(new Gestion_tropas);
-		action.gestion_acc(*this);
-	}
+
 	
+}
+
+bool Jugadores::Turno()
+{
+	Accion_Engine action(new Accion);
+	action.draw();
+	action.delete_();
+	return false;
 }
 
 ostream& Jugadores::print(ostream& o )
@@ -314,7 +318,7 @@ bool Jugadores::read_file(Jugadores *p)
 		case Stark:
 		{
 			p[i].S = "images/Stark.png";
-			p[i].index = 5;
+			p[i].index = 1;
 			break;
 		}
 		case Tully:

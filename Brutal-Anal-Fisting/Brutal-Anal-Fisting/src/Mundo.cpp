@@ -163,7 +163,9 @@ void Mundo::raton(int button, int x, int y)
 	{
 		// identificación de las zonas, puede mostrar una serie de aspectos clave de la zona
 		//salvo cuando es el turno del jugador que pasa a relizar la llamada a las acciones
+		
 		check_click(x, y);
+		Turno();
 		//draw_text(x, y);
 		break;
 	}
@@ -177,10 +179,13 @@ void Mundo::Turno()//gestiona el turno así como los eventos dentro de cada turno
 		//gestion de las decisiones que ha de tomar la IA
 		player[pos].pseudo_IA();
 
-/*	else
+	else
 	{
-		//gestion de las accciones a tomar 
-	}*/
+		//gestion de las accciones a tomar po parte del jugador
+		if (player[pos].mi_turno())
+			if (player[pos].Turno())
+				pos++;
+	}
 }
 
 

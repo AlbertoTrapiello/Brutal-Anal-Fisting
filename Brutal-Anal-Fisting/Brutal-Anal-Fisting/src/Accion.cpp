@@ -194,7 +194,7 @@ bool Mejorar::check(int id)
 	return right;
 }
 
-void Gestion_tropas::gestion_acc(Jugadores &j)
+int Gestion_tropas::gestion_acc( )
 {
 	right = Gestion_tropas::check(id);
 	switch (idr)
@@ -213,63 +213,34 @@ void Gestion_tropas::gestion_acc(Jugadores &j)
 		{
 			cout << "Introduzca el numero de tropas con las que desea atacar" << endl;
 			cin >> tropas;
-			while ((tropas > j.ataque && j.ataque!=0) || tropas<0)
-			{
-				cout << "No hay suficientes tropas, introduzca un numero valido" << endl;
-				cin >> tropas;
-			}
-			if (tropas < j.ataque)
-			{
-				//mandar tropas al ataque
-				cout << "Operacion realizada con exito" << endl;
-				//que las tropas lleguen a la region en x turnos y calcular el numero de tropas necesarias para conquistar
-			}
+			return tropas;
 		}
+		return -1;
 	}
 	break;
 	case 6://poner condicion de que esten en guerra con la region, sino es ilogico 
 	{
 		cout << "Introduzca el numero de tropas con las que desea defender su region" << endl;
 		cin >> tropas;
-		while ((tropas > j.ataque && j.ataque!=0) || tropas<0)
-		{
-			cout << "No hay suficientes tropas" << endl;
-			cout << "Introduzca el numero de tropas con las que desea defender su region" << endl;
-			cin >> tropas;
-		}
-		if (tropas < j.ataque)
-		{
-			//movimiento de tropas instantaneo a la region
-			j.defensa += tropas;//se incrementa la defensa con el numero de tropas que defienden
-			cout << "Operacion realizada con exito" << endl;
-		}
-
+		return tropas;
 	}
 	break;
 	case 7://Generar
 	{
 		cout << "Introduzca el numero de tropas que quiere generar" << endl;
 		cin >> tropas;
-		while ((tropas < j.oro && j.oro!=0) || tropas<0)
-		{
-			cout << "No hay oro suficiente para generar las tropas" << endl;
-			cout << "Introduzca el numero de tropas que quiere generar" << endl;
-			cin >> tropas;
-		}
-		if(tropas>j.oro)
-		{
-			j.oro -= tropas;//se gasta x oro
-			j.ataque += tropas;//el jugador tiene x tropas mas
-			cout << "Operacion realizada con exito" << endl;
-		}
+		return tropas;
 	}
 	break;
 	default:
+		return -1;
 		break;
 	}
+	return -1;
 }
 
-void Comercio::gestion_acc(Jugadores j)
+
+int Comercio::gestion_acc( )
 {
 	right = Comercio::check(id);
 	if (idr == 2)
@@ -281,58 +252,22 @@ void Comercio::gestion_acc(Jugadores j)
 		case 1:
 			cout << "2 de agricultura por cada moneda de oro" << endl;
 			cin >> cantidad;
-			if (j.oro < 0.5*cantidad || cantidad<0)
-			{
-				cout << "No hay oro suficiente o la cantidad es menor que 0" << endl;
-			}
-			else
-			{
-				j.comida += cantidad;
-				j.oro -= 0.5*cantidad;
-				cout << "Operacion realizada con exito" << endl;
-			}
+			return cantidad;
 			break;
 		case 2:
 			cout << "2 de agricultura por cada moneda de oro" << endl;
 			cin >> cantidad;
-			if (j.comida < 2 * cantidad || cantidad<0)
-			{
-				cout << "No hay comida suficiente o la cantidad es menor que 0" << endl;
-			}
-			else
-			{
-				j.oro += cantidad;
-				j.comida -= 2 * cantidad;
-				cout << "Operacion realizada con exito" << endl;
-			}
+			return cantidad;
 			break;
 		case 3:
 			cout << "1 de diplomacia por cada moneda de oro" << endl;
 			cin >> cantidad;
-			if (j.oro < cantidad || cantidad<0)
-			{
-				cout << "No hay oro suficiente" << endl;
-			}
-			else
-			{
-				j.oro -= cantidad;
-				j.diplomacia += cantidad;
-				cout << "Operacion realizada con exito" << endl;
-			}
+			return cantidad;
 			break;
 		case 4:
 			cout << "1 de diplomacia por cada moneda de oro" << endl;
 			cin >> cantidad;
-			if (j.diplomacia < cantidad)
-			{
-				cout << "No hay oro suficiente o la cantidad es menor que 0" << endl;
-			}
-			else
-			{
-				j.diplomacia -= cantidad;
-				j.oro += cantidad;
-				cout << "Operacion realizada con exito" << endl;
-			}
+			return cantidad;
 			break;
 		default:
 			cout << "Opcion incorrecta" << endl;
@@ -341,7 +276,7 @@ void Comercio::gestion_acc(Jugadores j)
 	}
 }
 
-void Diplomacia :: gestion_acc(Jugadores j)
+int Diplomacia :: gestion_acc( )
 {
 	right = Diplomacia::check(id);
 	if (idr == 8)//Diplomacia
@@ -356,16 +291,7 @@ void Diplomacia :: gestion_acc(Jugadores j)
 		}
 		else
 		{
-			if (j.diplomacia < 50)
-			{
-				cout << "No hay diplomacia suficiente" << endl;
-			}
-			else
-			{
-				j.diplomacia += 10;//el jugador se va haciendo más diplomático
-				amistad = 1;//aliados
-				cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
-			}
+			return opcion;
 		}
 	}
 	if (idr == 9)
@@ -381,53 +307,39 @@ void Diplomacia :: gestion_acc(Jugadores j)
 		}
 		else
 		{
-			j.diplomacia -= 10;//el jugador se va haciendo menos diplomático
+			return -10;//el jugador se va haciendo menos diplomático
 			amistad = 2;//enemistad
 			cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
 		}
 	}
 }
 
-void Mejorar::gestion_acc(Jugadores j)
+int Mejorar::gestion_acc( )
 {
 	right = Mejorar::check(id);
 	if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
 	{
 		cout << "Seleccione la cantidad de ataque que quiere mejorar" << endl;
 		cin >> cantidad;
-		if (j.oro<cantidad || cantidad<0)
-		{
-			cout << "Opcion no válida" << endl;
-		}
-		else
-		{
-			j.ataque += cantidad;
-			j.oro -= cantidad;
-			cout << "Operacion realizada con exito" << endl;
-		}
+		return cantidad;
 	}
 	if (idr == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
 	{
 		cout << "Seleccione la cantidad de defensa que quiere mejorar" << endl;
 		cin >> cantidad;
-		if (j.oro<cantidad || cantidad<0)
-		{
-			cout << "Opcion no válida" << endl;
-		}
-		else
-		{
-			j.defensa += cantidad;
-			j.oro -= cantidad;
-			cout << "Operacion realizada con exito" << endl;
-		}
+		return cantidad;
 	}
 	if (idr == 12)//mejorar agricultura
 	{
 		//gestionar cantidad de comida que se consigue por turno.
+		cout << "Seleccione la cantidad de aricultura que quiere mejorar" << endl;
+		cin >> cantidad;
+		return cantidad;
 	}
+	return -1;
 }
 
-/*void Accion::gestion_acc(Jugadores j)
+/*void Accion::gestion_acc( )
 {
 	
 }*/
@@ -459,48 +371,86 @@ bool Accion_Engine::check(int option)
 void onMenu(int opcion) {
 	switch (opcion) {
 	case Accion::opc_menu::gest_tropas:
+	{
 		idr = 1;
+		//llamada a la gestión de tropas
+
 		break;
+	}
+	
 	case Accion::opc_menu::comercio:
-		idr=2;
+	{
+		idr = 2;
+		//lamada a la gestión de comercio
 		break;
+	}
 	case Accion::opc_menu::diplomacia:
-		idr=3;
+	{
+		idr = 3;
+		//llamada a la diplomacia
 		break;
+	}
 	case Accion::opc_menu::mejorar:
-		idr=4;
+	{
+		idr = 4;
+		//lamada a la mejora
 		break;
+	}
 	case Gestion_tropas::opcion_gest::Atacar:
+	{
 		idr = 5;
+		//llamada a la opciónd de Atacar
 		break;
+	}
 	case Gestion_tropas::opcion_gest::Defender:
+	{
 		idr = 6;
+		//llamada a la opción de Defender
 		break;
+	}
 	case Gestion_tropas::opcion_gest::Generar_tropas:
+	{
 		idr = 7;
+		//llamada a la opción de Defender
 		break;
+	}
 	case Diplomacia::opcion_dip::Alianza:
+	{
 		idr = 8;
+		//llamada a la Alianza
 		break;
+	}
 	case Diplomacia::opcion_dip::Guerra:
+	{
 		idr = 9;
+		//llamada la Guerra
 		break;
+	}
 	case Mejorar::opcion_mej::Ataque:
+	{
 		idr = 10;
+		//lamada al Ataque
 		break;
+	}
 	case Mejorar::opcion_mej::Defensa:
+	{
 		idr = 11;
+		//llamada a la Defensa
 		break;
+	}
 	case Mejorar::opcion_mej::Agricultura:
+	{
 		idr = 12;
+		//lamada a la Agricultura
 		break;
+	}
 	default:
 		idr = 0;
 	}
 	glutPostRedisplay();
 }
 
-void Accion::draw(Jugadores j) {
+int Accion::draw( ) {
 	int menuPrincipal, menutropas, menudiplomacia, menumejoras;
 
 	menutropas = glutCreateMenu(onMenu);
@@ -520,15 +470,16 @@ void Accion::draw(Jugadores j) {
 	glutAddSubMenu("Diplomacia", menudiplomacia);
 	glutAddSubMenu("Mejoras", menumejoras);
 	glutAttachMenu(GLUT_RIGHT_BUTTON);
-
+	return 0;
 }
 
-void Accion::gestion_acc(Jugadores &j)
+int Accion::gestion_acc( )
 {
 	//en principio esta no hace nada
+	return 0;
 }
 
-void Gestion_tropas::draw(Jugadores j)//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
+int Gestion_tropas::draw( )//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
 {
 	if (idr == 5)//Atacar
 	{
@@ -543,6 +494,7 @@ void Gestion_tropas::draw(Jugadores j)//opcion tiene que guardar el numero de la
 			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
 			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
 			ETSIDI::printxy("Seleccione la region que desea atacar", -4.5, 3.5);
+			return -1;
 		}
 		else
 		{
@@ -556,17 +508,7 @@ void Gestion_tropas::draw(Jugadores j)//opcion tiene que guardar el numero de la
 			glEnable(GL_LIGHTING);
 			ETSIDI::printxy("Introduzca por teclado el numero de tropas", -4.5, 3.5);//posteriormente lo cambiaremos con las coord correctas del raton
 			cin >> tropas;
-			if (tropas < j.ataque)
-			{
-				ETSIDI::printxy("No hay tropas suficientes", -4.5, 2.5);
-			}
-			else
-			{
-				//mandar tropas al ataque
-				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-				//que las tropas lleguen a la region en x turnos y calcular el numero de tropas necesarias para conquistar
-				//eliminar poligono--> como?
-			}
+			return tropas;
 		}
 		
 	}
@@ -585,18 +527,7 @@ void Gestion_tropas::draw(Jugadores j)//opcion tiene que guardar el numero de la
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Seleccione el numero de tropas con las que defender su region", -4.5, 4.5);
 		cin >> tropas;
-		if (tropas < j.ataque)
-		{
-			ETSIDI::printxy("No hay tropas suficientes", -4.5, 2.5);
-		}
-		else
-		{
-			//mandar tropas a la defensa
-			j.defensa += tropas;//las tropas se añaden a la defensa de la region
-			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-			//las tropas seleccionadas defienden
-			//eliminar poligono--> como?
-		}
+		return tropas;
 	}
 
 	if (idr == 7)//Generar
@@ -614,21 +545,12 @@ void Gestion_tropas::draw(Jugadores j)//opcion tiene que guardar el numero de la
 		ETSIDI::printxy("Seleccione el numero de tropas a generarar", -4.5, 4.5);
 		ETSIDI::printxy("Generar 10 cuesta 10 de oro", -4.5, 4.5);
 		cin >> tropas;
-		if (tropas < j.oro)
-		{
-			ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
-		}
-		else
-		{
-			j.oro -= tropas;//se gasta x oro
-			j.ataque += tropas;//el jugador tiene x tropas mas
-			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-			//eliminar poligono--> como?
-		}
+		return tropas;
 	}
+	return -1;
 }
 
-void Comercio::draw(Jugadores j)
+int Comercio::draw( )
 {
 	if (idr == 2)
 	{
@@ -651,68 +573,28 @@ void Comercio::draw(Jugadores j)
 		{
 			ETSIDI::printxy("2 de agricultura por cada moneda de oro", -4.5, 4.5);
 			cin >> cantidad;
-			if (j.oro < 0.5*cantidad || cantidad < 0)
-			{
-				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
-			}
-			else
-			{
-				j.comida += cantidad;
-				j.oro -= 0.5*cantidad;
-				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-				//eliminar poligono--> como?
-			}
+			return cantidad;
 		}
 			break;
 		case 2:
 		{
 			ETSIDI::printxy("2 de agricultura por cada moneda de oro", -4.5, 4.5);
 			cin >> cantidad;
-			if (j.comida < 2 * cantidad || cantidad < 0)
-			{
-				ETSIDI::printxy("No hay comida suficiente", -4.5, 2.5);
-			}
-			else
-			{
-				j.oro += cantidad;
-				j.comida -= 2 * cantidad;
-				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-				//eliminar poligono--> como?
-			}
+			return cantidad;
 		}
 			break;
 		case 3:
 		{
 			ETSIDI::printxy("1 de diplomacia por cada moneda de oro", -4.5, 4.5);
 			cin >> cantidad;
-			if (j.oro < cantidad || cantidad < 0)
-			{
-				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
-			}
-			else
-			{
-				j.oro -= cantidad;
-				j.diplomacia += cantidad;
-				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-				//eliminar poligono--> como?
-			}
+			return cantidad;
 		}
 			break;
 		case 4:
 		{
 			ETSIDI::printxy("1 de diplomacia por cada moneda de oro", -4.5, 4.5);
 			cin >> cantidad;
-			if (j.diplomacia < cantidad || cantidad < 0)
-			{
-				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
-			}
-			else
-			{
-				j.diplomacia -= cantidad;
-				j.oro += cantidad;
-				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-				//eliminar poligono--> como?
-			}
+			return cantidad;
 		}
 			break;
 		default:
@@ -721,10 +603,10 @@ void Comercio::draw(Jugadores j)
 		}
 		
 	}
-
+	return -1;
 }
 
-void Diplomacia::draw(Jugadores j)
+int Diplomacia::draw( )
 {
 	if (idr == 8)//Diplomacia
 	{
@@ -741,16 +623,7 @@ void Diplomacia::draw(Jugadores j)
 		}
 		else
 		{
-			if (j.diplomacia < 50)
-			{
-				ETSIDI::printxy("No hay diplomacia suficiente", -4.5, 2.5);
-			}
-			else
-			{
-				j.diplomacia += 10;//el jugador se va haciendo más diplomático
-				amistad = 1;//aliados
-				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
-			}
+			return +10;
 		}
 	}
 		if (idr == 9)
@@ -768,14 +641,15 @@ void Diplomacia::draw(Jugadores j)
 			}
 			else
 			{
-				j.diplomacia -= 10;//el jugador se va haciendo menos diplomático
+			
 				amistad = 2;//enemistad
 				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
+				return -10;//el jugador se va haciendo menos diplomático
 			}
 		}
 }
 
-void Mejorar::draw(Jugadores j)
+int Mejorar::draw( )
 {
 	if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
 	{
@@ -783,18 +657,7 @@ void Mejorar::draw(Jugadores j)
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Seleccione la cantidad de ataque que quiere mejorar", -4.5, 4.5);
 		cin >> cantidad;
-		if (j.oro<cantidad || cantidad<0)
-		{
-			ETSIDI::setTextColor(1, 1, 0);
-			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
-			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
-		}
-		else
-		{
-			j.ataque += cantidad;
-			j.oro -= cantidad;
-			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-		}
+		return cantidad;
 	}
 	if (idr == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
 	{
@@ -802,33 +665,28 @@ void Mejorar::draw(Jugadores j)
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
 		ETSIDI::printxy("Seleccione la cantidad de defensa que quiere mejorar", -4.5, 4.5);
 		cin >> cantidad;
-		if (j.oro<cantidad || cantidad<0)
-		{
-			ETSIDI::setTextColor(1, 1, 0);
-			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
-			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
-		}
-		else
-		{
-			j.defensa += cantidad;
-			j.oro -= cantidad;
-			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
-		}
+		return cantidad;
 	}
 	if (idr == 12)//mejorar agricultura
 	{
 		//gestionar cantidad de comida que se consigue por turno.
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::printxy("Seleccione la cantidad de agricultura que quiere mejorar", -4.5, 4.5);
+		cin >> cantidad;
+		return cantidad;
 	}
 }
 
-void Accion_Engine::draw(Jugadores j)
+int Accion_Engine::draw( )
 {
 	if (a!=NULL)
-		a->draw(j);
-
+		a->draw();
+	return 0;
 }
 
-void Accion_Engine::gestion_acc(Jugadores &j)
+int Accion_Engine::gestion_acc( )
 {
-	a->gestion_acc(j);
+	a->gestion_acc();
+	return 0;
 }

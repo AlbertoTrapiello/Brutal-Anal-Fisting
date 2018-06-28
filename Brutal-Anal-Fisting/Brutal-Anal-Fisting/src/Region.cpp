@@ -18,7 +18,8 @@ Region::~Region()
 	if (z != NULL)
 	{
 		for (int i = 0; i < lenght; i++)
-			delete[] z[i];
+			if(z[i]!=NULL)
+				delete[] z[i];
 	}
 }
 
