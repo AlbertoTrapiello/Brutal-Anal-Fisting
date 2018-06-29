@@ -62,7 +62,7 @@
     <ClInclude Include="src\Region.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Icono.h">
+    <ClInclude Include="src\Icono.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

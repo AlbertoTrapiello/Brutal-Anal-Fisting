@@ -3,7 +3,7 @@
 #define N_jug 10
 
 
-Jugadores::Jugadores():sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1)
+Jugadores::Jugadores():sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icon(casa)
 {
 	casa=Casas::Stark;
 	nombre="Robb";
@@ -21,7 +21,7 @@ Jugadores::Jugadores():sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_i
 	index = 0;
 }
 
-Jugadores::Jugadores (const Jugadores &j):sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1)
+Jugadores::Jugadores (const Jugadores &j):sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icon(casa)
 {
 	turno = false;
 	ataque=j.ataque;

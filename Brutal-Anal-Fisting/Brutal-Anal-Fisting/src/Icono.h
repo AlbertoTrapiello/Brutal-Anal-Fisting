@@ -8,7 +8,7 @@ enum Casas
 };
 
 
-const char * get_name(int casa)
+const char * get_tit(int casa)
 {
 	switch (casa)
 	{
@@ -58,6 +58,7 @@ const char * get_name(int casa)
 		break;
 	}
 	}
+	return NULL;
 }
 
 
@@ -69,5 +70,5 @@ class Icono
 {
 	SpriteSequence icono;
 public:
-	Icono(int casa):icono(get_name(casa),1){}
+	Icono(int casa):icono(get_tit(casa),1){}
 };

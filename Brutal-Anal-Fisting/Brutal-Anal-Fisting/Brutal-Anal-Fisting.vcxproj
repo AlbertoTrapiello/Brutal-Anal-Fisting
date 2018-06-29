@@ -28,10 +28,10 @@
     <ClCompile Include="src\Region.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Icono.h" />
     <ClInclude Include="lib\ETSIDI.h" />
     <ClInclude Include="lib\glut.h" />
     <ClInclude Include="src\Accion.h" />
+    <ClInclude Include="src\Icono.h" />
     <ClInclude Include="src\Jugadores.h" />
     <ClInclude Include="src\Mundo.h" />
     <ClInclude Include="src\Personaje.h" />
