@@ -1,5 +1,85 @@
 #include "Accion.h"
 
+
+
+void Gestion_tropas::menu_hide()
+{
+	glPushMatrix();
+	glTranslatef(20.0, 20.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	my_menu.setState(1);
+	my_menu.draw();
+	glPopMatrix();
+}
+
+void Gestion_tropas::menu_pop()
+{
+	glPushMatrix();
+	glTranslatef(4.0, 3.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	my_menu.setState(1);
+	my_menu.draw();
+	glPopMatrix();
+}
+void Comercio::menu_hide()
+{
+	glPushMatrix();
+	glTranslatef(20.0, 20.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	my_menu.setState(1);
+	my_menu.draw();
+	glPopMatrix();
+}
+
+void Comercio::menu_pop()
+{
+	glPushMatrix();
+	glTranslatef(4.0, 3.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	my_menu.setState(1);
+	my_menu.draw();
+	glPopMatrix();
+}
+void Mejorar::menu_hide()
+{
+	glPushMatrix();
+	glTranslatef(20.0, 20.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	my_menu.setState(1);
+	my_menu.draw();
+	glPopMatrix();
+}
+
+void Mejorar::menu_pop()
+{
+	glPushMatrix();
+	glTranslatef(4.0, 3.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	my_menu.setState(1);
+	my_menu.draw();
+	glPopMatrix();
+}
+
+void Diplomacia::menu_hide()
+{
+	glPushMatrix();
+	glTranslatef(20.0, 20.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	my_menu.setState(1);
+	my_menu.draw();
+	glPopMatrix();
+}
+
+void Diplomacia::menu_pop()
+{
+	glPushMatrix();
+	glTranslatef(4.0, 3.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	my_menu.setState(1);
+	my_menu.draw();
+	glPopMatrix();
+}
+
 IAccion::IAccion()
 {
 	id = 0;
@@ -194,7 +274,7 @@ bool Mejorar::check(int id)
 	return right;
 }
 
-int Gestion_tropas::gestion_acc( )
+int Gestion_tropas::gestion_acc()
 {
 	right = Gestion_tropas::check(id);
 	switch (idr)
@@ -240,43 +320,40 @@ int Gestion_tropas::gestion_acc( )
 }
 
 
-int Comercio::gestion_acc( )
+int Comercio::gestion_acc()
 {
-	right = Comercio::check(id);
-	if (idr == 2)
+	cout << "Seleccione la opcion de comercio: 1. Comida a cambio de oro 2. Oro a cambio de comida 3. Diplomacia a cambio de oro 4. Oro a cambio de diplomacia" << endl;
+	cin >> opcion;
+	switch (opcion)
 	{
-		cout << "Seleccione la opcion de comercio: 1. Comida a cambio de oro 2. Oro a cambio de comida 3. Diplomacia a cambio de oro 4. Oro a cambio de diplomacia"<< endl;
-		cin >> opcion;
-		switch (opcion)
-		{
-		case 1:
-			cout << "2 de agricultura por cada moneda de oro" << endl;
-			cin >> cantidad;
-			return cantidad;
-			break;
-		case 2:
-			cout << "2 de agricultura por cada moneda de oro" << endl;
-			cin >> cantidad;
-			return cantidad;
-			break;
-		case 3:
-			cout << "1 de diplomacia por cada moneda de oro" << endl;
-			cin >> cantidad;
-			return cantidad;
-			break;
-		case 4:
-			cout << "1 de diplomacia por cada moneda de oro" << endl;
-			cin >> cantidad;
-			return cantidad;
-			break;
-		default:
-			cout << "Opcion incorrecta" << endl;
-			break;
-		}
+	case 1:
+		cout << "2 de agricultura por cada moneda de oro" << endl;
+		cin >> cantidad;
+		return cantidad;
+		break;
+	case 2:
+		cout << "2 de agricultura por cada moneda de oro" << endl;
+		cin >> cantidad;
+		return cantidad;
+		break;
+	case 3:
+		cout << "1 de diplomacia por cada moneda de oro" << endl;
+		cin >> cantidad;
+		return cantidad;
+		break;
+	case 4:
+		cout << "1 de diplomacia por cada moneda de oro" << endl;
+		cin >> cantidad;
+		return cantidad;
+		break;
+	default:
+		cout << "Opcion incorrecta" << endl;
+		return 0;
+		break;
 	}
 }
 
-int Diplomacia :: gestion_acc( )
+int Diplomacia :: gestion_acc()
 {
 	right = Diplomacia::check(id);
 	if (idr == 8)//Diplomacia
@@ -304,18 +381,22 @@ int Diplomacia :: gestion_acc( )
 			cout << "Opcion no válida" << endl;
 			cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
 			cin >> opcion;
+			return opcion;
 		}
 		else
 		{
-			return -10;//el jugador se va haciendo menos diplomático
+			
 			amistad = 2;//enemistad
 			cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
+			return -10;//el jugador se va haciendo menos diplomático
 		}
 	}
+	return 0;
 }
 
-int Mejorar::gestion_acc( )
+int Mejorar::gestion_acc()
 {
+
 	right = Mejorar::check(id);
 	if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
 	{
@@ -368,109 +449,8 @@ bool Accion_Engine::check(int option)
 
 
 
-void onMenu(int opcion) {
-	switch (opcion) {
-	case Accion::opc_menu::gest_tropas:
-	{
-		idr = 1;
-		//llamada a la gestión de tropas
+void Accion::draw(Jugadores * j, int id) {
 
-		break;
-	}
-	
-	case Accion::opc_menu::comercio:
-	{
-		idr = 2;
-		//lamada a la gestión de comercio
-		break;
-	}
-	case Accion::opc_menu::diplomacia:
-	{
-		idr = 3;
-		//llamada a la diplomacia
-		break;
-	}
-	case Accion::opc_menu::mejorar:
-	{
-		idr = 4;
-		//lamada a la mejora
-		break;
-	}
-	case Gestion_tropas::opcion_gest::Atacar:
-	{
-		idr = 5;
-		//llamada a la opciónd de Atacar
-		break;
-	}
-	case Gestion_tropas::opcion_gest::Defender:
-	{
-		idr = 6;
-		//llamada a la opción de Defender
-		break;
-	}
-	case Gestion_tropas::opcion_gest::Generar_tropas:
-	{
-		idr = 7;
-		//llamada a la opción de Defender
-		break;
-	}
-	case Diplomacia::opcion_dip::Alianza:
-	{
-		idr = 8;
-		//llamada a la Alianza
-		break;
-	}
-	case Diplomacia::opcion_dip::Guerra:
-	{
-		idr = 9;
-		//llamada la Guerra
-		break;
-	}
-	case Mejorar::opcion_mej::Ataque:
-	{
-		idr = 10;
-		//lamada al Ataque
-		break;
-	}
-	case Mejorar::opcion_mej::Defensa:
-	{
-		idr = 11;
-		//llamada a la Defensa
-		break;
-	}
-	case Mejorar::opcion_mej::Agricultura:
-	{
-		idr = 12;
-		//lamada a la Agricultura
-		break;
-	}
-	default:
-		idr = 0;
-	}
-	glutPostRedisplay();
-}
-
-int Accion::draw( ) {
-	int menuPrincipal, menutropas, menudiplomacia, menumejoras;
-
-	menutropas = glutCreateMenu(onMenu);
-	glutAddMenuEntry("Atacar", Gestion_tropas::opcion_gest::Atacar);//si se pulsa Atacar, idr será igual a 5, conociendo esta informacion, podemos gestionar las distintas acciones
-	glutAddMenuEntry("Defender", Gestion_tropas::opcion_gest::Defender);
-	glutAddMenuEntry("Generar", Gestion_tropas::opcion_gest::Generar_tropas);
-	menudiplomacia = glutCreateMenu(onMenu);
-	glutAddMenuEntry("Alianza", Diplomacia::opcion_dip::Alianza);
-	glutAddMenuEntry("Guerra", Diplomacia::opcion_dip::Guerra);
-	menumejoras = glutCreateMenu(onMenu);
-	glutAddMenuEntry("Ataque", Mejorar::opcion_mej::Ataque);
-	glutAddMenuEntry("Defensa", Mejorar::opcion_mej::Defensa);
-	glutAddMenuEntry("Agricultura", Mejorar::opcion_mej::Agricultura);
-	menuPrincipal = glutCreateMenu(onMenu);
-	glutAddSubMenu("Gestion de Tropas", menutropas);
-	glutAddMenuEntry("Comercio", opc_menu::comercio);
-	glutAddSubMenu("Diplomacia", menudiplomacia);
-	glutAddSubMenu("Mejoras", menumejoras);
-	glutAttachMenu(GLUT_RIGHT_BUTTON);
-	return 0;
 }
 
 int Accion::gestion_acc( )
@@ -479,22 +459,24 @@ int Accion::gestion_acc( )
 	return 0;
 }
 
-int Gestion_tropas::draw( )//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
+void Gestion_tropas::draw(Jugadores * j, int id)//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
 {
-	if (idr == 5)//Atacar
+	menu_pop();
+	if (id == 5)//Atacar
 	{
+		
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
-		ETSIDI::printxy("Seleccione la region que desea atacar", -4.5, 4.5);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
+		ETSIDI::printxy("Seleccione   la   region", -6.0, 5.0);
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 		//condicion de haber declarado la guerra previamente-->diplomacia
+		/*
 		if (right == false)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
-			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
+			ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);//poner fuente de GOT
 			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
 			ETSIDI::printxy("Seleccione la region que desea atacar", -4.5, 3.5);
-			return -1;
 		}
 		else
 		{
@@ -507,13 +489,12 @@ int Gestion_tropas::draw( )//opcion tiene que guardar el numero de la region en 
 			glEnd();
 			glEnable(GL_LIGHTING);
 			ETSIDI::printxy("Introduzca por teclado el numero de tropas", -4.5, 3.5);//posteriormente lo cambiaremos con las coord correctas del raton
-			cin >> tropas;
-			return tropas;
-		}
+			//cin >> tropas;
+		}*/
 		
 	}
 
-	if (idr == 6)//Defender
+	if (id == 6)//Defender
 	{
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
@@ -524,13 +505,12 @@ int Gestion_tropas::draw( )//opcion tiene que guardar el numero de la region en 
 		glEnd();
 		glEnable(GL_LIGHTING);
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
 		ETSIDI::printxy("Seleccione el numero de tropas con las que defender su region", -4.5, 4.5);
 		cin >> tropas;
-		return tropas;
 	}
 
-	if (idr == 7)//Generar
+	if (id == 7)//Generar
 	{
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
@@ -541,18 +521,17 @@ int Gestion_tropas::draw( )//opcion tiene que guardar el numero de la region en 
 		glEnd();
 		glEnable(GL_LIGHTING);
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
 		ETSIDI::printxy("Seleccione el numero de tropas a generarar", -4.5, 4.5);
 		ETSIDI::printxy("Generar 10 cuesta 10 de oro", -4.5, 4.5);
 		cin >> tropas;
-		return tropas;
 	}
-	return -1;
 }
 
-int Comercio::draw( )
+void Comercio::draw(Jugadores * j, int id)
 {
-	if (idr == 2)
+	menu_pop();
+	if (id == 2)
 	{
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
@@ -563,38 +542,34 @@ int Comercio::draw( )
 		glEnd();
 		glEnable(GL_LIGHTING);
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
 		ETSIDI::printxy("Seleccione la opcion", -4.5, 4.5);
 		ETSIDI::printxy("1. Comida a cambio de oro 2. Oro a cambio de comida 3. Diplomacia a cambio de oro 4. Oro a cambio de diplomacia" , -4.5, 2.5);
-		cin >> opcion;
+	
 		switch (opcion)
 		{
 		case 1:
 		{
 			ETSIDI::printxy("2 de agricultura por cada moneda de oro", -4.5, 4.5);
-			cin >> cantidad;
-			return cantidad;
+
 		}
 			break;
 		case 2:
 		{
 			ETSIDI::printxy("2 de agricultura por cada moneda de oro", -4.5, 4.5);
-			cin >> cantidad;
-			return cantidad;
+			
 		}
 			break;
 		case 3:
 		{
 			ETSIDI::printxy("1 de diplomacia por cada moneda de oro", -4.5, 4.5);
-			cin >> cantidad;
-			return cantidad;
+			
 		}
 			break;
 		case 4:
 		{
 			ETSIDI::printxy("1 de diplomacia por cada moneda de oro", -4.5, 4.5);
-			cin >> cantidad;
-			return cantidad;
+			
 		}
 			break;
 		default:
@@ -603,39 +578,39 @@ int Comercio::draw( )
 		}
 		
 	}
-	return -1;
+
 }
 
-int Diplomacia::draw( )
+void Diplomacia::draw(Jugadores * j, int id)
 {
-	if (idr == 8)//Diplomacia
+	menu_pop();
+	if (id == 8)//Diplomacia
 	{
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
 		ETSIDI::printxy("Seleccione la region con la que quiere aliarse", -4.5, 4.5);
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 		if (right == false)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
-			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
+			ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);//poner fuente de GOT
 			ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
 			ETSIDI::printxy("Seleccione la region con la que desee aliarse", -4.5, 3.5);
 		}
 		else
 		{
-			return +10;
 		}
 	}
-		if (idr == 9)
+		if (id == 9)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
-			ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+			ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
 			ETSIDI::printxy("Seleccione la region a la que quiere declarar la guerra", -4.5, 4.5);
 			//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 			if (right == false)
 			{
 				ETSIDI::setTextColor(1, 1, 0);
-				ETSIDI::setFont("fuentes/Bitwise.ttf", 16);//poner fuente de GOT
+				ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);//poner fuente de GOT
 				ETSIDI::printxy("Opcion no válida", -4.5, 4.5);
 				ETSIDI::printxy("Seleccione la region a la que quiere declarar la guerra", -4.5, 3.5);
 			}
@@ -644,49 +619,54 @@ int Diplomacia::draw( )
 			
 				amistad = 2;//enemistad
 				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
-				return -10;//el jugador se va haciendo menos diplomático
+				//el jugador se va haciendo menos diplomático
 			}
 		}
 }
 
-int Mejorar::draw( )
+void Mejorar::draw(Jugadores * j, int id)
 {
-	if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
+	menu_pop();
+	if (id == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
 	{
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
 		ETSIDI::printxy("Seleccione la cantidad de ataque que quiere mejorar", -4.5, 4.5);
-		cin >> cantidad;
-		return cantidad;
 	}
-	if (idr == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
+	if (id == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
 	{
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
 		ETSIDI::printxy("Seleccione la cantidad de defensa que quiere mejorar", -4.5, 4.5);
-		cin >> cantidad;
-		return cantidad;
 	}
-	if (idr == 12)//mejorar agricultura
+	if (id == 12)//mejorar agricultura
 	{
 		//gestionar cantidad de comida que se consigue por turno.
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Bitwise.ttf", 16);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
 		ETSIDI::printxy("Seleccione la cantidad de agricultura que quiere mejorar", -4.5, 4.5);
-		cin >> cantidad;
-		return cantidad;
 	}
 }
 
-int Accion_Engine::draw( )
+void Accion_Engine::draw(Jugadores * o, int id)
 {
 	if (a!=NULL)
-		a->draw();
-	return 0;
+		a->draw(o,id);
 }
 
 int Accion_Engine::gestion_acc( )
 {
 	a->gestion_acc();
 	return 0;
+}
+
+void Accion_Engine::switch_puntero(IAccion *c)
+{
+	if (a != NULL)
+	{
+		delete a;
+		a = c;
+	}
+	else
+		a = c;
 }

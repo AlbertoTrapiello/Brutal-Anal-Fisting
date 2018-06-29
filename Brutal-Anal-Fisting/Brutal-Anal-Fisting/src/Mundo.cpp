@@ -22,11 +22,21 @@
 #define CHARACTER_X_MAX 500
 #define CHARACTER_Y_MIN 111
 #define CHARACTER_Y_MAX 339
+#define MENU_CHECK_OK_X_MIN 550
+#define MENU_CHECK_OK_X_MAX 619
+#define MENU_CHECK_OK_Y_MIN 131
+#define MENU_CHECK_OK_Y_MAX 161
+#define MENU_CHECK_NO_X_MIN 550
+#define MENU_CHECK_NO_X_MAX 619
+#define MENU_CHECK_NO_Y_MIN 167
+#define MENU_CHECK_NO_Y_MAX 199
 
 using namespace ETSIDI;
 
 bool check = true;
-
+bool click;
+int idr=0;
+bool ok;
 //float x_draw, y_draw;
 
 void Mundo::seleccion_personaje()
@@ -38,6 +48,26 @@ void Mundo::seleccion_personaje()
 		next = 0;
 	player[pos].dibuja(player[prev].getindex(),player[next].getindex(), player[prev].getcasas(), player[next].getcasas());
 	check = !check;
+}
+
+void Mundo::menu_hide()
+{
+	glPushMatrix();
+	glTranslatef(20.0, 20.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	sprite.setState(1);
+	sprite.draw();
+	glPopMatrix();
+}
+
+void Mundo::menu_sure()
+{
+	glPushMatrix();
+	glTranslatef(4.0, 3.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	sprite.setState(1);
+	sprite.draw();
+	glPopMatrix();
 }
 
 bool Mundo::check_click(float x, float y)
@@ -109,7 +139,19 @@ void Mundo::dibuja()//TODOS LOS NÚMEROS QUE ESTÁN SUELTOS PODRÍAN ESTAR EN DEFIN
 /*		setTextColor(1, 1, 1);
 		setFont("fuentes/Game of Thrones.ttf", 16);
 		printxy("Yep", x_draw, y_draw);*/
-
+		if (click)
+		{
+			//Sacar
+			menu_sure();
+		}
+		if (ok)
+		{
+			menu_hide();
+			Turno();//no estoy seguro de esto pero no cuadra en ningún otro sitio
+		}
+		else
+			menu_hide();
+		
 		break;
 	}
 
@@ -123,6 +165,102 @@ void draw_text(int x, int y)
 	x_draw = 10.0 - ((667 - x) / 539.0 * 20.0);
 	y_draw = -10.0 + ((577 - y) / 550.0 * 20.0);
 }*/
+
+
+
+void onMenu(int opcion) {
+	switch (opcion) {
+	case gest_tropas:
+	{
+		idr = 1;
+		break;
+	}
+
+	case comercio:
+	{
+		idr = 2;
+		//pensar algo que haga que Accion Engine no apunte a una Accion si no que apunte a un Comercio
+		break;
+	}
+	case Diplom:
+	{
+		idr = 3;
+		break;
+	}
+	case mejorar:
+	{
+		idr = 4;
+		break;
+	}
+	case Atacar:
+	{
+		idr = 5;
+		break;
+	}
+	case Defender:
+	{
+		idr = 6;
+		break;
+	}
+	case Generar_tropas:
+	{
+		idr = 7;
+		break;
+	}
+	case Alianza:
+	{
+		idr = 8;
+		break;
+	}
+	case Guerra:
+	{
+		idr = 9;
+		break;
+	}
+	case Ataque:
+	{
+		idr = 10;
+		break;
+	}
+	case Defensa:
+	{
+		idr = 11;
+		break;
+	}
+	case Agricultura:
+	{
+		idr = 12;
+		break;
+	}
+	}
+	glutPostRedisplay();
+	click = true;
+}
+
+
+
+void creacionMenu(void) 
+{
+	int menuPrincipal, menutropas, menudiplomacia, menumejoras;
+
+	menutropas = glutCreateMenu(onMenu);
+	glutAddMenuEntry("Atacar", Atacar);//si se pulsa Atacar, idr será igual a 5, conociendo esta informacion, podemos gestionar las distintas acciones
+	glutAddMenuEntry("Defender",Defender);
+	glutAddMenuEntry("Generar", Generar_tropas);
+	menudiplomacia = glutCreateMenu(onMenu);
+	glutAddMenuEntry("Alianza",Alianza);
+	glutAddMenuEntry("Guerra",Guerra);
+	menumejoras = glutCreateMenu(onMenu);
+	glutAddMenuEntry("Ataque",Ataque);
+	glutAddMenuEntry("Defensa",Defensa);
+	glutAddMenuEntry("Agricultura",Agricultura);
+	menuPrincipal = glutCreateMenu(onMenu);
+	glutAddSubMenu("Gestion de Tropas", menutropas);
+	glutAddMenuEntry("Comercio", comercio);
+	glutAddSubMenu("Diplomacia", menudiplomacia);
+	glutAddSubMenu("Mejoras", menumejoras);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
 
 void Mundo::raton(int button, int x, int y)
 {
@@ -163,9 +301,25 @@ void Mundo::raton(int button, int x, int y)
 	{
 		// identificación de las zonas, puede mostrar una serie de aspectos clave de la zona
 		//salvo cuando es el turno del jugador que pasa a relizar la llamada a las acciones
-		
+
 		check_click(x, y);
-		Turno();
+		creacionMenu();
+		if (click)
+		{
+			if ((x <= MENU_CHECK_OK_X_MAX && x >= MENU_CHECK_OK_X_MIN) && (y <= MENU_CHECK_OK_Y_MAX && y >= MENU_CHECK_OK_Y_MIN))
+			{
+				click = false;
+				ok = true;
+				cout << "Vale JAJAJA" << endl;
+			}
+			if ((x <= MENU_CHECK_NO_X_MAX && x >= MENU_CHECK_NO_X_MIN) && (y <= MENU_CHECK_NO_Y_MAX && y >= MENU_CHECK_NO_Y_MIN))
+			{
+				click = false;
+				cout << "No vale JAJAJA" << endl;
+				ok = false;
+			}
+		}
+		cout << "Soy IDR" << idr << endl;
 		//draw_text(x, y);
 		break;
 	}
@@ -176,14 +330,15 @@ void Mundo::Turno()//gestiona el turno así como los eventos dentro de cada turno
 {
 	player[pos].set_turno();
 	if (player[pos].is_IA())
-		//gestion de las decisiones que ha de tomar la IA
-		player[pos].pseudo_IA();
-
+	{
+		if (player[pos].pseudo_IA())
+			pos++;
+	}
 	else
 	{
 		//gestion de las accciones a tomar po parte del jugador
 		if (player[pos].mi_turno())
-			if (player[pos].Turno())
+			if (player[pos].Turno(idr))
 				pos++;
 	}
 }
@@ -194,7 +349,7 @@ void Mundo::inicializa()
 	x_ojo = 0;
 	y_ojo = 0.1;
 	z_ojo = 30;
-	menu = 1;
+	menu = 3;
 	turno = 0;
 	pos = 0;
 	if (!player[0].read_file(player))
@@ -202,8 +357,10 @@ void Mundo::inicializa()
 	player[0].set_turno();
 }
 
-Mundo::Mundo()
+Mundo::Mundo():sprite("images/sprite_menu_sure.png",1)
 {
+	sprite.setCenter(1, 0);
+	sprite.setSize(7, 7);
 }
 
 void Mundo::tecla(unsigned char key)//CHEATS

@@ -270,18 +270,97 @@ void Jugadores::dibuja(int dcha, int izq, Casas casa_izq, Casas casa_dcha)
 
 
 
-void Jugadores::pseudo_IA()
+bool Jugadores::pseudo_IA()
 {
 	
 
-	
+	return false;
 }
 
-bool Jugadores::Turno()
+bool Jugadores::Turno(const int & id)
 {
-	Accion_Engine action(new Accion);
-	action.draw();
-	action.delete_();
+	Accion_Engine action;
+	switch (id)
+	{
+	case gest_tropas:
+	{
+
+		break;
+	}
+	
+	case comercio:
+	{
+		idr = 2;
+		//pensar algo que haga que Accion Engine no apunte a una Accion si no que apunte a un Comercio
+
+		action.switch_puntero(new Comercio);
+
+		break;
+	}
+	case Diplom:
+	{
+
+		break;
+	}
+	case mejorar:
+	{
+
+		break;
+	}
+	case Atacar:
+	{
+
+		action.switch_puntero(new Gestion_tropas);
+	break;
+	}
+	case Defender:
+	{
+
+		action.switch_puntero(new Gestion_tropas);
+		break;
+	}
+	case Generar_tropas:
+	{
+
+		action.switch_puntero(new Gestion_tropas);
+		break;
+	}
+	case Alianza:
+	{
+
+		action.switch_puntero(new Diplomacia);
+		break;
+	}
+	case Guerra:
+	{
+
+		action.switch_puntero(new Diplomacia);
+		break;
+	}
+	case Ataque:
+	{
+
+		action.switch_puntero(new Mejorar);
+		break;
+	}
+	case Defensa:
+	{
+
+		action.switch_puntero(new Mejorar);
+		break;
+	}
+	case Agricultura:
+	{
+
+		action.switch_puntero(new Mejorar);
+		break;
+	}
+	default:
+		idr = 0;
+	}
+
+	action.draw(this,id);
+
 	return false;
 }
 

@@ -1,0 +1,169 @@
+while ((tropas > j.ataque && j.ataque!=0) || tropas<0)
+			{
+				cout << "No hay suficientes tropas, introduzca un numero valido" << endl;
+				cin >> tropas;
+			}
+			if (tropas < j.ataque)
+			{
+				//mandar tropas al ataque
+				cout << "Operacion realizada con exito" << endl;
+				//que las tropas lleguen a la region en x turnos y calcular el numero de tropas necesarias para conquistar
+			}
+while ((tropas > j.ataque && j.ataque!=0) || tropas<0)
+		{
+			cout << "No hay suficientes tropas" << endl;
+			cout << "Introduzca el numero de tropas con las que desea defender su region" << endl;
+			cin >> tropas;
+		}
+		if (tropas < j.ataque)
+		{
+			//movimiento de tropas instantaneo a la region
+			j.defensa += tropas;//se incrementa la defensa con el numero de tropas que defienden
+			cout << "Operacion realizada con exito" << endl;
+		}
+if (j.oro < 0.5*cantidad || cantidad<0)
+			{
+				cout << "No hay oro suficiente o la cantidad es menor que 0" << endl;
+			}
+			else
+			{
+				j.comida += cantidad;
+				j.oro -= 0.5*cantidad;
+				cout << "Operacion realizada con exito" << endl;
+			}
+if (j.comida < 2 * cantidad || cantidad<0)
+			{
+				cout << "No hay comida suficiente o la cantidad es menor que 0" << endl;
+			}
+			else
+			{
+				j.oro += cantidad;
+				j.comida -= 2 * cantidad;
+				cout << "Operacion realizada con exito" << endl;
+			}
+if (j.oro < cantidad || cantidad<0)
+			{
+				cout << "No hay oro suficiente" << endl;
+			}
+			else
+			{
+				j.oro -= cantidad;
+				j.diplomacia += cantidad;
+				cout << "Operacion realizada con exito" << endl;
+			}
+if (j.diplomacia < cantidad)
+			{
+				cout << "No hay oro suficiente o la cantidad es menor que 0" << endl;
+			}
+			else
+			{
+				j.diplomacia -= cantidad;
+				j.oro += cantidad;
+				cout << "Operacion realizada con exito" << endl;
+			}
+if (j.diplomacia < 50)
+			{
+				cout << "No hay diplomacia suficiente" << endl;
+			}
+			else
+			{
+				j.diplomacia += 10;//el jugador se va haciendo más diplomático
+				amistad = 1;//aliados
+				cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
+			}
+if (j.oro<cantidad || cantidad<0)
+		{
+			cout << "Opcion no válida" << endl;
+		}
+		else
+		{
+			j.ataque += cantidad;
+			j.oro -= cantidad;
+			cout << "Operacion realizada con exito" << endl;
+		}
+if (j.oro<cantidad || cantidad<0)
+		{
+			cout << "Opcion no válida" << endl;
+		}
+		else
+		{
+			j.defensa += cantidad;
+			j.oro -= cantidad;
+			cout << "Operacion realizada con exito" << endl;
+		}
+if (tropas < j.ataque)
+			{
+				ETSIDI::printxy("No hay tropas suficientes", -4.5, 2.5);
+			}
+			else
+			{
+				//mandar tropas al ataque
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//que las tropas lleguen a la region en x turnos y calcular el numero de tropas necesarias para conquistar
+				//eliminar poligono--> como?
+			}
+if (tropas < j.oro)
+		{
+			ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
+		}
+		else
+		{
+			j.oro -= tropas;//se gasta x oro
+			j.ataque += tropas;//el jugador tiene x tropas mas
+			ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+			//eliminar poligono--> como?
+		}
+if (j.oro < 0.5*cantidad || cantidad < 0)
+			{
+				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.comida += cantidad;
+				j.oro -= 0.5*cantidad;
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//eliminar poligono--> como?
+			}
+if (j.comida < 2 * cantidad || cantidad < 0)
+			{
+				ETSIDI::printxy("No hay comida suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.oro += cantidad;
+				j.comida -= 2 * cantidad;
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//eliminar poligono--> como?
+			}
+if (j.diplomacia < cantidad || cantidad < 0)
+			{
+				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.diplomacia -= cantidad;
+				j.oro += cantidad;
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//eliminar poligono--> como?
+			}
+if (j.oro < cantidad || cantidad < 0)
+			{
+				ETSIDI::printxy("No hay oro suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.oro -= cantidad;
+				j.diplomacia += cantidad;
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);
+				//eliminar poligono--> como?
+			}
+if (j.diplomacia < 50)
+			{
+				ETSIDI::printxy("No hay diplomacia suficiente", -4.5, 2.5);
+			}
+			else
+			{
+				j.diplomacia += 10;//el jugador se va haciendo más diplomático
+				amistad = 1;//aliados
+				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
+			}

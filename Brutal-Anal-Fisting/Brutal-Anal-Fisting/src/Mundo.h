@@ -1,6 +1,10 @@
 #pragma once
 #include "Jugadores.h"
 
+using namespace std;
+using ETSIDI::SpriteSequence;
+using namespace ETSIDI;
+
 class Mundo
 {
 	float x_ojo;
@@ -10,6 +14,7 @@ class Mundo
 	int menu;
 	int pos;
 	Jugadores player[10];
+	SpriteSequence sprite;
 
 public:
 	Mundo();
@@ -21,4 +26,6 @@ public:
 	void Turno();
 	bool check_click(float x, float y);
 	void seleccion_personaje();
+	void menu_sure();
+	void menu_hide();
 };

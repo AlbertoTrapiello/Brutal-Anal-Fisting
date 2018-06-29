@@ -28,6 +28,7 @@
     <ClCompile Include="src\Region.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Icono.h" />
     <ClInclude Include="lib\ETSIDI.h" />
     <ClInclude Include="lib\glut.h" />
     <ClInclude Include="src\Accion.h" />

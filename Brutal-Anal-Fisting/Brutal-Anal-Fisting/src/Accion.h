@@ -3,10 +3,13 @@
 #include <string>
 #include "glut.h"
 #include "ETSIDI.h"
+#include "Jugadores.h"
 
 using namespace std;
-
+using ETSIDI::SpriteSequence;
+using namespace ETSIDI;
 static int idr;
+
 
 class IAccion
 {
@@ -20,9 +23,10 @@ public:
 	virtual ostream& print_options(ostream &o = cout) = 0;//parte logica
 	virtual int get_option(istream &i=cin) = 0;//gestiona la opcion elegida por el usuario, parte logica
 	virtual bool check(int id) = 0;//comprueba la viabilidad de la accion, parte logica de momento
-	virtual int draw()=0;//dibuja el menu/los menus, parte grafica
+	virtual void draw(Jugadores *, int )=0;//dibuja el menu/los menus, parte grafica
 	virtual void update_id() = 0;
 	virtual 	int gestion_acc( ) = 0;//parte logica
+
 	//virtual void gestion_acc( ) = 0;//parte grafica
 };
 
@@ -35,11 +39,10 @@ public:
 	int get_option(istream &i=cin);//parte logica
 	bool check(int id);//parte logica de momento (deben ser ambas)
 	//void gestion_acc( );//parte logica
-	int draw( );//parte grafica
+	void draw(Jugadores *, int id);//parte grafica
 	friend void onMenu(int opcion);//parte grafica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	int gestion_acc( );//parte logica
-	enum opc_menu { gest_tropas = 1, comercio = 2, diplomacia = 3, mejorar = 4 };
 };
 
 
@@ -48,62 +51,75 @@ class Gestion_tropas :public Accion //relacion de herencia publica (es)
 {
 	int tropas;
 	int opcion;//numero de region
+	SpriteSequence my_menu;
 public:
-	Gestion_tropas() { id = 0; right = false; tropas = 0; opcion = 0; }
-	Gestion_tropas(int id, bool right, int tropas, int opcion) :Accion(id, right), tropas(tropas), opcion(opcion) {}
+	Gestion_tropas(): my_menu("images/Troops.png", 1) { id = 0; right = false; tropas = 0; opcion = 0; 	my_menu.setCenter(1, 0);	my_menu.setSize(7, 7);	}
+	Gestion_tropas(int id, bool right, int tropas, int opcion) :Accion(id, right), tropas(tropas), opcion(opcion), my_menu("images/Troops.png", 1) { my_menu.setCenter(1, 0);	my_menu.setSize(7, 7); }
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
 	int gestion_acc( );//parte logica
-	int draw( );
-	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	enum opcion_gest {Atacar=5, Defender=6, Generar_tropas=7};
+	void draw(Jugadores *, int id);
+	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.	
+	void menu_hide();
+	void menu_pop();
+
 };
 
 class Comercio :public Accion
 {
 	int opcion;
 	int cantidad;
+	SpriteSequence my_menu;
 public:
-	Comercio() { id = 0; right = false; opcion = 0; cantidad = 0; }
-	Comercio(int id, bool right, int opcion, int cantidad) :Accion(id, right),opcion(opcion), cantidad(cantidad) {}
+	Comercio(): my_menu("images/Comercio.png", 1) { id = 0; right = false; opcion = 0; cantidad = 0; my_menu.setCenter(1, 0);	my_menu.setSize(7, 7);	}
+	Comercio(int id, bool right, int opcion, int cantidad) :Accion(id, right),opcion(opcion), cantidad(cantidad), my_menu("images/Comercio.png", 1) { my_menu.setCenter(1, 0);	my_menu.setSize(7, 7); }
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
 	int gestion_acc( );//parte logica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	int draw( );
+	void draw(Jugadores *, int id);
+	void menu_hide();
+	void menu_pop();
+
 };
 
 class Diplomacia :public Accion
 {
 	int amistad;
 	int opcion;
+	SpriteSequence my_menu;
 public:
-	Diplomacia() { id = 0; right = false; }
-	Diplomacia(int id, bool right, int amistad, int opcion) :Accion(id, right), amistad(amistad), opcion(opcion) {}
+	Diplomacia():my_menu("images/Diplomacia.png", 1) { id = 0; right = false; my_menu.setCenter(1, 0);	my_menu.setSize(7, 7);	}
+	Diplomacia(int id, bool right, int amistad, int opcion) :Accion(id, right), amistad(amistad), opcion(opcion), my_menu("images/Diplomacia.png", 1) { my_menu.setCenter(1, 0);	my_menu.setSize(7, 7); }
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
 	int gestion_acc( );//parte logica
-	int draw( );
+	void draw(Jugadores *, int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	enum opcion_dip{Alianza=8, Guerra=9};
+	void menu_hide();
+	void menu_pop();
+
 };
 
 class Mejorar :public Accion 
 {
 	int cantidad;
+	SpriteSequence my_menu;
 public:
-	Mejorar() { id = 0; right = false; }
-	Mejorar(int id, bool right) :Accion(id, right) {}
+	Mejorar():my_menu("images/Mejorar.png", 1) { id = 0; right = false; my_menu.setCenter(1, 0);	my_menu.setSize(7, 7);	}
+	Mejorar(int id, bool right) :Accion(id, right), my_menu("images/Mejorar.png", 1) { my_menu.setCenter(1, 0);	my_menu.setSize(7, 7); }
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
 	int gestion_acc( );//parte logica
-	int draw( );
+	void draw(Jugadores *, int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	enum opcion_mej {Ataque=10, Defensa=11, Agricultura=12};
+	void menu_hide();
+	void menu_pop();
+
 };
 
 class Accion_Engine
@@ -112,14 +128,17 @@ class Accion_Engine
 public:
 	Accion_Engine() { a = NULL; }
 	Accion_Engine(IAccion *a) :a(a) {}
+	~Accion_Engine() { if (a != NULL)	delete a; }
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int option);
-	int draw( );
+	void draw(Jugadores * , int id);
 	void update_id() { a->id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	//friend ostream& operator<<(ostream&, IAccion &);
 	int gestion_acc( );//parte logica
 	void delete_() { delete a; }
+	void switch_puntero(IAccion *);
+
 };
 
 /*ostream & operator<<(ostream &o, IAccion& b)//obligatorio sobrecargar << como funcion independiente
