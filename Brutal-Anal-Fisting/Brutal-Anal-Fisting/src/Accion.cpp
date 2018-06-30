@@ -466,8 +466,8 @@ void Gestion_tropas::draw(Jugadores * j, int id)//opcion tiene que guardar el nu
 	{
 		
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-		ETSIDI::printxy("Seleccione   la   region", -6.0, 5.0);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 8);
+		ETSIDI::printxy("Seleccione  la  region", 4.0, 8.0);
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 		//condicion de haber declarado la guerra previamente-->diplomacia
 		/*
@@ -505,9 +505,10 @@ void Gestion_tropas::draw(Jugadores * j, int id)//opcion tiene que guardar el nu
 		glEnd();
 		glEnable(GL_LIGHTING);
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-		ETSIDI::printxy("Seleccione el numero de tropas con las que defender su region", -4.5, 4.5);
-		cin >> tropas;
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 8.0);
+		ETSIDI::printxy("Numero de tropas", 4.0, 8.0);
+		ETSIDI::printxy("para defender", 4.0, 7.0); 
+
 	}
 
 	if (id == 7)//Generar
@@ -521,10 +522,10 @@ void Gestion_tropas::draw(Jugadores * j, int id)//opcion tiene que guardar el nu
 		glEnd();
 		glEnable(GL_LIGHTING);
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-		ETSIDI::printxy("Seleccione el numero de tropas a generarar", -4.5, 4.5);
-		ETSIDI::printxy("Generar 10 cuesta 10 de oro", -4.5, 4.5);
-		cin >> tropas;
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
+		ETSIDI::printxy("numero de tropas", 4.0, 8.0);
+		ETSIDI::setFont("fuentes/Bitwise.ttf", 8);
+		ETSIDI::printxy("(10 tropas cuestan 10 de oro)", 4.0, 7.0);
 	}
 }
 
@@ -541,11 +542,15 @@ void Comercio::draw(Jugadores * j, int id)
 		glVertex3f(5.0f, 0, -5.0f);
 		glEnd();
 		glEnable(GL_LIGHTING);
-		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-		ETSIDI::printxy("Seleccione la opcion", -4.5, 4.5);
-		ETSIDI::printxy("1. Comida a cambio de oro 2. Oro a cambio de comida 3. Diplomacia a cambio de oro 4. Oro a cambio de diplomacia" , -4.5, 2.5);
-	
+		ETSIDI::setTextColor(1, 1, 1);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
+		ETSIDI::printxy("Seleccione la opcion", 4.0, 9.0);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 6.0);
+		ETSIDI::printxy("1.Comida a cambio de oro " , 4.0, 8.0);
+		ETSIDI::printxy("2.Oro a cambio de comida ", 4.0, 7.0);
+		ETSIDI::printxy("3.Diplomacia a cambio de oro ", 4.0, 6.0);
+		ETSIDI::printxy("4.Oro a cambio de diplomacia ", 4.0, 5.0);
+		/*
 		switch (opcion)
 		{
 		case 1:
@@ -576,7 +581,7 @@ void Comercio::draw(Jugadores * j, int id)
 			ETSIDI::printxy("Opcion incorrecta", -4.5, 2.5);
 			break;
 		}
-		
+		*/
 	}
 
 }
@@ -587,10 +592,11 @@ void Diplomacia::draw(Jugadores * j, int id)
 	if (id == 8)//Diplomacia
 	{
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-		ETSIDI::printxy("Seleccione la region con la que quiere aliarse", -4.5, 4.5);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
+		ETSIDI::printxy("Seleccione la region ", 4, 7);
+		ETSIDI::printxy("con la que aliarse", 4, 6);
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
-		if (right == false)
+		/*if (right == false)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
 			ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);//poner fuente de GOT
@@ -599,15 +605,17 @@ void Diplomacia::draw(Jugadores * j, int id)
 		}
 		else
 		{
-		}
+		}*/
 	}
 		if (id == 9)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
-			ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-			ETSIDI::printxy("Seleccione la region a la que quiere declarar la guerra", -4.5, 4.5);
+			ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
+			ETSIDI::printxy("Seleccione la region", 4, 7);
+			ETSIDI::printxy("a la que declarar", 4, 6);
+			ETSIDI::printxy("la guerra", 4, 5);
 			//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
-			if (right == false)
+			/*if (right == false)
 			{
 				ETSIDI::setTextColor(1, 1, 0);
 				ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);//poner fuente de GOT
@@ -620,7 +628,7 @@ void Diplomacia::draw(Jugadores * j, int id)
 				amistad = 2;//enemistad
 				ETSIDI::printxy("Operacion realizada con exito", -4.5, 2.5);//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
 				//el jugador se va haciendo menos diplomático
-			}
+			}*/
 		}
 }
 
@@ -629,22 +637,25 @@ void Mejorar::draw(Jugadores * j, int id)
 	menu_pop();
 	if (id == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
 	{
-		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-		ETSIDI::printxy("Seleccione la cantidad de ataque que quiere mejorar", -4.5, 4.5);
+		ETSIDI::setTextColor(1, 0, 1);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
+		ETSIDI::printxy("Seleccione la cantidad ", 4, 6);
+		ETSIDI::printxy("de ataque a mejorar", 4, 5);
 	}
 	if (id == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
 	{
-		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-		ETSIDI::printxy("Seleccione la cantidad de defensa que quiere mejorar", -4.5, 4.5);
+		ETSIDI::setTextColor(1, 0, 1);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
+		ETSIDI::printxy("Seleccione la cantidad ", 4, 6);
+		ETSIDI::printxy("de defensa a mejorar", 4, 5);
 	}
 	if (id == 12)//mejorar agricultura
 	{
 		//gestionar cantidad de comida que se consigue por turno.
-		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 12);
-		ETSIDI::printxy("Seleccione la cantidad de agricultura que quiere mejorar", -4.5, 4.5);
+		ETSIDI::setTextColor(1, 0, 1);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
+		ETSIDI::printxy("Seleccione la cantidad", 4, 6);
+		ETSIDI::printxy(" de agricultura a mejorar", 4, 5);
 	}
 }
 

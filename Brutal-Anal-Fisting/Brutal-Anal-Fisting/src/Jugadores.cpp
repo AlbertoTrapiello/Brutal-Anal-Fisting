@@ -3,9 +3,80 @@
 #define N_jug 10
 
 
-Jugadores::Jugadores():sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(get_tit(casa), 1)
+const char * Get_tit(int casa)
 {
-	casa=Casas::Stark;
+	switch (casa)
+	{
+	case Stark:
+	{
+		return "images/Iconos/Icono Stark.png";
+		break;
+	}
+	case Tully:
+	{
+		return "images/Iconos/Icono Tully.png";
+		break;
+	}
+	case Arryn:
+	{
+		return "images/Iconos/Icono Arryn.png";
+		break;
+	}
+	case Targaryen:
+	{
+		return "images/Iconos/Icono Targaryen.png";
+		break;
+	}
+	case Greyjoy:
+	{
+		return "images/Iconos/Icono Greyjoy.png";
+		break;
+	}
+	case Lannister:
+	{
+		return "images/Iconos/Icono Lannister.png";
+		break;
+	}
+	case Tyrrel:
+	{
+		return "images/Iconos/Icono Tyrell.png";
+		break;
+	}
+	case Baratheon:
+	{
+		return "images/Iconos/Icono Baratheon.png";
+		break;
+	}
+	case Martell:
+	{
+		return "images/Iconos/Icono Martell.png";
+		break;
+	}
+	}
+	return NULL;
+}
+
+void Jugadores::Icon_hide()
+{
+	glPushMatrix();
+	glTranslatef(20.0, 20.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	icono.setState(1);
+	icono.draw();
+	glPopMatrix();
+}
+void Jugadores::Icon()
+{
+	glPushMatrix();
+	glTranslatef(4.0, 3.0, 0.5);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	icono.setState(1);
+	icono.draw();
+	glPopMatrix();
+}
+
+Jugadores::Jugadores():casa(Casas::Stark), sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(Get_tit(casa), 1)
+{
 	nombre="Robb";
 	titulo="King in the North";
 	sprite.setCenter(1, 0);
@@ -19,20 +90,19 @@ Jugadores::Jugadores():sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_i
 	arrow1.setCenter(1, 0);
 	arrow1.setSize(2, 2);
 	icono.setCenter(1, 0);
-	icono.setSize(2, 2);
+	icono.setSize(7, 7);
 
 	index = 0;
 }
 
-Jugadores::Jugadores (const Jugadores &j):sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(get_tit(casa), 1)
+Jugadores::Jugadores (const Jugadores &j):casa(j.casa), sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(Get_tit(casa), 1)
 {
 	turno = false;
 	ataque=j.ataque;
 	comida=j.comida;
 	oro=j.oro;
 	diplomacia=j.diplomacia;
-	defensa=j.defensa;
-	casa=j.casa;
+	defensa = j.defensa;
 	nombre=j.nombre;
 	titulo=j.titulo;
 	sprite.setCenter(1, 0);

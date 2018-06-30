@@ -1,5 +1,6 @@
 #pragma once
 #include "Jugadores.h"
+#include "Turno"
 
 using namespace std;
 using ETSIDI::SpriteSequence;
@@ -7,6 +8,7 @@ using namespace ETSIDI;
 
 class Mundo
 {
+protected:
 	float x_ojo;
 	float y_ojo;
 	float z_ojo;
@@ -15,6 +17,13 @@ class Mundo
 	int pos;
 	Jugadores player[10];
 	SpriteSequence sprite;
+	bool check = true;//PONER EN CONDICIONES EN EL CONSTRUCTOR
+	bool click = false;//PONER EN CONDICIONES EN EL CONSTRUCTOR
+	int idr = 0;//PONER EN CONDICIONES EN EL CONSTRUCTOR
+	bool ok = false;//PONER EN CONDICIONES EN EL CONSTRUCTOR
+	Turno turn;
+
+	friend void onMenu(int opcion);
 
 public:
 	Mundo();
@@ -28,4 +37,5 @@ public:
 	void seleccion_personaje();
 	void menu_sure();
 	void menu_hide();
+	int get_menu() { return menu; }
 };

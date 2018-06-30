@@ -17,58 +17,7 @@ enum Casas
 };
 
 
-const char * get_tit(int casa)
-{
-	switch (casa)
-	{
-	case Stark:
-	{
-		return "images/Iconos/Icono Stark";
-		break;
-	}
-	case Tully:
-	{
-		return "images/Iconos/Icono Tully";
-		break;
-	}
-	case Arryn:
-	{
-		return "images/Iconos/Icono Arryn";
-		break;
-	}
-	case Targaryen:
-	{
-		return "images/Iconos/Icono Targaryen";
-		break;
-	}
-	case Greyjoy:
-	{
-		return "images/Iconos/Icono Greyjoy";
-		break;
-	}
-	case Lannister:
-	{
-		return "images/Iconos/Icono Lannister";
-		break;
-	}
-	case Tyrrel:
-	{
-		return "images/Iconos/Icono Tyrell";
-		break;
-	}
-	case Baratheon:
-	{
-		return "images/Iconos/Icono Baratheon";
-		break;
-	}
-	case Martell:
-	{
-		return "images/Iconos/Icono Martell";
-		break;
-	}
-	}
-	return NULL;
-}
+const char * Get_tit(int casa);
 
 enum opc_menu 
 {
@@ -91,10 +40,11 @@ protected:
 	bool IA;
 	const char *S;
 	//string vasallos;
+
 public:
 
 	Jugadores();//constructor por defecto
-	Jugadores(int ataque, int comida, int oro, int diplomacia, int defensa, Casas casa, string nombre, string titulo):Recursos(ataque,comida,oro,diplomacia,defensa), casa(casa), nombre(nombre),titulo(titulo), sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(get_tit(casa),1){}
+	Jugadores(int ataque, int comida, int oro, int diplomacia, int defensa, Casas casa, string nombre, string titulo):Recursos(ataque,comida,oro,diplomacia,defensa), casa(casa), nombre(nombre),titulo(titulo), sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(Get_tit(casa),1){}
 	//constructor en el que se introducen los parámetros
 	Jugadores (const Jugadores &); 
 	bool is_IA() { return IA; }
@@ -113,4 +63,6 @@ public:
 	void dibuja(int dcha, int izq, Casas casa_dcha, Casas casa_izq);
 	int getindex() { return index; }
 	Casas getcasas() { return casa; }
+	void Icon_hide();
+	void Icon();
 };
