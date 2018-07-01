@@ -9,7 +9,7 @@ Mapita::Mapita()
 	destino = 0;
 	for (int i = 0; i < 10; i++)// Inicializar todas las distancias como infintas y stpSet[] a false 
 	{
-		dist[i] = INT_MAX, sptSet[i] = false, nodos[i] = 0;//posibilidad de utilizar memoria dinamica para nodos
+		dist[i] = INT_MAX, sptSet[i] = false;// nodos[i] = 0;//posibilidad de utilizar memoria dinamica para nodos
 	}
 }
 
@@ -24,23 +24,24 @@ int Mapita::minDistance(int dist[], bool sptSet[])
 	return min_index;
 }
 
-void Mapita::printSolution(int n, int dist[], int nodos[], int destino)
+void Mapita::printSolution(int dist[], int destino)
 {
 	cout << "Vertex" << "       " << "Distance from Source" << endl;
 	cout << destino + 1 << "         " << dist[destino] << endl;
-	for (int i = 0; i < n; i++)
+	/*for (int i = 0; i < n-1; i++)
 		cout << nodos[i] << "->";
+	cout << nodos[n-1] << endl;*/
 }
 
 void Mapita::dijkstra()
 {
 	int n = 0, i = 0;//numero de nodos para llegar al destino desde el origen
 	for (int i = 0; i < 10; i++)
-		dist[i] = INT_MAX, sptSet[i] = false, nodos[i] = 0;// Inicializar todas las distancias como infintas y stpSet[] a false 
+		dist[i] = INT_MAX, sptSet[i] = false;//, nodos[i] = 0; Inicializar todas las distancias como infintas y stpSet[] a false 
 
 														   
 	dist[src] = 0;// La distancia del nodo fuente al mismo es siempre 0
-	nodos[0] = src;
+	//nodos[0] = src;
 
 	// Encontrar el camino más corto para todos los vértices
 	for (int count = 0; count < 10 - 1; count++)
@@ -48,6 +49,7 @@ void Mapita::dijkstra()
 
 		int u = minDistance(dist, sptSet);//Coger el vértice con menor distancia de los vértices sin procesar, u siempre es igual a src en la primera iteración
 		sptSet[u] = true; // Marcar el vértice elegido como procesado.
+		
 
 						  //Actualizar el valor de dist en función de los vértices adyacentes del src
 		for (int v = 0; v < 10; v++)
@@ -57,12 +59,12 @@ void Mapita::dijkstra()
 			if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX && dist[u] + graph[u][v] < dist[v])
 			{
 				dist[v] = dist[u] + graph[u][v];
-				nodos[i] = v;
-				n++;
+				//nodos[count] = u;
+				//n++;
 			}
 	}
 
-	printSolution(n, dist, nodos, destino);
+	printSolution(dist, destino);
 }
 
 /*
