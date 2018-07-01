@@ -17,6 +17,7 @@ class Mundo
 	Regiones regi;
 	Accion a;
 	Accion_Engine ac;
+	Mapita map;
 public:
 	Mundo();
 	Mundo(Jugadores jug) :jug(jug) {}
