@@ -244,7 +244,7 @@ int Mejorar::get_option(istream &i)
 bool Accion::check(int id)
 {
 	id = Accion::get_option(cin);
-	if (id = 0)
+	if (id == 0)
 		right = false;
 	else
 		right = true;
@@ -274,7 +274,7 @@ bool Comercio::check(int id)
 bool Diplomacia::check(int id)
 {
 	id = Diplomacia::get_option(cin);
-	if (id = 0)
+	if (id == 0)
 		right = false;
 	else
 		right = true;
@@ -299,11 +299,11 @@ bool Gestion_tropas::gestion_acc(Jugadores & j)
 		if ((tropas > j.ataque && j.ataque != 0) || tropas < 0)
 		{
 			error_click = true;
-			return 0;
+			return false;
 		}
 		else
 		{
-			j.ataque -= tropas;
+			j.ataque -= tropas*0.5;
 		}
 	}
 	return 0;

@@ -39,9 +39,8 @@ const char * Turno::dibuja( Mundo *world)
 		{
 			world->player[world->pos].Icon_hide();
 			world->menu_hide();
-			//no estoy seguro de esto pero no cuadra en ningún otro sitio
 			world->player[world->pos].set_turno();
-			world->player[world->pos].Icon_hide();
+
 			if (world->player[world->pos].is_IA())
 			{
 				if (world->player[world->pos].pseudo_IA())

@@ -148,7 +148,7 @@ public:
 	void delete_() { delete a; }
 	void switch_puntero(IAccion *);
 	void set_num(int num);
-	void set_opcion(int num) { a->set_opcion(num); }
+	void set_opcion(int num) { if(a!=NULL) a->set_opcion(num); }
 };
 
 /*ostream & operator<<(ostream &o, IAccion& b)//obligatorio sobrecargar << como funcion independiente

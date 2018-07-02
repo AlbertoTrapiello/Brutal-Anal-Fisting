@@ -6,8 +6,6 @@
 
 class Turno
 {
-
-
 public:
 	static const char * dibuja(Mundo *world);
 	static void teclado(Mundo *world, unsigned char key);

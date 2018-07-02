@@ -51,7 +51,7 @@ public:
 	bool is_IA() { return IA; }
 	bool mi_turno() { return turno; }
 	bool pseudo_IA();
-	void set_turno() { turno = true; }
+	void set_turno() { turno = true; }//ALGUNA MANERA DE QUITARLO	
 	ostream & print(ostream &o = cout);
 	bool read_file(Jugadores * );
 	//virtual ~Jugadores();
