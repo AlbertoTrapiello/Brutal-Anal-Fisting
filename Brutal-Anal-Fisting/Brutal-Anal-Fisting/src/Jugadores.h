@@ -39,6 +39,7 @@ protected:
 	bool turno;
 	bool IA;
 	const char *S;
+
 	//string vasallos;
 
 public:
@@ -51,7 +52,6 @@ public:
 	bool mi_turno() { return turno; }
 	bool pseudo_IA();
 	void set_turno() { turno = true; }
-	bool Turno(const int &);
 	ostream & print(ostream &o = cout);
 	bool read_file(Jugadores * );
 	//virtual ~Jugadores();
@@ -63,6 +63,11 @@ public:
 	void dibuja(int dcha, int izq, Casas casa_dcha, Casas casa_izq);
 	int getindex() { return index; }
 	Casas getcasas() { return casa; }
-	void Icon_hide();
-	void Icon();
+	void Icon_hide() ;
+	void Icon() ;
+	friend class Gestion_tropas;
+	friend class Diplomacia;
+	friend class Comercio;
+	friend class Mejorar;
+
 };

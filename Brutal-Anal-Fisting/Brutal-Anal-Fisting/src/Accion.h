@@ -17,16 +17,18 @@ public:
 	int id;//id de la accion elegida
 	bool right;//operacion realizada con exito
 	bool fin;
+	bool error_click = false;//HAZLO BIEN
 public:
 	IAccion();
 	IAccion(int id, bool right) :id(id), right(right) {}
 	virtual ostream& print_options(ostream &o = cout) = 0;//parte logica
 	virtual int get_option(istream &i=cin) = 0;//gestiona la opcion elegida por el usuario, parte logica
 	virtual bool check(int id) = 0;//comprueba la viabilidad de la accion, parte logica de momento
-	virtual void draw(Jugadores *, int )=0;//dibuja el menu/los menus, parte grafica
+	virtual void draw( int )=0;//dibuja el menu/los menus, parte grafica
 	virtual void update_id() = 0;
-	virtual 	int gestion_acc( ) = 0;//parte logica
-
+	virtual bool gestion_acc(Jugadores & j) = 0;//parte logica
+	virtual void set_num(int num) = 0;
+	virtual void set_opcion(int num) = 0;
 	//virtual void gestion_acc( ) = 0;//parte grafica
 };
 
@@ -39,10 +41,12 @@ public:
 	int get_option(istream &i=cin);//parte logica
 	bool check(int id);//parte logica de momento (deben ser ambas)
 	//void gestion_acc( );//parte logica
-	void draw(Jugadores *, int id);//parte grafica
+	void draw( int id);//parte grafica
 	friend void onMenu(int opcion);//parte grafica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	int gestion_acc( );//parte logica
+	bool gestion_acc(Jugadores & j);//parte logica
+	void set_num(int num);
+	void set_opcion(int num) {}
 };
 
 
@@ -50,7 +54,7 @@ public:
 class Gestion_tropas :public Accion //relacion de herencia publica (es)
 {
 	int tropas;
-	int opcion;//numero de region
+	int opcion;
 	SpriteSequence my_menu;
 public:
 	Gestion_tropas(): my_menu("images/Troops.png", 1) { id = 0; right = false; tropas = 0; opcion = 0; 	my_menu.setCenter(1, 0);	my_menu.setSize(7, 7);	}
@@ -58,12 +62,13 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	int gestion_acc( );//parte logica
-	void draw(Jugadores *, int id);
+	bool gestion_acc(Jugadores & j);//parte logica
+	void draw( int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.	
 	void menu_hide();
 	void menu_pop();
-
+	void set_num(int num);
+	void set_opcion(int num) { opcion = num; }
 };
 
 class Comercio :public Accion
@@ -77,12 +82,13 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	int gestion_acc( );//parte logica
+	bool gestion_acc(Jugadores & j);//parte logica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
-	void draw(Jugadores *, int id);
+	void draw( int id);
 	void menu_hide();
 	void menu_pop();
-
+	void set_num(int num);
+	void set_opcion(int num) { opcion = num; }
 };
 
 class Diplomacia :public Accion
@@ -96,16 +102,18 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	int gestion_acc( );//parte logica
-	void draw(Jugadores *, int id);
+	bool gestion_acc(Jugadores & j);//parte logica
+	void draw( int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	void menu_hide();
 	void menu_pop();
-
+	void set_num(int num);
+	void set_opcion(int num) { opcion = num; }
 };
 
 class Mejorar :public Accion 
 {
+	int opcion;
 	int cantidad;
 	SpriteSequence my_menu;
 public:
@@ -114,12 +122,13 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	int gestion_acc( );//parte logica
-	void draw(Jugadores *, int id);
+	bool gestion_acc(Jugadores & j);//parte logica
+	void draw( int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	void menu_hide();
 	void menu_pop();
-
+	void set_num(int num);
+	void set_opcion(int num) { opcion = num; }
 };
 
 class Accion_Engine
@@ -132,13 +141,14 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int option);
-	void draw(Jugadores * , int id);
+	void draw(int id);
 	void update_id() { a->id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	//friend ostream& operator<<(ostream&, IAccion &);
-	int gestion_acc( );//parte logica
+	bool gestion_acc(Jugadores & j);//parte logica
 	void delete_() { delete a; }
 	void switch_puntero(IAccion *);
-
+	void set_num(int num);
+	void set_opcion(int num) { a->set_opcion(num); }
 };
 
 /*ostream & operator<<(ostream &o, IAccion& b)//obligatorio sobrecargar << como funcion independiente

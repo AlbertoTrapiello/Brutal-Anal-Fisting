@@ -1,16 +1,16 @@
 #pragma once
-#include "Jugadores.h"
 #include "Mundo.h"
 
 
 
-class Turno: public Mundo
+
+class Turno
 {
-	int pos;
-	int idr;
+
+
 public:
-	Turno();
-	void dibuja(int idr);
-	
-	void teclado();
+	static const char * dibuja(Mundo *world);
+	static void teclado(Mundo *world, unsigned char key);
+	static void raton(Mundo *world, float x, float y);
+	static void acciones(Mundo * world);
 };

@@ -73,6 +73,41 @@ void Jugadores::Icon()
 	icono.setState(1);
 	icono.draw();
 	glPopMatrix();
+
+	stringstream sstr;
+	char aux[5]="    ";
+	const char *attack;
+	sstr << ataque;
+	sstr >> aux;
+	attack = aux;
+	setTextColor(1, 1, 1);
+	setFont("fuentes/Bitwise.ttf", 8);
+	printxy(attack, 4.0, 5);
+	sstr.clear();
+	const char *food;
+	sstr << comida;
+	sstr >> aux;
+	food = aux;
+	printxy(food, 4.0, 4);
+	sstr.clear();
+	const char *gold;
+	sstr << oro;
+	sstr >> aux;
+	gold = aux;
+	printxy(gold, 6, 5);
+	sstr.clear();
+	const char *diplomacy;
+	sstr << diplomacia;
+	sstr >> aux;
+	diplomacy = aux;
+	printxy(diplomacy, 6.0, 4);
+	sstr.clear();
+	const char *defense;
+	sstr << defensa;
+	sstr >> aux;
+	defense = aux;
+	printxy(defense, 8.0, 5);
+
 }
 
 Jugadores::Jugadores():casa(Casas::Stark), sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(Get_tit(casa), 1)
@@ -346,93 +381,6 @@ void Jugadores::dibuja(int dcha, int izq, Casas casa_izq, Casas casa_dcha)
 bool Jugadores::pseudo_IA()
 {
 	
-
-	return false;
-}
-
-bool Jugadores::Turno(const int & id)
-{
-	Accion_Engine action;
-	switch (id)
-	{
-	case gest_tropas:
-	{
-
-		break;
-	}
-	
-	case comercio:
-	{
-		idr = 2;
-		//pensar algo que haga que Accion Engine no apunte a una Accion si no que apunte a un Comercio
-
-		action.switch_puntero(new Comercio);
-
-		break;
-	}
-	case Diplom:
-	{
-
-		break;
-	}
-	case mejorar:
-	{
-
-		break;
-	}
-	case Atacar:
-	{
-
-		action.switch_puntero(new Gestion_tropas);
-	break;
-	}
-	case Defender:
-	{
-
-		action.switch_puntero(new Gestion_tropas);
-		break;
-	}
-	case Generar_tropas:
-	{
-
-		action.switch_puntero(new Gestion_tropas);
-		break;
-	}
-	case Alianza:
-	{
-
-		action.switch_puntero(new Diplomacia);
-		break;
-	}
-	case Guerra:
-	{
-
-		action.switch_puntero(new Diplomacia);
-		break;
-	}
-	case Ataque:
-	{
-
-		action.switch_puntero(new Mejorar);
-		break;
-	}
-	case Defensa:
-	{
-
-		action.switch_puntero(new Mejorar);
-		break;
-	}
-	case Agricultura:
-	{
-
-		action.switch_puntero(new Mejorar);
-		break;
-	}
-	default:
-		idr = 0;
-	}
-
-	action.draw(this,id);
 
 	return false;
 }

@@ -21,6 +21,10 @@ void Gestion_tropas::menu_pop()
 	my_menu.draw();
 	glPopMatrix();
 }
+void Gestion_tropas::set_num(int num)
+{
+	tropas = num;
+}
 void Comercio::menu_hide()
 {
 	glPushMatrix();
@@ -39,6 +43,10 @@ void Comercio::menu_pop()
 	my_menu.setState(1);
 	my_menu.draw();
 	glPopMatrix();
+}
+void Comercio::set_num(int num)
+{
+	cantidad = num;
 }
 void Mejorar::menu_hide()
 {
@@ -60,6 +68,11 @@ void Mejorar::menu_pop()
 	glPopMatrix();
 }
 
+void Mejorar::set_num(int num)
+{
+	cantidad = num;
+}
+
 void Diplomacia::menu_hide()
 {
 	glPushMatrix();
@@ -78,6 +91,11 @@ void Diplomacia::menu_pop()
 	my_menu.setState(1);
 	my_menu.draw();
 	glPopMatrix();
+}
+
+void Diplomacia::set_num(int num)
+{
+	amistad = num;
 }
 
 IAccion::IAccion()
@@ -274,86 +292,107 @@ bool Mejorar::check(int id)
 	return right;
 }
 
-int Gestion_tropas::gestion_acc()
+bool Gestion_tropas::gestion_acc(Jugadores & j)
 {
-	right = Gestion_tropas::check(id);
-	switch (idr)
+	if (idr == 5)
 	{
-	case 5://Atacar
-	{
-		cout << "Escriba el numero de la region que desea atacar" << endl;
-		cin >> opcion;
-		while (right == false)//gestionar que la region sea valida con check
+		if ((tropas > j.ataque && j.ataque != 0) || tropas < 0)
 		{
-			cout << "Opcion no valida" << endl;
-			cout << "Escriba el numero de la region que desea atacar" << endl;
-			cin >> opcion;
+			error_click = true;
+			return 0;
 		}
-		if (right == true)
+		else
 		{
-			cout << "Introduzca el numero de tropas con las que desea atacar" << endl;
-			cin >> tropas;
-			return tropas;
+			j.ataque -= tropas;
 		}
-		return -1;
 	}
-	break;
-	case 6://poner condicion de que esten en guerra con la region, sino es ilogico 
-	{
-		cout << "Introduzca el numero de tropas con las que desea defender su region" << endl;
-		cin >> tropas;
-		return tropas;
-	}
-	break;
-	case 7://Generar
-	{
-		cout << "Introduzca el numero de tropas que quiere generar" << endl;
-		cin >> tropas;
-		return tropas;
-	}
-	break;
-	default:
-		return -1;
-		break;
-	}
-	return -1;
+	return 0;
 }
 
 
-int Comercio::gestion_acc()
+bool Comercio::gestion_acc(Jugadores & j)
 {
-	cout << "Seleccione la opcion de comercio: 1. Comida a cambio de oro 2. Oro a cambio de comida 3. Diplomacia a cambio de oro 4. Oro a cambio de diplomacia" << endl;
-	cin >> opcion;
+	//cout << "He hecho la opción ";
 	switch (opcion)
 	{
 	case 1:
-		cout << "2 de agricultura por cada moneda de oro" << endl;
-		cin >> cantidad;
-		return cantidad;
-		break;
-	case 2:
-		cout << "2 de agricultura por cada moneda de oro" << endl;
-		cin >> cantidad;
-		return cantidad;
-		break;
-	case 3:
-		cout << "1 de diplomacia por cada moneda de oro" << endl;
-		cin >> cantidad;
-		return cantidad;
-		break;
-	case 4:
-		cout << "1 de diplomacia por cada moneda de oro" << endl;
-		cin >> cantidad;
-		return cantidad;
-		break;
-	default:
-		cout << "Opcion incorrecta" << endl;
-		return 0;
+	{
+		if (j.comida > 50)
+		{
+			j.comida -= 50;
+			j.oro += 25;
+			error_click = false;
+			cout << "comida se ha reducido en 50" << endl;
+			return true;
+		}
+		else
+		{
+			error_click = true;
+			return false;
+		}
+		cout << 1 << "error:" << error_click << endl;
 		break;
 	}
+	case 2:
+	{
+		if(j.oro > 50)
+		{
+			j.oro -= 100;
+			j.comida += 50;
+			error_click = false;
+			cout << "oro se ha reducido en 100" << endl;
+			return true;
+		}
+		else
+		{
+			error_click = true;
+			return false;
+		}
+		cout << 2 << "error:" << error_click << endl;
+		break;
+	}
+	case 3:
+	{
+		if (j.diplomacia > 10)
+		{
+			j.diplomacia -= 10;
+			j.oro += 50;
+			cout << "diplomacia se ha reducido en 10" << endl;
+			error_click = false;
+			return true;
+		}
+		else
+		{
+			error_click = true;
+			return false;
+		}
+		cout << 3 << "error:" << error_click << endl;
+		break;
+	}
+	case 4:
+	{
+		if (j.oro > 150)
+		{
+			j.oro -= 150;
+			j.diplomacia += 50;
+			cout << "oro se ha reducido en 150" << endl;
+			error_click = false;
+			return true;
+		}
+		else
+		{
+			error_click = true;
+			return false;
+		}
+		cout << 4 << "error:" << error_click << endl;
+		break;
+	}
+	}
+
+	return 0;
 }
 
-int Diplomacia :: gestion_acc()
+bool Diplomacia :: gestion_acc(Jugadores & j)
 {
 	right = Diplomacia::check(id);
 	if (idr == 8)//Diplomacia
@@ -394,7 +433,7 @@ int Diplomacia :: gestion_acc()
 	return 0;
 }
 
-int Mejorar::gestion_acc()
+bool Mejorar::gestion_acc(Jugadores & j)
 {
 
 	right = Mejorar::check(id);
@@ -449,17 +488,22 @@ bool Accion_Engine::check(int option)
 
 
 
-void Accion::draw(Jugadores * j, int id) {
+void Accion::draw(int id) {
 
 }
 
-int Accion::gestion_acc( )
+bool Accion::gestion_acc(Jugadores & j)
 {
 	//en principio esta no hace nada
-	return 0;
+	return false;
 }
 
-void Gestion_tropas::draw(Jugadores * j, int id)//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
+void Accion::set_num(int num)
+{
+	
+}
+
+void Gestion_tropas::draw(int id)//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
 {
 	menu_pop();
 	if (id == 5)//Atacar
@@ -529,7 +573,7 @@ void Gestion_tropas::draw(Jugadores * j, int id)//opcion tiene que guardar el nu
 	}
 }
 
-void Comercio::draw(Jugadores * j, int id)
+void Comercio::draw(int id)
 {
 	menu_pop();
 	if (id == 2)
@@ -586,7 +630,7 @@ void Comercio::draw(Jugadores * j, int id)
 
 }
 
-void Diplomacia::draw(Jugadores * j, int id)
+void Diplomacia::draw(int id)
 {
 	menu_pop();
 	if (id == 8)//Diplomacia
@@ -632,7 +676,7 @@ void Diplomacia::draw(Jugadores * j, int id)
 		}
 }
 
-void Mejorar::draw(Jugadores * j, int id)
+void Mejorar::draw(int id)
 {
 	menu_pop();
 	if (id == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
@@ -659,16 +703,17 @@ void Mejorar::draw(Jugadores * j, int id)
 	}
 }
 
-void Accion_Engine::draw(Jugadores * o, int id)
+void Accion_Engine::draw( int id)
 {
 	if (a!=NULL)
-		a->draw(o,id);
+		a->draw(id);
 }
 
-int Accion_Engine::gestion_acc( )
+bool Accion_Engine::gestion_acc(Jugadores & j)
 {
-	a->gestion_acc();
-	return 0;
+	if(a!=NULL)
+		return a->gestion_acc(j);
+	
 }
 
 void Accion_Engine::switch_puntero(IAccion *c)
@@ -680,4 +725,9 @@ void Accion_Engine::switch_puntero(IAccion *c)
 	}
 	else
 		a = c;
+}
+
+void Accion_Engine::set_num(int num)
+{
+	a->set_num(num);
 }

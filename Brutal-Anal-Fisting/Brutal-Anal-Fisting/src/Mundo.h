@@ -1,6 +1,6 @@
 #pragma once
 #include "Jugadores.h"
-#include "Turno"
+#include "Accion.h"
 
 using namespace std;
 using ETSIDI::SpriteSequence;
@@ -8,7 +8,7 @@ using namespace ETSIDI;
 
 class Mundo
 {
-protected:
+
 	float x_ojo;
 	float y_ojo;
 	float z_ojo;
@@ -21,9 +21,12 @@ protected:
 	bool click = false;//PONER EN CONDICIONES EN EL CONSTRUCTOR
 	int idr = 0;//PONER EN CONDICIONES EN EL CONSTRUCTOR
 	bool ok = false;//PONER EN CONDICIONES EN EL CONSTRUCTOR
-	Turno turn;
-
-	friend void onMenu(int opcion);
+	char *numero = new char[5];
+	const char *resultado = " ";
+	int contador;
+	int region = -1;
+	int num;//guarda el varo introducido por teclado
+	Accion_Engine action;
 
 public:
 	Mundo();
@@ -32,10 +35,15 @@ public:
 	void inicializa();
 	void dibuja();
 	void raton(int button, int x, int y);
-	void Turno();
-	bool check_click(float x, float y);
+	int check_click(float x, float y);
 	void seleccion_personaje();
 	void menu_sure();
 	void menu_hide();
 	int get_menu() { return menu; }
+	void turn();
+	bool check_action();
+	bool draw_menus(const int & id);
+
+	friend class Turno;
+	friend void onMenu(int opcion);
 };

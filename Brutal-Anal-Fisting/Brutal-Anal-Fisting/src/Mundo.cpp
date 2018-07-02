@@ -1,6 +1,7 @@
 #include "ETSIDI.h"
 #include "glut.h"
 #include "Mundo.h"
+#include "Turno.h"
 
 #define START_X_MIN 151
 #define START_X_MAX 311
@@ -31,7 +32,6 @@ using namespace ETSIDI;
 
 
 
-
 void Mundo::seleccion_personaje()
 {
 	int prev = pos - 1, next = pos + 1;
@@ -53,6 +53,85 @@ void Mundo::menu_hide()
 	glPopMatrix();
 }
 
+void Mundo::turn()
+{
+	if (menu == 3)
+	{
+		Turno::acciones(this);
+	}
+}
+
+bool Mundo::check_action()
+{
+	switch (idr)
+	{
+	case Atacar:
+	{
+		if (region == pos)
+		{
+			cout << "La region vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+			return false;
+		}
+		return true;
+		break;
+	}
+	case Defender:
+	{
+		if (region == pos)
+			return true;
+		return false;
+		break;
+	}
+	case Generar_tropas:
+	{
+		if ((num >= 0) && (num < 99999))
+			return true;
+		else
+			return false;
+			
+		break;
+	}
+	case comercio:
+	{
+		if ((num >= 0) && (num < 99999))
+			return true;
+		else
+			return false;
+		break;
+	}
+	case Guerra:
+	{
+		if (region == pos)
+			return false;
+		return true;
+		break;
+	}
+	case Alianza:
+	{
+		if (region == pos)
+			return false;
+		return true;
+
+		break;
+	}
+	//case Ataque:
+	//{
+
+	//	break;
+	//}
+	//case Agricultura:
+	//{
+
+	//	break;
+	//}
+	//case Defensa:
+	//{
+	//	break;
+	//}
+	}
+	return false;
+}
+
 void Mundo::menu_sure()
 {
 	glPushMatrix();
@@ -63,14 +142,15 @@ void Mundo::menu_sure()
 	glPopMatrix();
 }
 
-bool Mundo::check_click(float x, float y)
+int Mundo::check_click(float x, float y)
 {
 	for (int i = 0; i < 10; i++)
 		if (player[i].check_region(x, y))
 		{
-			cout << "Está en la región ";
+			//cout << "Está en la región ";
 			player[i].print();
-			return true;
+			//cout << "soy la region nº: " << region << endl;
+			return i;
 		}
 
 	return false;
@@ -133,8 +213,11 @@ void Mundo::dibuja()//TODOS LOS NÚMEROS QUE ESTÁN SUELTOS PODRÍAN ESTAR EN DEFIN
 		setFont("fuentes/Game of Thrones.ttf", 16);
 		printxy("Yep", x_draw, y_draw);*/
 		
-		turn.dibuja();
-		
+		setTextColor(1, 1, 1);
+		setFont("fuentes/Bitwise.ttf", 8);
+		printxy(Turno::dibuja(this), 4.0, 5);
+
+
 		break;
 	}
 
@@ -194,8 +277,7 @@ void Mundo::raton(int button, int x, int y)
 	{
 		// identificación de las zonas, puede mostrar una serie de aspectos clave de la zona
 		//salvo cuando es el turno del jugador que pasa a relizar la llamada a las acciones
-		check_click(x, y);
-		
+	
 		if (click)
 		{
 			if ((x <= MENU_CHECK_OK_X_MAX && x >= MENU_CHECK_OK_X_MIN) && (y <= MENU_CHECK_OK_Y_MAX && y >= MENU_CHECK_OK_Y_MIN))
@@ -211,17 +293,16 @@ void Mundo::raton(int button, int x, int y)
 				ok = false;
 			}
 		}
-		cout << "Soy IDR" << idr << endl;
+		//cout << "Soy IDR" << idr << endl;
+		region=check_click(x,y);
+		Turno::raton(this,x,y);
 		//draw_text(x, y);
 		break;
 	}
 	}
 }
 
-void Mundo::Turno()//gestiona el turno así como los eventos dentro de cada turno->pasar de un jugador a otro
-{
 
-}
 
 
 void Mundo::inicializa()
@@ -230,7 +311,7 @@ void Mundo::inicializa()
 	y_ojo = 0.1;
 	z_ojo = 30;
 	menu = 3;
-	turno = 0;
+	this->turno = 0;
 	pos = 0;
 	if (!player[0].read_file(player))
 		cout << "ERROR" << endl;//gestionar el error si no se abre el fichero
@@ -241,16 +322,21 @@ Mundo::Mundo():sprite("images/sprite_menu_sure.png",1)
 {
 	sprite.setCenter(1, 0);
 	sprite.setSize(7, 7);
+	for (int i = 0; i < 5; i++)
+		numero[i] = ' ';
+	numero[5] = '\0';
 }
 
 bool teclas = false;
 
 void Mundo::tecla(unsigned char key)//CHEATS
 {
-	if (teclas)
-	{
-
-	}
+	if(menu==3)
+		if (idr == 7 || (idr < 13 && idr>9))
+		{
+			Turno::teclado(this, key);
+		}
+		
 }
 void Mundo::teclaEspecial(unsigned char key)//CHEATS
 {
@@ -265,3 +351,89 @@ void Mundo::teclaEspecial(unsigned char key)//CHEATS
 	}
 }
 
+
+bool Mundo::draw_menus(const int & id)
+{
+	switch (id)
+	{
+	case gest_tropas:
+	{
+
+		break;
+	}
+
+	case comercio:
+	{
+		idr = 2;
+		//pensar algo que haga que Accion Engine no apunte a una Accion si no que apunte a un Comercio
+
+		action.switch_puntero(new Comercio);
+
+		break;
+	}
+	case Diplom:
+	{
+
+		break;
+	}
+	case mejorar:
+	{
+
+		break;
+	}
+	case Atacar:
+	{
+
+		action.switch_puntero(new Gestion_tropas);
+		break;
+	}
+	case Defender:
+	{
+
+		action.switch_puntero(new Gestion_tropas);
+		break;
+	}
+	case Generar_tropas:
+	{
+
+		action.switch_puntero(new Gestion_tropas);
+		break;
+	}
+	case Alianza:
+	{
+
+		action.switch_puntero(new Diplomacia);
+		break;
+	}
+	case Guerra:
+	{
+
+		action.switch_puntero(new Diplomacia);
+		break;
+	}
+	case Ataque:
+	{
+
+		action.switch_puntero(new Mejorar);
+		break;
+	}
+	case Defensa:
+	{
+
+		action.switch_puntero(new Mejorar);
+		break;
+	}
+	case Agricultura:
+	{
+
+		action.switch_puntero(new Mejorar);
+		break;
+	}
+	default:
+		idr = 0;
+	}
+
+	action.draw(id);
+
+	return false;
+}

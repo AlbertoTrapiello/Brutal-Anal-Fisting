@@ -27,7 +27,6 @@
     <ClCompile Include="src\Recursos.cpp" />
     <ClCompile Include="src\Region.cpp" />
     <ClCompile Include="src\Turno.cpp" />
-    <ClCompile Include="Turno.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\ETSIDI.h" />
@@ -39,7 +38,6 @@
     <ClInclude Include="src\Recursos.h" />
     <ClInclude Include="src\Region.h" />
     <ClInclude Include="src\Turno.h" />
-    <ClInclude Include="Turno.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\ETSIDI.lib" />
