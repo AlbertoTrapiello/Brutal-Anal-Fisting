@@ -28,6 +28,7 @@ class Mundo
 	int region = -1;
 	int num;//guarda el varo introducido por teclado
 	bool borrar = false;
+	bool save;//1 si hay partida guardada, 0 si no la hay
 	Accion_Engine action;
 
 public:
@@ -45,6 +46,9 @@ public:
 	void turn();
 	bool check_action();
 	bool draw_menus(const int & id);
+	bool guardar_partida();//guarda la partida en un fichero de texto
+	bool cargar_partida();//carga la partida guardada en caso de que haya
+	void reiniciar_partida();//reinicia la partida
 
 	friend class Turno;
 	friend void onMenu(int opcion);

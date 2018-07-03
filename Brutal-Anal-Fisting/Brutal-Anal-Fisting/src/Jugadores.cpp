@@ -421,7 +421,8 @@ bool Jugadores::read_file(Jugadores *p)
 		p[i].print(o);
 		p[i].Recursos::read_file();
 		p[i].region.read_file(p[i].nombre);
-
+		for (int j = 0; j < 10; j++)
+			f >> p[i].relaciones[j];
 		switch (p[i].casa)
 		{
 		case Stark:

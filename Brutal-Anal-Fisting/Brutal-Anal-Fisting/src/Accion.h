@@ -28,7 +28,7 @@ public:
 	virtual bool check(int id) = 0;//comprueba la viabilidad de la accion, parte logica de momento
 	virtual void draw( int )=0;//dibuja el menu/los menus, parte grafica
 	virtual void update_id() = 0;
-	virtual bool gestion_acc(Jugadores & j) = 0;//parte logica
+	virtual bool gestion_acc(Jugadores & j1, Jugadores & j2) = 0;//parte logica
 	virtual void set_cantidad(int num) = 0;
 	virtual void set_opcion(int num) = 0;
 	//virtual void gestion_acc( ) = 0;//parte grafica
@@ -43,7 +43,7 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	bool gestion_acc(Jugadores & j);//parte logica
+	bool gestion_acc(Jugadores & j1, Jugadores &j2);//parte logica
 	void draw( int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.	
 	void menu_hide();
@@ -61,7 +61,7 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	bool gestion_acc(Jugadores & j);//parte logica
+	bool gestion_acc(Jugadores & j1, Jugadores &j2);//parte logica
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	void draw( int id);
 	void menu_hide();
@@ -79,7 +79,7 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	bool gestion_acc(Jugadores & j);//parte logica
+	bool gestion_acc(Jugadores & j1, Jugadores &j2);//parte logica
 	void draw( int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	void menu_hide();
@@ -98,7 +98,7 @@ public:
 	ostream & print_options(ostream &o = cout);
 	int get_option(istream &i=cin);
 	bool check(int id);
-	bool gestion_acc(Jugadores & j);//parte logica
+	bool gestion_acc(Jugadores & j1, Jugadores &j2);//parte logica
 	void draw( int id);
 	void update_id() { id = idr; }//Cuando estamos utilizando el menu gráfico y no la entrada por teclado necesitamos actualizar el valor de id a idr.
 	void menu_hide();
@@ -118,7 +118,7 @@ public:
 	int get_option();
 	void draw(int id);
 	//friend ostream& operator<<(ostream&, IAccion &);
-	bool gestion_acc(Jugadores & j);//parte logica
+	bool gestion_acc(Jugadores & j1, Jugadores &j2);//parte logica
 	void delete_() { delete a; }
 	void switch_puntero(IAccion *);
 	void set_cantidad(int num) { if(a!=NULL) a->set_cantidad(num); }

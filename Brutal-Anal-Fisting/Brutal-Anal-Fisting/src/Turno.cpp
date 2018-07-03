@@ -213,7 +213,7 @@ void Turno::acciones(Mundo * world)
 			if (world->check_action())
 			{
 				
-				if (world->action.gestion_acc(world->player[world->pos]))//queda hacer lo que convenga para cada uno de los casos
+				if (world->action.gestion_acc(world->player[world->pos],world->player[world->region]))//queda hacer lo que convenga para cada uno de los casos
 					world->pos++;
 			}
 			//cout << "la opcion que tengo guardada es " << world->action.get_option() << endl;

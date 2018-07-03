@@ -40,6 +40,7 @@ protected:
 	bool IA;
 	const char *S;
 	char aux[25];
+	bool relaciones[10];//Amistad=0. Enemistad=1
 	//string vasallos;
 
 public:
@@ -74,5 +75,5 @@ public:
 	friend class Diplomacia;
 	friend class Comercio;
 	friend class Mejorar;
-
+	friend class Mundo;
 };
