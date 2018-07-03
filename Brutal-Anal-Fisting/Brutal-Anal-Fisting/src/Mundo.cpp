@@ -438,7 +438,7 @@ bool Mundo::draw_menus(const int & id)
 	return false;
 }
 
-bool Mundo::guardar_partida()
+bool Mundo::guardar_partida()//Añadir boton de guardar partida
 {
 	ofstream f("Partida.txt", ofstream::out);
 	if (!f)
@@ -449,9 +449,63 @@ bool Mundo::guardar_partida()
 	else
 	{
 		f << turno << endl;
+		f << pos << endl;
 		f << player[pos].casa << endl;
-
-
+		for (int i = 0; i < 10; i++)
+			f << player[pos].relaciones[i];
+		f << player[pos].ataque << " " << player[pos].comida << " " << player[pos].oro << " " << player[pos].diplomacia << " " << player[pos].defensa << endl;
+		//Guardar tambien zonas conquistadas
+		for (int j = 0; j != pos, j<10; j++)//poner coindicion extra para  player[j].defensa != 0?
+		{
+			f << player[j].casa << endl;
+			for (int i = 0; i < 10; i++)
+				f << player[j].relaciones[i];
+			f << player[j].ataque << " " << player[j].comida << " " << player[j].oro << " " << player[j].diplomacia << " " << player[j].defensa << endl;
+			//Guardar tambien zonas conquistadas
+		}
+		f.close();
+		return true;
 	}
+}
 
+bool Mundo::cargar_partida()
+{
+	string c;
+	ifstream g("Partida.txt", ifstream::in);
+	if(!g)
+	{
+		cout << "el fichero no se ha abierto correctamente" << endl;
+		return false;
+	}
+	else
+	{
+		g >> turno;
+		g >> pos;
+		g >> c;
+		player[pos].casa = player[pos].stringtoCasas(c);
+		for (int i = 0; i < 10; i++)
+			g >> player[pos].relaciones[i];
+		g >> player[pos].ataque;
+		g >> player[pos].comida;
+		g >> player[pos].oro;
+		g >> player[pos].diplomacia;
+		g >> player[pos].defensa;
+		//Cargar tambien zonas conquistadas
+		for (int j = 0; j != pos, j<10; j++)//poner coindicion extra para  player[j].defensa != 0?
+		{
+			c.clear();
+			g>> c;
+			player[j].casa = player[j].stringtoCasas(c);
+			for (int i = 0; i < 10; i++)
+				g >> player[j].relaciones[i];
+			g >> player[j].ataque;
+			g >> player[j].comida;
+			g >> player[j].oro;
+			g >> player[j].diplomacia;
+			g >> player[j].defensa;
+			//Cargar tambien zonas conquistadas
+		}
+		g.close();
+		return true;
+	}
 }

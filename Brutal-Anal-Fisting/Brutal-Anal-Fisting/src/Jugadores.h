@@ -13,7 +13,7 @@ using namespace ETSIDI;
 
 enum Casas
 {
-	Stark = 1, Tully = 2, Arryn = 3, Targaryen = 4, Greyjoy = 5, Lannister = 6, Tyrrel = 7, Baratheon = 8, Martell = 9
+	Stark = 1, Tully = 2, Arryn = 3, Targaryen = 4, Greyjoy = 5, Lannister = 6, Tyrrel = 7, Baratheon = 8, Martell = 9, Iron_throne=10
 };
 
 
@@ -69,5 +69,5 @@ public:
 	friend class Diplomacia;
 	friend class Comercio;
 	friend class Mejorar;
-
+	friend class Mundo;
 };
