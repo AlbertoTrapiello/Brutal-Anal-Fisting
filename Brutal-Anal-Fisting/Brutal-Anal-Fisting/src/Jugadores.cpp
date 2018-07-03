@@ -126,7 +126,8 @@ Jugadores::Jugadores():casa(Casas::Stark), sprite("images/sprite_GoT_recortado.p
 	arrow1.setSize(2, 2);
 	icono.setCenter(1, 0);
 	icono.setSize(7, 7);
-
+	for (int i = 0; i < 25; i++)
+		aux[i] = ' ';
 	index = 0;
 }
 
@@ -162,6 +163,14 @@ Casas Jugadores::stringtoCasas(string e)
 	sstr>>r;
 	Casas res=static_cast<Casas>(r);
 	return res;
+}
+
+char * Jugadores::get_nombre()
+{
+	stringstream sstr;
+	sstr << nombre ;
+	sstr >> aux;
+	return aux;
 }
 
 bool Jugadores::check_region(float x, float y)

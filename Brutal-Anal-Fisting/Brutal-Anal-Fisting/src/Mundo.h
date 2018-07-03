@@ -19,6 +19,7 @@ class Mundo
 	SpriteSequence sprite;
 	bool check = true;//PONER EN CONDICIONES EN EL CONSTRUCTOR
 	bool click = false;//PONER EN CONDICIONES EN EL CONSTRUCTOR
+	bool error_region = false;
 	int idr = 0;//PONER EN CONDICIONES EN EL CONSTRUCTOR
 	bool ok = false;//PONER EN CONDICIONES EN EL CONSTRUCTOR
 	char *numero = new char[5];
@@ -26,6 +27,7 @@ class Mundo
 	int contador;
 	int region = -1;
 	int num;//guarda el varo introducido por teclado
+	bool borrar = false;
 	Accion_Engine action;
 
 public:

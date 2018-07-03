@@ -39,13 +39,17 @@ protected:
 	bool turno;
 	bool IA;
 	const char *S;
-
+	char aux[25];
 	//string vasallos;
 
 public:
 
 	Jugadores();//constructor por defecto
-	Jugadores(int ataque, int comida, int oro, int diplomacia, int defensa, Casas casa, string nombre, string titulo):Recursos(ataque,comida,oro,diplomacia,defensa), casa(casa), nombre(nombre),titulo(titulo), sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(Get_tit(casa),1){}
+	Jugadores(int ataque, int comida, int oro, int diplomacia, int defensa, Casas casa, string nombre, string titulo):Recursos(ataque,comida,oro,diplomacia,defensa), casa(casa), nombre(nombre),titulo(titulo), sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(Get_tit(casa),1)
+	{
+		for (int i = 0; i < 25; i++)
+			aux[i] = ' ';
+	}
 	//constructor en el que se introducen los parámetros
 	Jugadores (const Jugadores &); 
 	bool is_IA() { return IA; }
@@ -59,6 +63,7 @@ public:
 	void set_Casa(Casas c) { casa = c; }
 	void set_nombre(string s) { nombre = s; }
 	void set_titulo(string t) { titulo = t; }
+	char * get_nombre();
 	bool check_region(float x, float y);
 	void dibuja(int dcha, int izq, Casas casa_dcha, Casas casa_izq);
 	int getindex() { return index; }

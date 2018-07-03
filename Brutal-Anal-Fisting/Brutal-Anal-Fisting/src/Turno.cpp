@@ -19,7 +19,10 @@
 #define OPC_4_X_MIN 507
 #define OPC_4_Y_MAX 166
 #define OPC_4_Y_MIN 157
-
+#define OK_X_MAX 670
+#define OK_X_MIN 647
+#define OK_Y_MAX 165
+#define OK_Y_MIN 152
 
 using namespace std;
 
@@ -58,6 +61,19 @@ const char * Turno::dibuja( Mundo *world)
 		{
 			world->menu_hide();
 			world->player[world->pos].Icon();
+		}
+	}
+
+	if (world->idr==5||world->idr==6||world->idr==8||world->idr==9)
+	{
+		if ((world->error_region) && (world->ok))
+			return "Seleccione otra ";
+		if ((!world->error_region) && (world->ok))
+		{
+			const char * a;
+			a = world->player[world->region].get_nombre();
+			cout << a;
+			return a;
 		}
 	}
 	return world->resultado;
@@ -134,7 +150,7 @@ void Turno::teclado(Mundo * world,unsigned char key)
 		stringstream sstr;
 		sstr << world->numero;
 		sstr >> world->num;
-		world->action.set_num(world->num);
+		world->action.set_cantidad(world->num);
 		cout << "el world->numero en int es: " << world->num << endl;
 		world->resultado = world->numero;
 	}
@@ -146,14 +162,38 @@ void Turno::raton(Mundo * world, float x, float y)
 {
 	if (world->idr == 2)
 	{
+		cout << "eeey que he puesto la opcion: ";
 		if ((x <= OPC_1_X_MAX && x >= OPC_1_X_MIN) && (y <= OPC_1_Y_MAX && y >= OPC_1_Y_MIN))
+		{
 			world->action.set_opcion(1);
+			cout << "1" << endl;
+		}
 		if ((x <= OPC_2_X_MAX && x >= OPC_2_X_MIN) && (y <= OPC_2_Y_MAX && y >= OPC_2_Y_MIN))
+		{
 			world->action.set_opcion(2);
+			cout << "2" << endl;
+		}
 		if ((x <= OPC_3_X_MAX && x >= OPC_3_X_MIN) && (y <= OPC_3_Y_MAX && y >= OPC_3_Y_MIN))
+		{
 			world->action.set_opcion(3);
+			cout << "3" << endl;
+		}
 		if ((x <= OPC_4_X_MAX && x >= OPC_4_X_MIN) && (y <= OPC_4_Y_MAX && y >= OPC_4_Y_MIN))
+		{
 			world->action.set_opcion(4);
+			cout << "4" << endl;
+		}
+		
+	}
+	if (world->idr == 5 || world->idr == 6 || world->idr == 8 || world->idr == 9)
+	{
+		if ((!world->error_region) && (world->ok))
+		{
+			if ((x <= OK_X_MAX && x >= OK_X_MIN) && (y <= OK_Y_MAX && y >= OK_Y_MIN))
+			{
+				world->click = 0;
+			}
+		}
 	}
 
 }
@@ -172,9 +212,11 @@ void Turno::acciones(Mundo * world)
 		{
 			if (world->check_action())
 			{
+				
 				if (world->action.gestion_acc(world->player[world->pos]))//queda hacer lo que convenga para cada uno de los casos
 					world->pos++;
 			}
+			//cout << "la opcion que tengo guardada es " << world->action.get_option() << endl;
 
 		}
 	}

@@ -63,55 +63,104 @@ void Mundo::turn()
 
 bool Mundo::check_action()
 {
+	
 	switch (idr)
 	{
 	case Atacar:
 	{
-		if (region == pos)
+		if ((region == pos)||(region == -1))
 		{
-			cout << "La region vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+			//cout << "La region No vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+			error_region = true;
 			return false;
 		}
+		//cout << "La region vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+		error_region = false;
 		return true;
 		break;
 	}
 	case Defender:
 	{
-		if (region == pos)
+		if ((region == pos) && (region != -1))
+		{
+			//cout << "La region vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+			error_region = false;
+			if (borrar)
+			{
+				if (contador >= 0)
+				{
+					numero[--contador] = ' ';
+					if (contador == -1)
+						contador = 0;
+					//cout << numero << "Borrando voy" << endl;
+					stringstream sstr;
+					sstr << numero;
+					sstr >> num;
+					action.set_cantidad(num);
+					//cout << "el world->numero en int es: " << num << endl;
+					resultado = numero;
+					borrar = false;
+				}
+			}
+			action.set_opcion(region);
+			break;
 			return true;
+		}
+		//cout << "La region No vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+		error_region = true;
 		return false;
 		break;
 	}
 	case Generar_tropas:
 	{
-		if ((num >= 0) && (num < 99999))
-			return true;
-		else
-			return false;
-			
+		if (borrar)
+		{
+			if (contador >= 0)
+			{
+				numero[--contador] = ' ';
+				if (contador == -1)
+					contador = 0;
+				//cout << numero << "Borrando voy" << endl;
+				stringstream sstr;
+				sstr << numero;
+				sstr >> num;
+				action.set_cantidad(num);
+				//cout << "el world->numero en int es: " << num << endl;
+				resultado = numero;
+				borrar = false;
+			}
+		}
+		action.set_opcion(num);
 		break;
 	}
 	case comercio:
 	{
-		if ((num >= 0) && (num < 99999))
-			return true;
-		else
-			return false;
 		break;
 	}
 	case Guerra:
 	{
-		if (region == pos)
+		if ((region == pos) || (region == -1))
+		{
+			//cout << "La region No vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+			error_region = true;
 			return false;
+		}
+		//cout << "La region vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+		error_region = false;
 		return true;
 		break;
 	}
 	case Alianza:
 	{
-		if (region == pos)
+		if ((region == pos) || (region == -1))
+		{
+			//cout << "La region No vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+			error_region = true;
 			return false;
+		}
+		//cout << "La region vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
+		error_region = false;
 		return true;
-
 		break;
 	}
 	//case Ataque:
@@ -152,8 +201,7 @@ int Mundo::check_click(float x, float y)
 			//cout << "soy la region nº: " << region << endl;
 			return i;
 		}
-
-	return false;
+	return -1;
 }
 
 void Mundo::dibuja()//TODOS LOS NÚMEROS QUE ESTÁN SUELTOS PODRÍAN ESTAR EN DEFINE'S	
@@ -215,8 +263,7 @@ void Mundo::dibuja()//TODOS LOS NÚMEROS QUE ESTÁN SUELTOS PODRÍAN ESTAR EN DEFIN
 		
 		setTextColor(1, 1, 1);
 		setFont("fuentes/Bitwise.ttf", 8);
-		printxy(Turno::dibuja(this), 4.0, 5);
-
+		printxy(Turno::dibuja(this), 4, 6);
 
 		break;
 	}
@@ -293,17 +340,16 @@ void Mundo::raton(int button, int x, int y)
 				ok = false;
 			}
 		}
-		//cout << "Soy IDR" << idr << endl;
-		region=check_click(x,y);
+
+		if(idr==Atacar||idr==Defender||idr==Guerra||idr==Alianza)
+			region = check_click(x, y);
+		cout << "X: " << x << "Y: " << y << endl;
 		Turno::raton(this,x,y);
 		//draw_text(x, y);
 		break;
 	}
 	}
 }
-
-
-
 
 void Mundo::inicializa()
 {
@@ -331,24 +377,39 @@ bool teclas = false;
 
 void Mundo::tecla(unsigned char key)//CHEATS
 {
-	if(menu==3)
+	if (menu == 3)
+	{
 		if (idr == 7 || (idr < 13 && idr>9))
 		{
 			Turno::teclado(this, key);
 		}
-		
+		if ((idr == Atacar) || (idr == Defender))
+		{
+			Turno::teclado(this, key);
+		}
+	}
 }
 void Mundo::teclaEspecial(unsigned char key)//CHEATS
 {
-	switch (key)
-	{
-	case GLUT_KEY_LEFT:
-		
-		break;
-	case GLUT_KEY_RIGHT:
-		
-		break;
-	}
+
+	if (menu == 3)
+		if (idr == 7 || (idr < 13 && idr>9))
+		{
+			
+			switch (key)
+			{
+			case GLUT_KEY_LEFT:
+			{
+				cout << "A borrar" << endl;
+				borrar = true;
+				return;
+			}
+			case GLUT_KEY_RIGHT:
+
+				break;
+			}
+			borrar = false;
+		}
 }
 
 
@@ -401,13 +462,11 @@ bool Mundo::draw_menus(const int & id)
 	}
 	case Alianza:
 	{
-
 		action.switch_puntero(new Diplomacia);
 		break;
 	}
 	case Guerra:
 	{
-
 		action.switch_puntero(new Diplomacia);
 		break;
 	}
@@ -429,8 +488,6 @@ bool Mundo::draw_menus(const int & id)
 		action.switch_puntero(new Mejorar);
 		break;
 	}
-	default:
-		idr = 0;
 	}
 
 	action.draw(id);

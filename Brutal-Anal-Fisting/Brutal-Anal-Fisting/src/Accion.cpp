@@ -21,10 +21,7 @@ void Gestion_tropas::menu_pop()
 	my_menu.draw();
 	glPopMatrix();
 }
-void Gestion_tropas::set_num(int num)
-{
-	tropas = num;
-}
+
 void Comercio::menu_hide()
 {
 	glPushMatrix();
@@ -44,10 +41,7 @@ void Comercio::menu_pop()
 	my_menu.draw();
 	glPopMatrix();
 }
-void Comercio::set_num(int num)
-{
-	cantidad = num;
-}
+
 void Mejorar::menu_hide()
 {
 	glPushMatrix();
@@ -66,11 +60,6 @@ void Mejorar::menu_pop()
 	my_menu.setState(1);
 	my_menu.draw();
 	glPopMatrix();
-}
-
-void Mejorar::set_num(int num)
-{
-	cantidad = num;
 }
 
 void Diplomacia::menu_hide()
@@ -93,26 +82,11 @@ void Diplomacia::menu_pop()
 	glPopMatrix();
 }
 
-void Diplomacia::set_num(int num)
-{
-	amistad = num;
-}
-
 IAccion::IAccion()
 {
 	id = 0;
 	right = false;
 }
-
-ostream & Accion::print_options(ostream &o)//modo por teclado
-{
-	o << "Gestionar Tropas" << endl;
-	o << "Comercio" << endl;
-	o << "Diplomacia" << endl;
-	o << "Mejorar" << endl;
-	return o;
-}
-
 ostream & Gestion_tropas::print_options(ostream &o)
 {
 	o << "Atacar" << endl;
@@ -142,33 +116,10 @@ ostream & Mejorar::print_options(ostream &o)
 	return o;
 }
 
-int Accion::get_option(istream&i)//modo por teclado
-{
-	string name;
-	getline(i, name);
-	if (name == "Generar_tropas")
-	{
-		idr = 1;
-	}
-	if (name == "Diplomacia")
-	{
-		idr = 3;
-	}
-	if (name == "Comercio")
-	{
-		idr = 2;
-	}
-	if (name == "Mejorar")
-	{
-		idr = 4;
-	}
-	id = idr;
-	return id;
-}
 
 int Gestion_tropas::get_option(istream &i)
 {
-	idr = Accion::get_option(i);
+	//idr = Accion::get_option(i);
 	if (idr == 1)
 	{
 		string name;
@@ -192,14 +143,14 @@ int Gestion_tropas::get_option(istream &i)
 
 int Comercio::get_option(istream &i)
 {
-	idr = Accion::get_option(i);
+	//idr = Accion::get_option(i);
 	id = idr;
 	return id;
 }
 
 int Diplomacia::get_option(istream &i)
 {
-	idr = Accion::get_option(i);
+	//idr = Accion::get_option(i);
 	if (idr == 3)
 	{
 		string name;
@@ -219,7 +170,6 @@ int Diplomacia::get_option(istream &i)
 
 int Mejorar::get_option(istream &i)
 {
-	idr = Accion::get_option(i);
 	if (idr == 3)
 	{
 		string name;
@@ -241,19 +191,10 @@ int Mejorar::get_option(istream &i)
 	return id;
 }
 
-bool Accion::check(int id)
-{
-	id = Accion::get_option(cin);
-	if (id = 0)
-		right = false;
-	else
-		right = true;
-	return right;
-}
 
 bool Gestion_tropas::check(int id)//falta añadir que si se selecciona la propia region en acciones determinadas no funciona
 {
-	id = Gestion_tropas::get_option(cin);
+	//id = Gestion_tropas::get_option(cin);
 	if (id == 0)
 		right=false;
 	else
@@ -263,7 +204,7 @@ bool Gestion_tropas::check(int id)//falta añadir que si se selecciona la propia 
 
 bool Comercio::check(int id)
 {
-	id = Comercio::get_option(cin);
+	//id = Comercio::get_option(cin);
 	if (id == 0)
 		right = false;
 	else
@@ -273,7 +214,7 @@ bool Comercio::check(int id)
 
 bool Diplomacia::check(int id)
 {
-	id = Diplomacia::get_option(cin);
+	//id = Diplomacia::get_option(cin);
 	if (id = 0)
 		right = false;
 	else
@@ -284,7 +225,7 @@ bool Diplomacia::check(int id)
 
 bool Mejorar::check(int id)
 {
-	id = Mejorar::get_option(cin);
+	//id = Mejorar::get_option(cin);
 	if (id == 0)
 		right = false;
 	else
@@ -294,175 +235,169 @@ bool Mejorar::check(int id)
 
 bool Gestion_tropas::gestion_acc(Jugadores & j)
 {
-	if (idr == 5)
-	{
-		if ((tropas > j.ataque && j.ataque != 0) || tropas < 0)
-		{
-			error_click = true;
-			return 0;
-		}
-		else
-		{
-			j.ataque -= tropas;
-		}
-	}
+	//if (idr == 5)
+	//{
+	//	if ((tropas > j.ataque && j.ataque != 0) || tropas < 0)
+	//	{
+	//		error_click = true;
+	//		return 0;
+	//	}
+	//	else
+	//	{
+	//		j.ataque -= tropas;
+	//	}
+	//}
 	return 0;
 }
 
 
 bool Comercio::gestion_acc(Jugadores & j)
 {
-	//cout << "He hecho la opción ";
-	switch (opcion)
-	{
-	case 1:
-	{
-		if (j.comida > 50)
-		{
-			j.comida -= 50;
-			j.oro += 25;
-			error_click = false;
-			cout << "comida se ha reducido en 50" << endl;
-			return true;
-		}
-		else
-		{
-			error_click = true;
-			return false;
-		}
-		cout << 1 << "error:" << error_click << endl;
-		break;
-	}
-	case 2:
-	{
-		if(j.oro > 50)
-		{
-			j.oro -= 100;
-			j.comida += 50;
-			error_click = false;
-			cout << "oro se ha reducido en 100" << endl;
-			return true;
-		}
-		else
-		{
-			error_click = true;
-			return false;
-		}
-		cout << 2 << "error:" << error_click << endl;
-		break;
-	}
-	case 3:
-	{
-		if (j.diplomacia > 10)
-		{
-			j.diplomacia -= 10;
-			j.oro += 50;
-			cout << "diplomacia se ha reducido en 10" << endl;
-			error_click = false;
-			return true;
-		}
-		else
-		{
-			error_click = true;
-			return false;
-		}
-		cout << 3 << "error:" << error_click << endl;
-		break;
-	}
-	case 4:
-	{
-		if (j.oro > 150)
-		{
-			j.oro -= 150;
-			j.diplomacia += 50;
-			cout << "oro se ha reducido en 150" << endl;
-			error_click = false;
-			return true;
-		}
-		else
-		{
-			error_click = true;
-			return false;
-		}
-		cout << 4 << "error:" << error_click << endl;
-		break;
-	}
-	}
+	////cout << "He hecho la opción ";
+	//switch (opcion)
+	//{
+	//case 1:
+	//{
+	//	if (j.comida > 50)
+	//	{
+	//		j.comida -= 50;
+	//		j.oro += 25;
+	//		error_click = false;
+	//		cout << "comida se ha reducido en 50" << endl;
+	//		return true;
+	//	}
+	//	else
+	//	{
+	//		error_click = true;
+	//		return false;
+	//	}
+	//	cout << 1 << "error:" << error_click << endl;
+	//	break;
+	//}
+	//case 2:
+	//{
+	//	if(j.oro > 50)
+	//	{
+	//		j.oro -= 100;
+	//		j.comida += 50;
+	//		error_click = false;
+	//		cout << "oro se ha reducido en 100" << endl;
+	//		return true;
+	//	}
+	//	else
+	//	{
+	//		error_click = true;
+	//		return false;
+	//	}
+	//	cout << 2 << "error:" << error_click << endl;
+	//	break;
+	//}
+	//case 3:
+	//{
+	//	if (j.diplomacia > 10)
+	//	{
+	//		j.diplomacia -= 10;
+	//		j.oro += 50;
+	//		cout << "diplomacia se ha reducido en 10" << endl;
+	//		error_click = false;
+	//		return true;
+	//	}
+	//	else
+	//	{
+	//		error_click = true;
+	//		return false;
+	//	}
+	//	cout << 3 << "error:" << error_click << endl;
+	//	break;
+	//}
+	//case 4:
+	//{
+	//	if (j.oro > 150)
+	//	{
+	//		j.oro -= 150;
+	//		j.diplomacia += 50;
+	//		cout << "oro se ha reducido en 150" << endl;
+	//		error_click = false;
+	//		return true;
+	//	}
+	//	else
+	//	{
+	//		error_click = true;
+	//		return false;
+	//	}
+	//	cout << 4 << "error:" << error_click << endl;
+	//	break;
+	//}
+	//}
 
 	return 0;
 }
 
 bool Diplomacia :: gestion_acc(Jugadores & j)
 {
-	right = Diplomacia::check(id);
-	if (idr == 8)//Diplomacia
-	{
-		cout << "Seleccione la region con la que quiere aliarse" << endl;
-		cin >> opcion;
-		if (right == false)//gestionar segun el numero de la region si es posible--> region del 1 al 9...
-		{
-			cout << "Opcion no válida" << endl;
-			cout << "Seleccione la region con la que desee aliarse" << endl;
-			cin >> opcion;
-		}
-		else
-		{
-			return opcion;
-		}
-	}
-	if (idr == 9)
-	{
-		cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
-		cin >> opcion;
-		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
-		if (right == false)
-		{
-			cout << "Opcion no válida" << endl;
-			cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
-			cin >> opcion;
-			return opcion;
-		}
-		else
-		{
-			
-			amistad = 2;//enemistad
-			cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
-			return -10;//el jugador se va haciendo menos diplomático
-		}
-	}
+	//if (idr == 8)//Diplomacia
+	//{
+	//	cout << "Seleccione la region con la que quiere aliarse" << endl;
+	//	cin >> opcion;
+	//	if (right == false)//gestionar segun el numero de la region si es posible--> region del 1 al 9...
+	//	{
+	//		cout << "Opcion no válida" << endl;
+	//		cout << "Seleccione la region con la que desee aliarse" << endl;
+	//		cin >> opcion;
+	//	}
+	//	else
+	//	{
+	//		return opcion;
+	//	}
+	//}
+	//if (idr == 9)
+	//{
+	//	cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
+	//	cin >> opcion;
+	//	//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
+	//	if (right == false)
+	//	{
+	//		cout << "Opcion no válida" << endl;
+	//		cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
+	//		cin >> opcion;
+	//		return opcion;
+	//	}
+	//	else
+	//	{
+	//		
+	//		amistad = 2;//enemistad
+	//		cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
+	//		return -10;//el jugador se va haciendo menos diplomático
+	//	}
+	//}
 	return 0;
 }
 
 bool Mejorar::gestion_acc(Jugadores & j)
 {
 
-	right = Mejorar::check(id);
-	if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
-	{
-		cout << "Seleccione la cantidad de ataque que quiere mejorar" << endl;
-		cin >> cantidad;
-		return cantidad;
-	}
-	if (idr == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
-	{
-		cout << "Seleccione la cantidad de defensa que quiere mejorar" << endl;
-		cin >> cantidad;
-		return cantidad;
-	}
-	if (idr == 12)//mejorar agricultura
-	{
-		//gestionar cantidad de comida que se consigue por turno.
-		cout << "Seleccione la cantidad de aricultura que quiere mejorar" << endl;
-		cin >> cantidad;
-		return cantidad;
-	}
+	//right = Mejorar::check(id);
+	//if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
+	//{
+	//	cout << "Seleccione la cantidad de ataque que quiere mejorar" << endl;
+	//	cin >> cantidad;
+	//	return cantidad;
+	//}
+	//if (idr == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
+	//{
+	//	cout << "Seleccione la cantidad de defensa que quiere mejorar" << endl;
+	//	cin >> cantidad;
+	//	return cantidad;
+	//}
+	//if (idr == 12)//mejorar agricultura
+	//{
+	//	//gestionar cantidad de comida que se consigue por turno.
+	//	cout << "Seleccione la cantidad de aricultura que quiere mejorar" << endl;
+	//	cin >> cantidad;
+	//	return cantidad;
+	//}
 	return -1;
 }
-
-/*void Accion::gestion_acc( )
-{
-	
-}*/
 
 ostream & Accion_Engine::print_options(ostream &o)
 {
@@ -470,37 +405,13 @@ ostream & Accion_Engine::print_options(ostream &o)
 	return o;
 }
 
-int Accion_Engine::get_option(istream &i)
+int Accion_Engine::get_option()
 {
-	int id;
-	a->get_option(i);
-	id = a->id;
-	return id;
-}
 
-bool Accion_Engine::check(int option)
-{
-	bool right;
-	a->check(option);
-	right = a->right;
-	return right;
-}
+	if(a!=NULL)
+		return a->get_option();
+	return -1;
 
-
-
-void Accion::draw(int id) {
-
-}
-
-bool Accion::gestion_acc(Jugadores & j)
-{
-	//en principio esta no hace nada
-	return false;
-}
-
-void Accion::set_num(int num)
-{
-	
 }
 
 void Gestion_tropas::draw(int id)//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
@@ -508,10 +419,21 @@ void Gestion_tropas::draw(int id)//opcion tiene que guardar el numero de la regi
 	menu_pop();
 	if (id == 5)//Atacar
 	{
-		
+
 		ETSIDI::setTextColor(1, 1, 0);
 		ETSIDI::setFont("fuentes/Game of thrones.ttf", 8);
 		ETSIDI::printxy("Seleccione  la  region", 4.0, 8.0);
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 8);
+		ETSIDI::printxy("OK", 9.0, 5.0);
+	
+		/*if(submenu == 1)
+		{
+			ETSIDI::setTextColor(1, 1, 0);
+			ETSIDI::setFont("fuentes/Game of thrones.ttf", 8);
+			ETSIDI::printxy("Indique la cantidad", 4.0, 8.0);
+			ETSIDI::printxy("OK", 9.0, 5.0);
+		}*/
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 		//condicion de haber declarado la guerra previamente-->diplomacia
 		/*
@@ -535,7 +457,7 @@ void Gestion_tropas::draw(int id)//opcion tiene que guardar el numero de la regi
 			ETSIDI::printxy("Introduzca por teclado el numero de tropas", -4.5, 3.5);//posteriormente lo cambiaremos con las coord correctas del raton
 			//cin >> tropas;
 		}*/
-		
+
 	}
 
 	if (id == 6)//Defender
@@ -548,13 +470,21 @@ void Gestion_tropas::draw(int id)//opcion tiene que guardar el numero de la regi
 		glVertex3f(5.0f, 0, -5.0f);
 		glEnd();
 		glEnable(GL_LIGHTING);
+
 		ETSIDI::setTextColor(1, 1, 0);
-		ETSIDI::setFont("fuentes/Game of thrones.ttf", 8.0);
-		ETSIDI::printxy("Numero de tropas", 4.0, 8.0);
-		ETSIDI::printxy("para defender", 4.0, 7.0); 
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 8);
+		ETSIDI::printxy("Seleccione  la  region", 4.0, 8.0);
+		ETSIDI::setTextColor(1, 1, 0);
+		ETSIDI::setFont("fuentes/Game of thrones.ttf", 8);
+		ETSIDI::printxy("OK", 9.0, 5.0);
+
+
+		//ETSIDI::setTextColor(1, 1, 0);
+		//ETSIDI::setFont("fuentes/Game of thrones.ttf", 8);
+		//ETSIDI::printxy("Indique la cantidad", 4.0, 8.0);
+		//ETSIDI::printxy("OK", 9.0, 5.0);
 
 	}
-
 	if (id == 7)//Generar
 	{
 		glDisable(GL_LIGHTING);
@@ -570,9 +500,10 @@ void Gestion_tropas::draw(int id)//opcion tiene que guardar el numero de la regi
 		ETSIDI::printxy("numero de tropas", 4.0, 8.0);
 		ETSIDI::setFont("fuentes/Bitwise.ttf", 8);
 		ETSIDI::printxy("(10 tropas cuestan 10 de oro)", 4.0, 7.0);
+		ETSIDI::printxy("OK", 9.0, 5.0);
 	}
-}
 
+}
 void Comercio::draw(int id)
 {
 	menu_pop();
@@ -639,6 +570,7 @@ void Diplomacia::draw(int id)
 		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
 		ETSIDI::printxy("Seleccione la region ", 4, 7);
 		ETSIDI::printxy("con la que aliarse", 4, 6);
+		ETSIDI::printxy("OK", 9.0, 5.0);
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 		/*if (right == false)
 		{
@@ -658,6 +590,7 @@ void Diplomacia::draw(int id)
 			ETSIDI::printxy("Seleccione la region", 4, 7);
 			ETSIDI::printxy("a la que declarar", 4, 6);
 			ETSIDI::printxy("la guerra", 4, 5);
+			ETSIDI::printxy("OK", 9.0, 5.0);
 			//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 			/*if (right == false)
 			{
@@ -685,6 +618,7 @@ void Mejorar::draw(int id)
 		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
 		ETSIDI::printxy("Seleccione la cantidad ", 4, 6);
 		ETSIDI::printxy("de ataque a mejorar", 4, 5);
+		ETSIDI::printxy("OK", 9.0, 5.0);
 	}
 	if (id == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
 	{
@@ -692,6 +626,7 @@ void Mejorar::draw(int id)
 		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
 		ETSIDI::printxy("Seleccione la cantidad ", 4, 6);
 		ETSIDI::printxy("de defensa a mejorar", 4, 5);
+		ETSIDI::printxy("OK", 9.0, 5.0);
 	}
 	if (id == 12)//mejorar agricultura
 	{
@@ -700,6 +635,7 @@ void Mejorar::draw(int id)
 		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
 		ETSIDI::printxy("Seleccione la cantidad", 4, 6);
 		ETSIDI::printxy(" de agricultura a mejorar", 4, 5);
+		ETSIDI::printxy("OK", 9.0, 5.0);
 	}
 }
 
@@ -713,7 +649,6 @@ bool Accion_Engine::gestion_acc(Jugadores & j)
 {
 	if(a!=NULL)
 		return a->gestion_acc(j);
-	
 }
 
 void Accion_Engine::switch_puntero(IAccion *c)
@@ -727,7 +662,3 @@ void Accion_Engine::switch_puntero(IAccion *c)
 		a = c;
 }
 
-void Accion_Engine::set_num(int num)
-{
-	a->set_num(num);
-}
