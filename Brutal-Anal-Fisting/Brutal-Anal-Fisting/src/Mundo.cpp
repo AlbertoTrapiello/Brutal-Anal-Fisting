@@ -31,7 +31,6 @@
 using namespace ETSIDI;
 
 
-
 void Mundo::seleccion_personaje()
 {
 	int prev = pos - 1, next = pos + 1;
@@ -516,4 +515,12 @@ void Mundo::reiniciar_partida()
 	/*for (int i = 0; i < 10; i++)
 		player[i].read_file(player); No need*/
 	menu = 1;
+}
+
+bool Mundo::fin_partida()//meter en el parentesis player[pos]
+{
+	if (player[pos].defensa == 0 || turno == 10)
+		return true;
+	else
+		return false;
 }

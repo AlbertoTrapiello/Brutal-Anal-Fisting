@@ -14,9 +14,9 @@ class Mundo
 	float z_ojo;
 	int turno;//lleva la cuenta del número de turnos que se llevan jugados
 	int menu;//indica el menu en el que se encuentra (1,2,3)
-	int pos;//gestiona el jugador del vector player que está jugando
-	Jugadores player[10];
 	SpriteSequence sprite;
+	Jugadores player[10];
+	int pos;//gestiona el jugador del vector player que está jugando
 	bool check = true;//PONER EN CONDICIONES EN EL CONSTRUCTOR 
 	bool click = false;//PONER EN CONDICIONES EN EL CONSTRUCTOR 
 	int idr = 0;//PONER EN CONDICIONES EN EL CONSTRUCTOR el indicador de los menús que se elige
@@ -28,7 +28,7 @@ class Mundo
 	int num;//guarda el varo introducido por teclado
 	bool save;//1 si hay partida guardada, 0 si no la hay
 	Accion_Engine action;
-
+	
 public:
 	Mundo();
 	void tecla(unsigned char key);
@@ -47,6 +47,7 @@ public:
 	bool guardar_partida();//guarda la partida en un fichero de texto
 	bool cargar_partida();//carga la partida guardada en caso de que haya
 	void reiniciar_partida();//reinicia la partida
+	bool fin_partida();//gestiona el final de partida
 
 	friend class Turno;
 	friend void onMenu(int opcion);
