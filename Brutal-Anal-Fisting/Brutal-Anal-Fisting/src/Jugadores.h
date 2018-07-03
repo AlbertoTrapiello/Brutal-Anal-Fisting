@@ -39,7 +39,7 @@ protected:
 	bool turno;
 	bool IA;
 	const char *S;
-	bool relaciones[10] = {0,0,0,0,0,0,0,0,0,0};//Amistad=0. Enemistad=1
+	bool relaciones[10];//Amistad=0. Enemistad=1
 	//string vasallos;
 
 public:

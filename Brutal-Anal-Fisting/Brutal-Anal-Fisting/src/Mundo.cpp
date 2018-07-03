@@ -437,3 +437,21 @@ bool Mundo::draw_menus(const int & id)
 
 	return false;
 }
+
+bool Mundo::guardar_partida()
+{
+	ofstream f("Partida.txt", ofstream::out);
+	if (!f)
+	{
+		cout << "el fichero no se ha abierto correctamente" << endl;
+		return false;
+	}
+	else
+	{
+		f << turno << endl;
+		f << player[pos].casa << endl;
+
+
+	}
+
+}

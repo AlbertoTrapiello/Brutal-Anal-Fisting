@@ -43,7 +43,9 @@ public:
 	void turn();//gestiona los evento de cada turno 
 	bool check_action();//Devuelve un bool que indica si la acción es válida o no
 	bool draw_menus(const int & id);//Función que gestiona el dibujo del los menús
+	bool guardar_partida();//guarda la partida en un fichero de texto
 
 	friend class Turno;
 	friend void onMenu(int opcion);
+	
 };
