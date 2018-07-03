@@ -67,12 +67,12 @@ bool Mundo::check_action()
 	{
 	case Atacar:
 	{
-		if (region == pos)
+		if (region != pos)
 		{
 			cout << "La region vale, Soy " << player[pos].getcasas() << "y has elgido " << player[region].getcasas() << endl;
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 		break;
 	}
 	case Defender:

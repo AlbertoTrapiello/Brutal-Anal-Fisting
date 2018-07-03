@@ -39,12 +39,12 @@ protected:
 	bool turno;
 	bool IA;
 	const char *S;
-
+	bool relaciones[10] = {0,0,0,0,0,0,0,0,0,0};//Amistad=0. Enemistad=1
 	//string vasallos;
 
 public:
 
-	Jugadores();//constructor por defecto
+	Jugadores(); //constructor por defecto
 	Jugadores(int ataque, int comida, int oro, int diplomacia, int defensa, Casas casa, string nombre, string titulo):Recursos(ataque,comida,oro,diplomacia,defensa), casa(casa), nombre(nombre),titulo(titulo), sprite("images/sprite_GoT_recortado.png", 5, 7), sprite_izq("images/sprite_GoT_recortado.png", 5, 7), sprite_dcha("images/sprite_GoT_recortado.png", 5, 7), arrow("images/arrow.png", 1), arrow1("images/arrow_.png", 1), icono(Get_tit(casa),1){}
 	//constructor en el que se introducen los parámetros
 	Jugadores (const Jugadores &); 
@@ -65,7 +65,7 @@ public:
 	Casas getcasas() { return casa; }
 	void Icon_hide() ;
 	void Icon() ;
-	friend class Gestion_tropas;
+	friend class Gestion_tropas;//La amistad no se hereda por eso no podemos poner friend class IAccion
 	friend class Diplomacia;
 	friend class Comercio;
 	friend class Mejorar;

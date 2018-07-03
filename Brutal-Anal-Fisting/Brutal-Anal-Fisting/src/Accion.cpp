@@ -104,14 +104,14 @@ IAccion::IAccion()
 	right = false;
 }
 
-ostream & Accion::print_options(ostream &o)//modo por teclado
+/*ostream & Accion::print_options(ostream &o)//modo por teclado
 {
 	o << "Gestionar Tropas" << endl;
 	o << "Comercio" << endl;
 	o << "Diplomacia" << endl;
 	o << "Mejorar" << endl;
 	return o;
-}
+}*/
 
 ostream & Gestion_tropas::print_options(ostream &o)
 {
@@ -142,7 +142,7 @@ ostream & Mejorar::print_options(ostream &o)
 	return o;
 }
 
-int Accion::get_option(istream&i)//modo por teclado
+int IAccion::get_option(istream&i)//modo por teclado
 {
 	string name;
 	getline(i, name);
@@ -168,7 +168,7 @@ int Accion::get_option(istream&i)//modo por teclado
 
 int Gestion_tropas::get_option(istream &i)
 {
-	idr = Accion::get_option(i);
+	idr = IAccion::get_option(i);
 	if (idr == 1)
 	{
 		string name;
@@ -192,14 +192,14 @@ int Gestion_tropas::get_option(istream &i)
 
 int Comercio::get_option(istream &i)
 {
-	idr = Accion::get_option(i);
+	idr = IAccion::get_option(i);
 	id = idr;
 	return id;
 }
 
 int Diplomacia::get_option(istream &i)
 {
-	idr = Accion::get_option(i);
+	idr = IAccion::get_option(i);
 	if (idr == 3)
 	{
 		string name;
@@ -219,7 +219,7 @@ int Diplomacia::get_option(istream &i)
 
 int Mejorar::get_option(istream &i)
 {
-	idr = Accion::get_option(i);
+	idr = IAccion::get_option(i);
 	if (idr == 3)
 	{
 		string name;
@@ -240,7 +240,7 @@ int Mejorar::get_option(istream &i)
 	id = idr;
 	return id;
 }
-
+/*
 bool Accion::check(int id)
 {
 	id = Accion::get_option(cin);
@@ -249,7 +249,7 @@ bool Accion::check(int id)
 	else
 		right = true;
 	return right;
-}
+}*/
 
 bool Gestion_tropas::check(int id)//falta añadir que si se selecciona la propia region en acciones determinadas no funciona
 {
@@ -292,37 +292,89 @@ bool Mejorar::check(int id)
 	return right;
 }
 
-bool Gestion_tropas::gestion_acc(Jugadores & j)
+//si la region del jugador 1 es distinta que la del 2 o la misma se gestiona externamente Mundo::check_action()
+
+bool Gestion_tropas::gestion_acc(Jugadores & j1, Jugadores & j2)
 {
-	if (idr == 5)
-	{
-		if ((tropas > j.ataque && j.ataque != 0) || tropas < 0)
+	if (idr == 5)//Atacar--> Para atacar hay que antes declarar la guerra, cuando llamemos atacar tenemos que asegurarnos de que el vector de diplomacia tiene a 1 (enemistad) en la componente
+	{//de la region correspondiente. Todo esto externamente.
+		if ((tropas > j1.ataque && j1.ataque != 0) || tropas < 0)
 		{
 			error_click = true;
 			return false;
 		}
 		else
 		{
-			j.ataque -= tropas*0.5;
+			j1.ataque -= tropas;
+			//hacer que las tropas lleguen en x turnos en funcion de su distancia minima
+			if (tropas < j2.defensa)
+			{
+				tropas = 0;
+				j2.defensa -= 0.5*tropas;//posicion de defensor, el defensor si gana pierde menos defensa que el atacante ataque
+			}
+			else
+			{
+				tropas -= j2.defensa;
+				j1.ataque += tropas;
+				j2.defensa = 0;
+				//la region del jugador 2 ha sido conquistada por el jugador 1
+				j1.oro += j2.oro;
+				j1.comida += j2.comida;
+				j1.ataque += j2.ataque;
+			}
+			error_click = false;
+			return true;
+		}
+	}
+	if (idr == 6)
+	{
+		if ((tropas > j1.ataque && j1.ataque != 0) || tropas < 0)
+		{
+			error_click = true;
+			return false;
+		}
+		else
+		{
+			j1.ataque -= tropas;
+			//si las tropas estan fuera, que tarden x turnos en llegar a la propia region
+			j1.defensa += tropas;
+			error_click = false;
+			return true;
+		}
+	}
+	if (idr == 7)
+	{
+		if (tropas > j1.comida * 4 && j1.comida!=0 || tropas<0)
+		{
+			error_click = true;
+			return false;
+		}
+		else
+		{
+			j1.comida -= 0.25*tropas;
+			j1.ataque += tropas;
+			error_click = false;
+			return true;
 		}
 	}
 	return 0;
 }
 
 
-bool Comercio::gestion_acc(Jugadores & j)
+bool Comercio::gestion_acc(Jugadores & j1, Jugadores &j2)
 {
 	//cout << "He hecho la opción ";
 	switch (opcion)
 	{
 	case 1:
 	{
-		if (j.comida > 50)
+		if (j1.comida >= 50)
 		{
-			j.comida -= 50;
-			j.oro += 25;
+			j1.comida -= 50;
+			j1.oro += 25;
 			error_click = false;
-			cout << "comida se ha reducido en 50" << endl;
+			//cout << "comida se ha reducido en 50" << endl;
+			//ponemos Printxy?
 			return true;
 		}
 		else
@@ -335,12 +387,12 @@ bool Comercio::gestion_acc(Jugadores & j)
 	}
 	case 2:
 	{
-		if(j.oro > 50)
+		if(j1.oro >= 50)
 		{
-			j.oro -= 100;
-			j.comida += 50;
+			j1.oro -= 50;
+			j1.comida += 100;
 			error_click = false;
-			cout << "oro se ha reducido en 100" << endl;
+			//cout << "oro se ha reducido en 100" << endl;
 			return true;
 		}
 		else
@@ -353,11 +405,11 @@ bool Comercio::gestion_acc(Jugadores & j)
 	}
 	case 3:
 	{
-		if (j.diplomacia > 10)
+		if (j1.diplomacia >= 10)
 		{
-			j.diplomacia -= 10;
-			j.oro += 50;
-			cout << "diplomacia se ha reducido en 10" << endl;
+			j1.diplomacia -= 10;
+			j1.oro += 50;
+			//cout << "diplomacia se ha reducido en 10" << endl;
 			error_click = false;
 			return true;
 		}
@@ -371,11 +423,11 @@ bool Comercio::gestion_acc(Jugadores & j)
 	}
 	case 4:
 	{
-		if (j.oro > 150)
+		if (j1.oro >= 150)
 		{
-			j.oro -= 150;
-			j.diplomacia += 50;
-			cout << "oro se ha reducido en 150" << endl;
+			j1.oro -= 150;
+			j1.diplomacia += 50;
+			//cout << "oro se ha reducido en 150" << endl;
 			error_click = false;
 			return true;
 		}
@@ -392,71 +444,80 @@ bool Comercio::gestion_acc(Jugadores & j)
 	return 0;
 }
 
-bool Diplomacia :: gestion_acc(Jugadores & j)
+bool Diplomacia :: gestion_acc(Jugadores & j1, Jugadores & j2)
 {
-	right = Diplomacia::check(id);
+	//right = Diplomacia::check(id);
 	if (idr == 8)//Diplomacia
 	{
-		cout << "Seleccione la region con la que quiere aliarse" << endl;
-		cin >> opcion;
-		if (right == false)//gestionar segun el numero de la region si es posible--> region del 1 al 9...
+		//cout << "Seleccione la region con la que quiere aliarse" << endl;
+		//cin >> opcion;
+		if (j1.diplomacia>=50)//gestionar segun el numero de la region si es posible--> region del 1 al 9...
 		{
-			cout << "Opcion no válida" << endl;
-			cout << "Seleccione la region con la que desee aliarse" << endl;
-			cin >> opcion;
+			//cout << "Opcion no válida" << endl;
+			//cout << "Seleccione la region con la que desee aliarse" << endl;
+			//cin >> opcion;
+			j1.diplomacia += 10;
+			j2.diplomacia += 10;
+			//cambiar vector de relaciones 
+			//se hacen amigos
+			j1.relaciones[j2.casa] = 0;
+			j2.relaciones[j1.casa] = 0;
+			error_click = false;
+			return true;
 		}
 		else
 		{
-			return opcion;
+			error_click = true;
+			return false;
 		}
 	}
 	if (idr == 9)
 	{
-		cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
-		cin >> opcion;
+		//cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
+		//cin >> opcion;
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
-		if (right == false)
-		{
-			cout << "Opcion no válida" << endl;
-			cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
-			cin >> opcion;
-			return opcion;
-		}
-		else
-		{
-			
-			amistad = 2;//enemistad
-			cout << "Operacion realizada con exito" << endl;//aqui habria que cambiar la relacion con esa region en el grafo de relaciones
-			return -10;//el jugador se va haciendo menos diplomático
-		}
+			//cout << "Opcion no válida" << endl;
+			//cout << "Seleccione la region a la que quiere declarar la guerra" << endl;
+			//cin >> opcion;
+			//return opcion;
+			j1.diplomacia -= 15;//te haces menos amistoso
+			//cambiar vector de relaciones 
+			//se hacen enemigos
+			j1.relaciones[j2.casa] = 1;
+			j2.relaciones[j1.casa] = 1;
+			error_click = false;
+			return true;
 	}
 	return 0;
 }
 
-bool Mejorar::gestion_acc(Jugadores & j)
+bool Mejorar::gestion_acc(Jugadores & j1, Jugadores & j2)
 {
 
-	right = Mejorar::check(id);
-	if (idr == 10)//Mejorar ataque, gestionar cantidad de ataque que se aumenta por turno
+	//right = Mejorar::check(id);
+	if (idr == 10)//Mejorar oro, gestionar cantidad de oro que se aumenta
 	{
-		cout << "Seleccione la cantidad de ataque que quiere mejorar" << endl;
-		cin >> cantidad;
-		return cantidad;
+		//cout << "Seleccione la cantidad de ataque que quiere mejorar" << endl;
+		j1.oro += 50;
+		error_click = false;
+		return true;
 	}
 	if (idr == 11)//Mejorar defensa, gestionar cantidad de defensa que se aumenta por turno
 	{
-		cout << "Seleccione la cantidad de defensa que quiere mejorar" << endl;
-		cin >> cantidad;
-		return cantidad;
+		//cout << "Seleccione la cantidad de defensa que quiere mejorar" << endl;
+		j1.defensa += 100;
+		error_click = false;
+		return true;
 	}
 	if (idr == 12)//mejorar agricultura
 	{
 		//gestionar cantidad de comida que se consigue por turno.
-		cout << "Seleccione la cantidad de aricultura que quiere mejorar" << endl;
-		cin >> cantidad;
-		return cantidad;
+		//cout << "Seleccione la cantidad de aricultura que quiere mejorar" << endl;
+		j1.comida += 75;
+		error_click = false;
+		return true;
 	}
-	return -1;
+	return 0;
 }
 
 /*void Accion::gestion_acc( )
@@ -488,11 +549,11 @@ bool Accion_Engine::check(int option)
 
 
 
-void Accion::draw(int id) {
+/*void Accion::draw(int id) {
 
 }
 
-bool Accion::gestion_acc(Jugadores & j)
+bool Accion::gestion_acc(Jugadores & j1, Jugadores & j2)
 {
 	//en principio esta no hace nada
 	return false;
@@ -501,14 +562,14 @@ bool Accion::gestion_acc(Jugadores & j)
 void Accion::set_num(int num)
 {
 	
-}
+}*/
 
 void Gestion_tropas::draw(int id)//opcion tiene que guardar el numero de la region en funcion de las coordenadas del raton en el click de x region--> crear funcion de region (idea)
-{
+{//meter en id el valor de idr
 	menu_pop();
 	if (id == 5)//Atacar
 	{
-		
+
 		ETSIDI::setTextColor(1, 1, 0);
 		ETSIDI::setFont("fuentes/Game of thrones.ttf", 8);
 		ETSIDI::printxy("Seleccione  la  region", 4.0, 8.0);
@@ -535,7 +596,7 @@ void Gestion_tropas::draw(int id)//opcion tiene que guardar el numero de la regi
 			ETSIDI::printxy("Introduzca por teclado el numero de tropas", -4.5, 3.5);//posteriormente lo cambiaremos con las coord correctas del raton
 			//cin >> tropas;
 		}*/
-		
+
 	}
 
 	if (id == 6)//Defender
@@ -709,10 +770,10 @@ void Accion_Engine::draw( int id)
 		a->draw(id);
 }
 
-bool Accion_Engine::gestion_acc(Jugadores & j)
+bool Accion_Engine::gestion_acc(Jugadores & j1, Jugadores &j2)
 {
 	if(a!=NULL)
-		return a->gestion_acc(j);
+		return a->gestion_acc(j1, j2);
 	
 }
 
