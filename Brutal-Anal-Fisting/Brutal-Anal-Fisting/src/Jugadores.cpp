@@ -393,7 +393,7 @@ ostream& Jugadores::print(ostream& o )//modo por teclado
 	return o;
 }
 
-bool Jugadores::read_file(Jugadores *p)
+bool Jugadores::read_file(Jugadores * p)
 {
 	ifstream f("Jugadores.txt", istream::in);
 	if(!f)

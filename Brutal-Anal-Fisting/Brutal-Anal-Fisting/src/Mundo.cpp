@@ -509,3 +509,11 @@ bool Mundo::cargar_partida()
 		return true;
 	}
 }
+
+void Mundo::reiniciar_partida()
+{
+	turno = 0;// o 1
+	/*for (int i = 0; i < 10; i++)
+		player[i].read_file(player); No need*/
+	menu = 1;
+}

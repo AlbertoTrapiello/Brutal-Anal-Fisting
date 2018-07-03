@@ -46,6 +46,7 @@ public:
 	bool draw_menus(const int & id);//Función que gestiona el dibujo del los menús
 	bool guardar_partida();//guarda la partida en un fichero de texto
 	bool cargar_partida();//carga la partida guardada en caso de que haya
+	void reiniciar_partida();//reinicia la partida
 
 	friend class Turno;
 	friend void onMenu(int opcion);
