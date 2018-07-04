@@ -627,9 +627,9 @@ void Diplomacia::draw(int id)
 	{
 		ETSIDI::setTextColor(1, 1, 0);
 		ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
-		ETSIDI::printxy("Seleccione la region ", 4, 7);
-		ETSIDI::printxy("con la que aliarse", 4, 6);
-		ETSIDI::printxy("OK", 9.0, 5.0);
+		ETSIDI::printxy("Seleccione la region ", 4, 9);
+		ETSIDI::printxy("con la que aliarse", 4, 8);
+		ETSIDI::printxy("OK", 9.0, 5);
 		//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 		/*if (right == false)
 		{
@@ -646,9 +646,9 @@ void Diplomacia::draw(int id)
 		{
 			ETSIDI::setTextColor(1, 1, 0);
 			ETSIDI::setFont("fuentes/Game of thrones.ttf", 7);
-			ETSIDI::printxy("Seleccione la region", 4, 7);
-			ETSIDI::printxy("a la que declarar", 4, 6);
-			ETSIDI::printxy("la guerra", 4, 5);
+			ETSIDI::printxy("Seleccione la region", 4, 9);
+			ETSIDI::printxy("a la que declarar", 4, 8);
+			ETSIDI::printxy("la guerra", 4, 7);
 			ETSIDI::printxy("OK", 9.0, 5.0);
 			//aqui guardar la region que se desea atacar en un atributo de las clase y llamar a check_option para determinar si es válida la elección.
 			/*if (right == false)

@@ -22,6 +22,7 @@
     <ClCompile Include="Brutal-Anal-Fisting.cpp" />
     <ClCompile Include="src\Accion.cpp" />
     <ClCompile Include="src\Jugadores.cpp" />
+    <ClCompile Include="src\Mapita.cpp" />
     <ClCompile Include="src\Mundo.cpp" />
     <ClCompile Include="src\Personaje.cpp" />
     <ClCompile Include="src\Recursos.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="lib\glut.h" />
     <ClInclude Include="src\Accion.h" />
     <ClInclude Include="src\Jugadores.h" />
+    <ClInclude Include="src\Mapita.h" />
     <ClInclude Include="src\Mundo.h" />
     <ClInclude Include="src\Personaje.h" />
     <ClInclude Include="src\Recursos.h" />

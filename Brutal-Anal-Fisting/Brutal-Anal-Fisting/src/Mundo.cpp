@@ -211,6 +211,7 @@ void Mundo::dibuja()//TODOS LOS NÚMEROS QUE ESTÁN SUELTOS PODRÍAN ESTAR EN DEFIN
 		0.0, 1.0, 0.0);      // definimos hacia arriba (eje Y)    
 
 							 //aqui es donde hay que poner el codigo de dibujo
+	
 	glEnable(GL_TEXTURE_2D);
 	switch (menu)
 	{
@@ -362,6 +363,7 @@ void Mundo::inicializa()
 	if (!player[0].read_file(player))
 		cout << "ERROR" << endl;//gestionar el error si no se abre el fichero
 	player[0].set_turno();
+	ETSIDI::playMusica("musica/Guille.mp3", true);
 }
 
 Mundo::Mundo():sprite("images/sprite_menu_sure.png",1)
@@ -573,4 +575,12 @@ void Mundo::reiniciar_partida()
 			  /*for (int i = 0; i < 10; i++)
 			  player[i].read_file(player); No need*/
 	menu = 1;
+}
+
+bool Mundo::fin_partida()//meter en el parentesis player[pos]
+{
+	if (player[pos].defensa == 0 || turno == 10)
+		return true;
+	else
+		return false;
 }

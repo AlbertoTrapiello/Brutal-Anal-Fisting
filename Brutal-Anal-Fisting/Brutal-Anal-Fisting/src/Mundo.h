@@ -49,6 +49,7 @@ public:
 	bool guardar_partida();//guarda la partida en un fichero de texto
 	bool cargar_partida();//carga la partida guardada en caso de que haya
 	void reiniciar_partida();//reinicia la partida
+	bool fin_partida();//gestiona el final de partida
 
 	friend class Turno;
 	friend void onMenu(int opcion);
