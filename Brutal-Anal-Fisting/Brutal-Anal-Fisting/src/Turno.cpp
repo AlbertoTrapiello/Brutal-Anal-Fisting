@@ -72,7 +72,7 @@ const char * Turno::dibuja( Mundo *world)
 		{
 			const char * a;
 			a = world->player[world->region].get_nombre();
-			cout << a;
+			//cout << a;
 			return a;
 		}
 	}
@@ -146,42 +146,42 @@ void Turno::teclado(Mundo * world,unsigned char key)
 			break;
 		}
 		}
-		cout << world->numero << "pene" << endl;
+		//cout << world->numero << endl;
 		stringstream sstr;
 		sstr << world->numero;
 		sstr >> world->num;
 		world->action.set_cantidad(world->num);
-		cout << "el world->numero en int es: " << world->num << endl;
+		//cout << "el world->numero en int es: " << world->num << endl;
 		world->resultado = world->numero;
 	}
-	else
-		cout << "superado el limite" << endl;
+	//else
+		//cout << "superado el limite" << endl;
 }
 
 void Turno::raton(Mundo * world, float x, float y)
 {
 	if (world->idr == 2)
 	{
-		cout << "eeey que he puesto la opcion: ";
+		//cout << "eeey que he puesto la opcion: ";
 		if ((x <= OPC_1_X_MAX && x >= OPC_1_X_MIN) && (y <= OPC_1_Y_MAX && y >= OPC_1_Y_MIN))
 		{
 			world->action.set_opcion(1);
-			cout << "1" << endl;
+			//cout << "1" << endl;
 		}
 		if ((x <= OPC_2_X_MAX && x >= OPC_2_X_MIN) && (y <= OPC_2_Y_MAX && y >= OPC_2_Y_MIN))
 		{
 			world->action.set_opcion(2);
-			cout << "2" << endl;
+			//cout << "2" << endl;
 		}
 		if ((x <= OPC_3_X_MAX && x >= OPC_3_X_MIN) && (y <= OPC_3_Y_MAX && y >= OPC_3_Y_MIN))
 		{
 			world->action.set_opcion(3);
-			cout << "3" << endl;
+			//cout << "3" << endl;
 		}
 		if ((x <= OPC_4_X_MAX && x >= OPC_4_X_MIN) && (y <= OPC_4_Y_MAX && y >= OPC_4_Y_MIN))
 		{
 			world->action.set_opcion(4);
-			cout << "4" << endl;
+			//cout << "4" << endl;
 		}
 		
 	}

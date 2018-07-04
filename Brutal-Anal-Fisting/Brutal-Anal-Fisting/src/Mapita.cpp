@@ -26,8 +26,8 @@ int Mapita::minDistance(int dist[], bool sptSet[])
 
 void Mapita::printSolution(int dist[], int destino)
 {
-	cout << "Vertex" << "       " << "Distance from Source" << endl;
-	cout << destino + 1 << "         " << dist[destino] << endl;
+	//cout << "Vertex" << "       " << "Distance from Source" << endl;
+	//cout << destino + 1 << "         " << dist[destino] << endl;
 	/*for (int i = 0; i < n-1; i++)
 		cout << nodos[i] << "->";
 	cout << nodos[n-1] << endl;*/

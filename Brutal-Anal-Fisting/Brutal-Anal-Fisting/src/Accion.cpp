@@ -321,7 +321,7 @@ bool Comercio::gestion_acc(Jugadores & j1, Jugadores &j2)
 			error_click = true;
 			return false;
 		}
-		cout << 1 << "error:" << error_click << endl;
+		//cout << 1 << "error:" << error_click << endl;
 		break;
 	}
 	case 2:
@@ -339,7 +339,7 @@ bool Comercio::gestion_acc(Jugadores & j1, Jugadores &j2)
 			error_click = true;
 			return false;
 		}
-		cout << 2 << "error:" << error_click << endl;
+		//cout << 2 << "error:" << error_click << endl;
 		break;
 	}
 	case 3:
@@ -357,7 +357,7 @@ bool Comercio::gestion_acc(Jugadores & j1, Jugadores &j2)
 			error_click = true;
 			return false;
 		}
-		cout << 3 << "error:" << error_click << endl;
+		//cout << 3 << "error:" << error_click << endl;
 		break;
 	}
 	case 4:
@@ -375,7 +375,7 @@ bool Comercio::gestion_acc(Jugadores & j1, Jugadores &j2)
 			error_click = true;
 			return false;
 		}
-		cout << 4 << "error:" << error_click << endl;
+		//cout << 4 << "error:" << error_click << endl;
 		break;
 	}
 	}

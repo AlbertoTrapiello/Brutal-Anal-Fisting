@@ -410,9 +410,13 @@ bool Jugadores::read_file(Jugadores *p)
 		cout<<"el fichero no se ha abierto correctamente"<<endl;
 		return false;
 	}
+	
 	for(int i=0;i<10;i++)
 	{
 		string aux;
+		char auxiliar[11];
+		stringstream sstr;
+		string str;
 		ostream &o=cout;
 		getline(f,aux,'\n');
 		p[i].casa = stringtoCasas(aux);
@@ -421,8 +425,16 @@ bool Jugadores::read_file(Jugadores *p)
 		p[i].print(o);
 		p[i].Recursos::read_file();
 		p[i].region.read_file(p[i].nombre);
+		
+		getline(f, str, '\n');
+		sstr << str;
+		sstr >> auxiliar;
+		
 		for (int j = 0; j < 10; j++)
-			f >> p[i].relaciones[j];
+		{
+			p[i].relaciones[j] = auxiliar[j] - '0';
+		}
+		
 		switch (p[i].casa)
 		{
 		case Stark:
