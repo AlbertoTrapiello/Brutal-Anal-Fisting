@@ -332,19 +332,19 @@ void Mundo::raton(int button, int x, int y)
 			{
 				click = false;
 				ok = true;
-				cout << "Vale JAJAJA" << endl;
+				//cout << "Vale JAJAJA" << endl;
 			}
 			if ((x <= MENU_CHECK_NO_X_MAX && x >= MENU_CHECK_NO_X_MIN) && (y <= MENU_CHECK_NO_Y_MAX && y >= MENU_CHECK_NO_Y_MIN))
 			{
 				click = false;
-				cout << "No vale JAJAJA" << endl;
+				//cout << "No vale JAJAJA" << endl;
 				ok = false;
 			}
 		}
 
 		if(idr==Atacar||idr==Defender||idr==Guerra||idr==Alianza)
 			region = check_click(x, y);
-		cout << "X: " << x << "Y: " << y << endl;
+		//cout << "X: " << x << "Y: " << y << endl;
 		Turno::raton(this,x,y);
 		//draw_text(x, y);
 		break;
@@ -357,7 +357,7 @@ void Mundo::inicializa()
 	x_ojo = 0;
 	y_ojo = 0.1;
 	z_ojo = 30;
-	menu = 3;
+	menu = 1;
 	this->turno = 0;
 	pos = 0;
 	if (!player[0].read_file(player))
@@ -402,7 +402,7 @@ void Mundo::teclaEspecial(unsigned char key)//CHEATS
 			{
 			case GLUT_KEY_LEFT:
 			{
-				cout << "A borrar" << endl;
+				//cout << "A borrar" << endl;
 				borrar = true;
 				return;
 			}
